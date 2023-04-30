@@ -1,0 +1,65 @@
+/* Stili di base */
+footer {
+  background-color: transparent;
+  padding: 0.5% 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+ 
+}
+
+.col-md-3 {
+  padding: 0 4rem;
+  width: 100%;
+  box-sizing: border-box;
+  flex: 0 0 3.33%;
+ 
+}
+
+
+h3 {
+	color: black;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+ul {
+  list-style: none; /* rimuove i pallini dalla lista */
+  padding-left: 0;
+}
+
+ul li {
+  margin-bottom: 1rem;
+}
+
+ul li a {
+  color: #665;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+
+ul li a:hover {
+  color: #333;
+}
+
