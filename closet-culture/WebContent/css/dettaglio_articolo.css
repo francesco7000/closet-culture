@@ -1,0 +1,192 @@
+@charset "UTF-8";
+/* Font personalizzato */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Stile del body */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* Intestazione */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Piè di pagina */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Stile del titolo */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Stile della descrizione */
+p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+/* Animazione del pulsante Aggiungi al carrello */
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #fff;
+    color: #333;
+}
+/* Stile dei campi di input select */
+select {
+  width: 100%;
+  max-width: 200px; /* Modifica la grandezza massima del campo select */
+  padding: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  font-size: 1.2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+}
+
+/* Stile delle opzioni del campo select */
+option {
+  font-size: 1.2rem;
+  padding: 10px;
+  background-color: #f1f1f1;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+option:hover {
+  background-color: #ddd;
+}
+
+/* Stile del campo di input quantità */
+input[type="number"] {
+  width: 60px;
+  height: 30px;
+  margin-right: 10px;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  font-size: 1.2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+}
+
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.product-details img {
+  max-width: 25%;
+  height: auto;
+  margin-bottom: 1rem;
+   display: block;
+    max-height: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    object-fit: contain;
+}
+
+.product-details form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.product-details label {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-details select {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  font-size: 1.2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.product-details select:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+}
+
+.product-details input[type="number"] {
+  width: 60px;
+  height: 30px;
+  margin-right: 10px;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  font-size: 1.2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.product-details input[type="number"]:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+}
+
+.product-details input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-details input[type="submit"]:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+
