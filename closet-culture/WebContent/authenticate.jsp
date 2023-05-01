@@ -12,7 +12,6 @@
 	<%-- verifica se l'attributo di richiesta "errorMessage" è stato impostato --%>
 
 	<div class="container">
-
 		<h2>Welcome to Closet Culture</h2>
 
 <div id="custom-alert" class="alert-danger">
