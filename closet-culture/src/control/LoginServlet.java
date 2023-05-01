@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 		{	    
 
 		     UserBean user = new UserBean();
-		     user.setUserName(request.getParameter("un"));
+		     user.setUsername(request.getParameter("un"));
 		     user.setPassword(request.getParameter("pw"));
 		     user = UserDAO.doRetrieve(user);
 			   		    

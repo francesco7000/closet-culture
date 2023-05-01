@@ -1,56 +1,42 @@
 package model;
 
 public class UserBean {
-	
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    public boolean valid;
-	
-	
-    public String getFirstName() {
-       return firstName;
+
+	private String username;
+	private String password;
+	private String email;
+	private boolean valid;
+
+	public String getUsername() {
+		return username;
 	}
 
-    public void setFirstName(String newFirstName) {
-       firstName = newFirstName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	
-    public String getLastName() {
-       return lastName;
-			}
-
-    public void setLastName(String newLastName) {
-       lastName = newLastName;
-			}
-			
-
-    public String getPassword() {
-       return password;
+	public String getPassword() {
+		return password;
 	}
 
-    public void setPassword(String newPassword) {
-       password = newPassword;
-	}
-	
-			
-    public String getUsername() {
-       return username;
-			}
-
-    public void setUserName(String newUsername) {
-       username = newUsername;
-			}
-
-				
-    public boolean isValid() {
-       return valid;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-    public void setValid(boolean newValid) {
-       valid = newValid;
-	}	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean newValid) {
+		valid = newValid;
+	}
+
 }
-

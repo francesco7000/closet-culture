@@ -19,7 +19,7 @@ public class UserDAO
       String password = bean.getPassword();   
 	    
       String searchQuery =
-            "select * from users where username='"
+            "select * from utente where username='"
                      + username
                      + "' AND password='"
                      + password
@@ -50,12 +50,12 @@ public class UserDAO
       //if user exists set the isValid variable to true
       else if (more) 
       {
-         String firstName = rs.getString("FirstName");
-         String lastName = rs.getString("LastName");
+         String usn = rs.getString("username");
+         String email = rs.getString("email");
 	     	
-         System.out.println("Welcome " + firstName);
-         bean.setFirstName(firstName);
-         bean.setLastName(lastName);
+         System.out.println("Welcome " + usn);
+         bean.setUsername(usn);
+         bean.setEmail(email);
          bean.setValid(true);
       }
    } 
