@@ -5,69 +5,109 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-		table {
-			border-collapse: collapse;
-			width: 100%;
-			max-width: 800px;
-			margin: 0 auto;
-			text-align: center;
-			font-size: 1.2rem;
-			line-height: 1.5;
-		}
-		
-		th, td {
-			padding: 0.5rem;
-			border: 1px solid #ccc;
-		}
-		
-		th {
-			background-color: #f2f2f2;
-			font-weight: bold;
-		}
-		
-		td p {
-			margin: 0;
-		}
-	</style>
+<link rel="stylesheet" href="css/carrello.css">
+
 </head>
 <body>
-
-	<h1>Carrello</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>Articolo</th>
-				<th>Quantità</th>
-				<th>Varianti</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					<h2>Nome articolo</h2>
-				</td>
-				<td>
-					<p>Quantità: 2</p>
-				</td>
-				<td>
-					<p>Colore: rosso, Quantità: 1</p>
-					<p>Taglia: L, Quantità: 1</p>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<h2>Nome articolo</h2>
-				</td>
-				<td>
-					<p>Quantità: 1</p>
-				</td>
-				<td>
-					<p>Colore: verde, Quantità: 1</p>
-					<p>Taglia: M, Quantità: 1</p>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="shopping-cart">
+  <!-- Title -->
+  <div class="title">
+   Carrello
+  
+  </div>
+ 
+  <!-- Product #1 -->
+  <div class="item">
+    <div class="buttons">
+      <span class="delete-btn"></span>
+      <span class="like-btn"></span>
+    </div>
+ 
+    <div class="image">
+      <img src="images/logo.jpg" alt="" />
+    </div>
+ 
+    <div class="description">
+      <span>Common Projects</span>
+      <span>Bball High</span>
+      <span>White</span>
+    </div>
+ 
+    <div class="quantity">
+      <button class="plus-btn" type="button" name="button">
+        <img src="images/plus.svg" alt="" />
+      </button>
+      <input type="text" name="name" value="1">
+      <button class="minus-btn" type="button" name="button">
+        <img src="images/minus.svg" alt="" />
+      </button>
+    </div>
+ 
+    <div class="total-price">$549</div>
+  </div>
+ 
+  <!-- Product #2 -->
+  <div class="item">
+    <div class="buttons">
+      <span class="delete-btn"></span>
+      <span class="like-btn"></span>
+    </div>
+ 
+    <div class="image">
+      <img src="images/logo.jpg" alt=""/>
+    </div>
+ 
+    <div class="description">
+      <span>Maison Margiela</span>
+      <span>Future Sneakers</span>
+      <span>White</span>
+    </div>
+ 
+    <div class="quantity">
+      <button class="plus-btn" type="button" name="button">
+        <img src="images/plus.svg" alt="" />
+      </button>
+      <input type="text" name="name" value="1">
+      <button class="minus-btn" type="button" name="button">
+        <img src="images/minus.svg" alt="" />
+      </button>
+    </div>
+ 
+    <div class="total-price">$870</div>
+  </div>
+ 
+  <!-- Product #3 -->
+  <div class="item">
+    <div class="buttons">
+      <span class="delete-btn"></span>
+      <span class="like-btn"></span>
+    </div>
+ 
+    <div class="image">
+      <img src="images/logo.jpg" alt="" />
+    </div>
+ 
+    <div class="description">
+      <span>Our Legacy</span>
+      <span>Brushed Scarf</span>
+      <span>Brown</span>
+    </div>
+ 
+    <div class="quantity">
+      <button class="plus-btn" type="button" name="button">
+        <img src="images/plus.svg" alt="" />
+      </button>
+      <input type="text" name="name" value="1">
+      <button class="minus-btn" type="button" name="button">
+        <img src="images/minus.svg" alt="" />
+      </button>
+    </div>
+ 
+    <div class="total-price">$349</div>
+  </div>
+</div>
+<footer>
+		<%@ include file="fragments/footer.jsp"%>
+	</footer>
 </body>
 </html>
