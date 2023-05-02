@@ -19,7 +19,7 @@ public class DriverManagerConnectionPool {
 
 	private static synchronized Connection createDBConnection() throws SQLException {
 		Connection newConnection = null;
-		String url = "jdbc:mysql://localhost:3306/tsw?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String url = "jdbc:mysql://localhost:3306/tsw?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String username = "root";
 		String password = "localhost";
 

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Authenticate | Closet Culture</title>
-<link rel="stylesheet" href="css/authenticate.css">
+<link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
 
@@ -26,7 +26,7 @@
 		<form method="post" action="Login">
 
 			<label for="username">Username:</label> 
-			<input type="text" id="username" name="un">
+			<input type="text" id="username" name="un" required>
 			<label for="password">Password:</label>
 			<input type="password" id="password" name="pw" required> 
 			
@@ -35,7 +35,7 @@
 		</form>
 
 		<div id="signup-link">
-			<a href="#">Don't have an account? Sign up here</a>
+			<a href="registration.jsp">Non hai un account? Registrati qui</a>
 		</div>
 
 	</div>
