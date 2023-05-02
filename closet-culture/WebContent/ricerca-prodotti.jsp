@@ -48,12 +48,15 @@
   <section class="featured-products">
       
   <h2>Prodotti in evidenza</h2>
-  <div class="product-grid">
+  <div class="product-grid" >
     <div class="product">
       <img src="images/prodotto1.jpg" alt="Prodotto 1">
       <h3>Nome prodotto:      <%=var.getNome()%></h3>
       <p class="price">Prezzo:   <%=var.getPrezzo()%></p>
-      <button>Aggiungi al carrello</button>
+     <form action="dettaglio_articolo.jsp" method="get">
+  <input type="hidden" name="id" value="<%=var.getId()%>">
+  <button type="submit">Aggiungi al carrello</button>
+</form>
     </div>
   </div>
   

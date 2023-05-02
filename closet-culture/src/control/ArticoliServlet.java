@@ -36,6 +36,8 @@ public class ArticoliServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArticoloDAO pdao = new ArticoloDAO();
 
+		 String idProdotto = request.getParameter("id");
+	        if (idProdotto == null || idProdotto.isEmpty()) {
 		try
 		{	    
 
@@ -47,7 +49,7 @@ public class ArticoliServlet extends HttpServlet {
 			request.setAttribute("prodotti", matchingArticles); 
 
 	    	   RequestDispatcher dispatcher = request.getRequestDispatcher("ricerca-prodotti.jsp");
-		         dispatcher.forward(request, response);
+		       dispatcher.forward(request, response);
 		    }else {
 		    	request.setAttribute("errorMessage", "Articoli in Presenti");
 		    	   RequestDispatcher dispatcher = request.getRequestDispatcher("ricerca-prodotti.jsp");
@@ -57,7 +59,19 @@ public class ArticoliServlet extends HttpServlet {
 		} catch (Throwable theException) {
 		     System.out.println(theException); 
 		}
-
+	   }else {
+		   ArticoloBean articolo =  ArticoloDAO.idRicerca(Integer.parseInt(idProdotto));
+		   if(articolo!=null ) {
+			   request.setAttribute("articolo", articolo); 
+			   RequestDispatcher dispatcher = request.getRequestDispatcher("dettaglio_articolo.jsp");
+		       dispatcher.forward(request, response);
+		   }
+		   else {
+		    	request.setAttribute("errorMessage", "Articolo non Presente");
+		    	RequestDispatcher dispatcher = request.getRequestDispatcher("ricerca-prodotti.jsp");
+			     dispatcher.forward(request, response);
+		    }
+	   }
 		  
 	}
 
