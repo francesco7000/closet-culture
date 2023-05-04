@@ -37,7 +37,10 @@
 		<div id="signup-link">
 			<a href="registration.jsp">Non hai un account? Registrati qui</a>
 		</div>
-
+		<div id="signup-link">
+			<a href="home.jsp">Oppure accedi come ospite</a>
+		</div>
+		
 	</div>
 
 	<footer>

@@ -157,7 +157,6 @@ return bean;
 		
 	   }
    
-   
    public static boolean saveUser(UserBean bean) {
 	    PreparedStatement personaStatement = null;
 	    PreparedStatement utenteStatement = null;
@@ -180,8 +179,6 @@ return bean;
 	        if (personaKeys.next()) {
 	            personaId = personaKeys.getInt(1);
 	        }
-
-	        System.out.println("Chiave esterna persona: " + personaId);
 
 	        //default = 3 = ospite
 	        int profiloId = 3;

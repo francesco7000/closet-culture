@@ -12,7 +12,6 @@ public class UserBean {
 	private boolean valid;
 	
 	
-
 	public String getUsername() {
 		return username;
 	}
