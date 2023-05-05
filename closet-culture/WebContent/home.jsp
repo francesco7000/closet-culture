@@ -82,7 +82,7 @@
 									<p>Esplora il nostro catalogo. Imparerai a conoscere tutto
 										il meglio della nostra collezione estiva</p>
 									<div class="btn-wrap">
-										<a href="shop.html"
+										<a href="ricerca-prodotti.jsp"
 											class="btn btn-light btn-medium d-flex align-items-center"
 											tabindex="0">Acquista Ora <i class="icon icon-arrow-io"></i>
 										</a>
@@ -102,7 +102,7 @@
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 										Sed eu feugiat amet, libero ipsum enim pharetra hac.</p>
 									<div class="btn-wrap">
-										<a href="shop.html"
+										<a href="ricerca-prodotti.jsp"
 											class="btn btn-light btn-light-arrow btn-medium d-flex align-items-center"
 											tabindex="0">Acquista Ora<i class="icon icon-arrow-io"></i>
 										</a>

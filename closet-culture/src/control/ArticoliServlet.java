@@ -63,6 +63,7 @@ public class ArticoliServlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/home.jsp");
 				dispatcher.forward(request, response);
 			}
+		
 		}
 
 	}

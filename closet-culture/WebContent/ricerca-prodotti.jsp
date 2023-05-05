@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  import="java.util.*, model.*"%>
 
 <%
-	Collection<ArticoloBean> obj = (Collection<ArticoloBean>) request.getAttribute("prodotti");
-	request.setAttribute("prodotti", null);
+UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
+
+if ((currentUser == null) || (!currentUser.isValid())) {
+	session.setAttribute("guest", true);
+
+}
+
+
+ArrayList<ArticoloBean> obj = (ArrayList<ArticoloBean>) request.getAttribute("articoli");
+request.setAttribute("articoli", null);
+
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,10 +45,14 @@
     <div class="search-popup">
       <div class="search-popup-container">
 
+
         <form role="search" method="get" class="search-form" action="">
           <input type="search" id="search" name="search" class="search-field" placeholder="Type and press enter" value=""/>
-          <button type="submit" class="search-submit"><a href="#"><i class="icon icon-search"></i></a></button>
+          <button onclick="search()" type="submit" class="search-submit"><a href="#"><i class="icon icon-search"></i></a></button>
         </form>
+        
+        <script>
+</script>
 
         <h5 class="cat-list-title">Browse Categories</h5>
         
@@ -109,9 +123,8 @@
 			// Il for crea una variabile del tipo ProdottoBean ed ad ogni iterazione va ad assegnare a quella variabile il contenuto di obj all'i-esima posizione 
 			if (obj != null)
 				for (ArticoloBean var : obj) {
-					if (var.getVisibile() == 1) {
-						continue;
-					}
+					
+					
 			%>
                   
                   
@@ -145,6 +158,7 @@
                     
                       
         <%
+					
 				}
 			%>
                     
@@ -246,68 +260,51 @@
 
  
 
-    <section id="shipping-information">
-      <hr>
-      <div class="container">
-        <div class="row d-flex flex-wrap align-items-center justify-content-between">
-          <div class="col-md-3 col-sm-6">
-            <div class="icon-box">
-              <i class="icon icon-truck"></i>
-              <h4 class="block-title">
-                <strong>Free shipping</strong> Over $200
-              </h4>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="icon-box">
-              <i class="icon icon-return"></i>
-              <h4 class="block-title">
-                <strong>Money back</strong> Return within 7 days
-              </h4>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="icon-box">
-              <i class="icon icon-tags1"></i>
-              <h4 class="block-title">
-                <strong>Buy 4 get 5th</strong> 50% off
-              </h4>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="icon-box">
-              <i class="icon icon-help_outline"></i>
-              <h4 class="block-title">
-                <strong>Any questions?</strong> experts are ready
-              </h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr>
-    </section>
+   <section id="shipping-information">
+		<hr>
+		<div class="container">
+			<div
+				class="row d-flex flex-wrap align-items-center justify-content-between">
+				<div class="col-md-3 col-sm-6">
+					<div class="icon-box">
+						<i class="icon icon-truck"></i>
+						<h4 class="block-title">
+							<strong>Spedizione</strong> in 2/3 giorni lavorativi
+						</h4>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="icon-box">
+						<i class="icon icon-return"></i>
+						<h4 class="block-title">
+							<strong>Rimborso</strong> in giorni lavorativi
+						</h4>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="icon-box">
+						<i class="icon icon-tags1"></i>
+						<h4 class="block-title">
+							<strong>Acquista i nostri prodotti</strong> migliori
+						</h4>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="icon-box">
+						<i class="icon icon-help_outline"></i>
+						<h4 class="block-title">
+							<strong> Hai altre domande?</strong> contatta un esperto
+						</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+	</section>
 
-    <%@ include file="fragments/footer.jsp"%>
+   	<%@ include file="fragments/footer.jsp"%>
 
-    <div id="footer-bottom">
-      <div class="container">
-        <div class="d-flex align-items-center flex-wrap justify-content-between">
-          <div class="copyright">
-            <p>Freebies by <a href="https://templatesjungle.com/">Templates Jungle</a>
-            </p>
-          </div>
-          <div class="payment-method">
-            <p>Payment options :</p>
-            <div class="card-wrap">
-              <img src="images/visa-icon.jpg" alt="visa">
-              <img src="images/mastercard.png" alt="mastercard">
-              <img src="images/american-express.jpg" alt="american-express">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+	<%@ include file="fragments/miniFooter.jsp"%>
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/script.js"></script>

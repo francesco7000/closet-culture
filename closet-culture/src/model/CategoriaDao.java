@@ -16,7 +16,7 @@ public class CategoriaDao {
 		PreparedStatement preparedStatement = null;
 		CategoriaBean tempCategoria = new CategoriaBean() ;
 		
-		String sqlSelect = "select id,descrizione from categoria ";
+		String sqlSelect = "select id,descrizione from categoria_articolo ";
 		try {
 			connection = (Connection) DriverManagerConnectionPool.getConnection();
 			preparedStatement = (PreparedStatement) connection.prepareStatement(sqlSelect);

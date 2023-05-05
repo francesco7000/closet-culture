@@ -181,7 +181,7 @@ public class ArticoloDAO {
 		   PreparedStatement preparedStatement = null;
 		      
 		      String searchQuery =
-		              "select a.nome,a.codice,a.prezzo,a.descrizione from articolo a "
+		              "select a.nome,a.codice,a.prezzo,a.descrizione,a.barcode,a.composizione,a.stagione from articolo a "
 		    		  +"WHERE a.id= ? ";
 		      ArticoloBean bean_a=new ArticoloBean();
 		      try 
@@ -201,11 +201,17 @@ public class ArticoloDAO {
 	            String codicea = rs.getString("codice");
 	            Integer prezzo = rs.getInt("prezzo");
 	            String descr = rs.getString("descrizione");
+	            String barc = rs.getString("barcode");
+	            String comp = rs.getString("composizione");
+	            String st = rs.getString("stagione");
 
 	            bean_a.setNome(nomea);
 	            bean_a.setCodice(codicea);
 	            bean_a.setPrezzo(prezzo);
 	            bean_a.setDescrizione(descr);
+	           	bean_a.setBarcode(barc);
+	        	bean_a.setComposizione(comp);
+	        	bean_a.setStagione(st);
 		         }
 		      
 		      }

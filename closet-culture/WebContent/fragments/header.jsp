@@ -5,7 +5,7 @@
               <div class="col-lg-2 col-md-2">
                 <div class="main-logo">
                   <a href="index.html">
-                    <img src="images/main-logo.png" alt="logo">
+                    <img src="images/logo3.png" alt="logo">
                   </a>
                 </div>
               </div>
@@ -15,21 +15,17 @@
                   <div id="main-nav" class="stellarnav d-flex justify-content-end right">
                     <ul class="menu-list">
 
-                      <li class="menu-item has-sub">
-                        <a href="index.html" class="item-anchor active d-flex align-item-center" data-effect="Home">Home<i class="icon icon-chevron-down"></i></a>
-                        <ul class="submenu">
-                          <li><a href="index.html" class="item-anchor active">Home</a></li>
-                        </ul>
-                      </li>
+                      <li><a href="home.jsp" class="item-anchor active d-flex align-item-center" data-effect="Home">Home</a></li>
 
-                      <li><a href="about.html" class="item-anchor" data-effect="About">Chi Siamo</a></li>
+             
+                      <li><a href="chi-siamo.jsp" class="item-anchor" data-effect="About">Chi Siamo</a></li>
 
                       <li class="menu-item has-sub">
                         <a href="shop.html" class="item-anchor d-flex align-item-center" data-effect="Shop">Prodotti<i class="icon icon-chevron-down"></i></a>
                         <ul class="submenu">
-                          <li><a href="shop.html" class="item-anchor">Shop</a></li>
+                          <li><a href="ricerca-prodotti.jsp" class="item-anchor">Ricerca</a></li>
                   
-                          <li><a href="checkout.html" class="item-anchor">Checkout<span class="text-primary"></span></a></li>
+                          <li><a href="checkout.jsp" class="item-anchor">Checkout<span class="text-primary"></span></a></li>
                         </ul>
                       </li>
                       <li class="menu-item has-sub">

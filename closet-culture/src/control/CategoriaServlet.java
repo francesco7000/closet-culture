@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import Model.ProdottoBean;
-import Model.ProdottoDAO;
 import model.CategoriaBean;
 import model.CategoriaDao;
 

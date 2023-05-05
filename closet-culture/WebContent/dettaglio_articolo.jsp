@@ -44,162 +44,8 @@ if (idProdotto == null || idProdotto.isEmpty()) {
     ================================================== -->
     <script src="js/modernizr.js"></script>
   </head>
+  <%@ include file="fragments/header.jsp"%>
   <body>
-
-    <div class="preloader-wrapper">
-      <div class="preloader">
-      </div>
-    </div>
-
-    <div class="search-popup">
-      <div class="search-popup-container">
-
-        <form role="search" method="get" class="search-form" action="">
-          <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value="" name="s" />
-          <button type="submit" class="search-submit"><a href="#"><i class="icon icon-search"></i></a></button>
-        </form>
-
-        <h5 class="cat-list-title">Browse Categories</h5>
-        
-        <ul class="cat-list">
-          <li class="cat-list-item">
-            <a href="shop.html" title="Men Jackets">Men Jackets</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Fashion">Fashion</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Casual Wears">Casual Wears</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Women">Women</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Trending">Trending</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Hoodie">Hoodie</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Kids">Kids</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <header id="header">
-      <div id="header-wrap">
-        <nav class="secondary-nav border-bottom">
-          <div class="container">
-            <div class="row d-flex align-items-center">
-              <div class="col-md-4 header-contact">
-                <p>Let's talk! <strong>+57 444 11 00 35</strong>
-                </p>
-              </div>
-              <div class="col-md-4 shipping-purchase text-center">
-                <p>Free shipping on a purchase value of $200</p>
-              </div>
-              <div class="col-md-4 col-sm-12 user-items">
-                <ul class="d-flex justify-content-end list-unstyled">
-                  <li>
-                    <a href="login.html">
-                      <i class="icon icon-user"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="cart.html">
-                      <i class="icon icon-shopping-cart"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="wishlist.html">
-                      <i class="icon icon-heart"></i>
-                    </a>
-                  </li>
-                  <li class="user-items search-item pe-3">
-                    <a href="#" class="search-button">
-                      <i class="icon icon-search"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </nav>
-        <nav class="primary-nav padding-small">
-          <div class="container">
-            <div class="row d-flex align-items-center">
-              <div class="col-lg-2 col-md-2">
-                <div class="main-logo">
-                  <a href="index.html">
-                    <img src="images/main-logo.png" alt="logo">
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-10 col-md-10">
-                <div class="navbar">
-
-                  <div id="main-nav" class="stellarnav d-flex justify-content-end right">
-                    <ul class="menu-list">
-
-                      <li class="menu-item has-sub">
-                        <a href="index.html" class="item-anchor d-flex align-item-center" data-effect="Home">Home<i class="icon icon-chevron-down"></i></a>
-                        <ul class="submenu">
-                          <li><a href="index.html" class="item-anchor">Home</a></li>
-                          <li><a href="home2.html" class="item-anchor">Home v2<span class="text-primary"> (PRO)</span></a></li>
-                        </ul>
-                      </li>
-
-                      <li><a href="about.html" class="item-anchor" data-effect="About">About</a></li>
-
-                      <li class="menu-item has-sub">
-                        <a href="shop.html" class="item-anchor d-flex align-item-center" data-effect="Shop">Shop<i class="icon icon-chevron-down"></i></a>
-                        <ul class="submenu">
-                          <li><a href="shop.html" class="item-anchor">Shop</a></li>
-                          <li><a href="shop-slider.html" class="item-anchor">Shop slider<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="shop-grid.html" class="item-anchor">Shop grid<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="shop-list.html" class="item-anchor">Shop list<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="single-product.html" class="item-anchor active">Single product<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="cart.html" class="item-anchor">Cart<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="wishlist.html" class="item-anchor">Wishlist<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="checkout.html" class="item-anchor">Checkout<span class="text-primary"> (PRO)</span></a></li>
-                        </ul>
-                      </li>
-
-                      <li class="menu-item has-sub">
-                        <a href="#" class="item-anchor d-flex align-item-center" data-effect="Pages">Pages<i class="icon icon-chevron-down"></i></a>
-                        <ul class="submenu">
-                          <li><a href="coming-soon.html" class="item-anchor">Coming soon<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="login.html" class="item-anchor">Login<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="faqs.html" class="item-anchor">FAQs<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="styles.html" class="item-anchor">Styles</a></li>
-                          <li><a href="thank-you.html" class="item-anchor">Thankyou</a></li>
-                          <li><a href="error.html" class="item-anchor">Error page<span class="text-primary"> (PRO)</span></a></li>
-                        </ul>
-                      </li>
-
-                      <li class="menu-item has-sub">
-                        <a href="blog.html" class="item-anchor d-flex align-item-center" data-effect="Blog">Blog<i class="icon icon-chevron-down"></i></a>
-                        <ul class="submenu">
-                          <li><a href="blog.html" class="item-anchor">Blog</a></li>
-                          <li><a href="blog-sidebar.html" class="item-anchor">Blog with sidebar<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="blog-masonry.html" class="item-anchor">Blog masonry<span class="text-primary"> (PRO)</span></a></li>
-                          <li><a href="single-post.html" class="item-anchor">Single post</a></li>
-                        </ul>
-                      </li>
-
-                      <li><a href="contact.html" class="item-anchor" data-effect="Contact">Contact</a></li>
-
-                    </ul>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </header>
-
     <section class="site-banner padding-small bg-light-grey">
       <div class="container">
         <div class="row">
@@ -275,10 +121,11 @@ if (idProdotto == null || idProdotto.isEmpty()) {
                 </div>
               </div>
               <div class="product-price">
-                <strong>$54.00</strong>
-                <del>$54.00</del>
+                <strong><%=articolo.getPrezzo()%>€</strong>
+                <!-- <del>$54.00</del> -->
               </div>
-              <p>Tristique ullamcorper nunc egestas non. Justo, cum feugiat imperdiet nulla molestie ac vulputate scelerisque amet. Bibendum adipiscing platea blandit sit sed quam semper rhoncus. Diam ultrices maecenas consequat eu tortor. Orci, cras lectus mauris, cras egestas quam venenatis neque.</p>
+              <p><%=articolo.getDescrizione()%></p>
+
               <div class="cart-wrap margin-small">
                 <div class="color-options product-select">
                   <div class="color-toggle" data-option-index="0">
@@ -337,37 +184,27 @@ if (idProdotto == null || idProdotto.isEmpty()) {
               </div>
               <div class="meta-product margin-small">
                 <div class="meta-item d-flex flex-wrap align-items-baseline">
-                  <h4 class="item-title no-margin">SKU:</h4>
+                  <h4 class="item-title no-margin">Barcode:</h4>
                   <ul class="select-list list-unstyled d-flex">
-                    <li data-value="S" class="select-item">1223</li>
+                    <li data-value="S" class="select-item"><%=articolo.getBarcode()%></li>
                   </ul>
                 </div>
                 <div class="meta-item d-flex flex-wrap align-items-baseline">
-                  <h4 class="item-title no-margin">Category:</h4>
+                  <h4 class="item-title no-margin">Composizione:</h4>
                   <ul class="select-list list-unstyled d-flex">
                     <li data-value="S" class="select-item">
-                      <a href="#">Women</a>,
+                      <a href="#" class="select-item"><%=articolo.getComposizione()%></a>
                     </li>
-                    <li data-value="S" class="select-item">
-                      <a href="#">Popular</a>,
-                    </li>
-                    <li data-value="S" class="select-item">
-                      <a href="#">Orange</a>
-                    </li>
+                  
                   </ul>
                 </div>
                 <div class="meta-item d-flex flex-wrap align-items-baseline">
-                  <h4 class="item-title no-margin">Tags:</h4>
+                  <h4 class="item-title no-margin">Stagione:</h4>
                   <ul class="select-list list-unstyled d-flex">
                     <li data-value="S" class="select-item">
-                      <a href="#">Classic</a>,
+                      <a href="#"><%=articolo.getStagione()%></a>
                     </li>
-                    <li data-value="S" class="select-item">
-                      <a href="#">Winter</a>,
-                    </li>
-                    <li data-value="S" class="select-item">
-                      <a href="#">Modern</a>
-                    </li>
+                   
                   </ul>
                 </div>
               </div>
@@ -383,211 +220,58 @@ if (idProdotto == null || idProdotto.isEmpty()) {
           <div class="tabs-listing">
             <nav>
               <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Description</button>
-                <button class="nav-link" id="nav-information-tab" data-bs-toggle="tab" data-bs-target="#nav-information" type="button" role="tab" aria-controls="nav-information" aria-selected="false">Additional information</button>
-                <button class="nav-link" id="nav-shipping-tab" data-bs-toggle="tab" data-bs-target="#nav-shipping" type="button" role="tab" aria-controls="nav-shipping" aria-selected="false">Shipping & Return</button>
-                <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews</button>
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Come nascono i nostri prodotti</button>
+                <button class="nav-link" id="nav-shipping-tab" data-bs-toggle="tab" data-bs-target="#nav-shipping" type="button" role="tab" aria-controls="nav-shipping" aria-selected="false">Spedizione e Resi</button>
               </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <p>Product Description</p>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.
-                <ul>
-                  <li>Donec nec justo eget felis facilisis fermentum.</li>
-                  <li>Suspendisse urna viverra non, semper suscipit pede.</li>
-                  <li>Aliquam porttitor mauris sit amet orci.</li>
-                </ul> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. </p>
+              <p>
+              
+              
+              I prodotti del tuo sito di abbigliamento nascono attraverso un processo che comprende diversi step, come la progettazione, la produzione e la distribuzione.
+
+Innanzitutto, la progettazione del prodotto inizia con l'ideazione del concept e lo sviluppo di bozzetti e schizzi che rappresentano l'aspetto e lo stile del capo d'abbigliamento. In questa fase vengono prese in considerazione le tendenze di moda, le preferenze dei clienti e le possibili sfide tecniche che potrebbero sorgere durante la produzione.
+
+Successivamente, viene avviata la produzione del capo d'abbigliamento. Questa fase può variare a seconda del tipo di prodotto e del processo produttivo utilizzato, ma di solito include la selezione dei tessuti e dei materiali, la realizzazione dei prototipi e dei campioni e la produzione in massa.
+
+Infine, i prodotti finiti vengono distribuiti tramite il tuo sito di abbigliamento e altri canali di vendita, come i negozi fisici o altri siti di e-commerce.
+
+In tutto questo processo, la qualità e l'attenzione ai dettagli sono fondamentali per creare prodotti che soddisfino le esigenze e i gusti dei tuoi clienti e che si distinguano sul mercato.
+              </p>
               </div>
-              <div class="tab-pane fade" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab">
-                <p>It is Comfortable and Best</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              </div>
+            
               <div class="tab-pane fade" id="nav-shipping" role="tabpanel" aria-labelledby="nav-shipping-tab">
-                <p>Returns Policy</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eros justo, accumsan non dui sit amet. Phasellus semper volutpat mi sed imperdiet. Ut odio lectus, vulputate non ex non, mattis sollicitudin purus. Mauris consequat justo a enim interdum, in consequat dolor accumsan. Nulla iaculis diam purus, ut vehicula leo efficitur at.</p>
-                <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. In blandit nunc enim, sit amet pharetra erat aliquet ac.</p>
-                <p>Shipping</p>
-                <p>Pellentesque ultrices ut sem sit amet lacinia. Sed nisi dui, ultrices ut turpis pulvinar. Sed fringilla ex eget lorem consectetur, consectetur blandit lacus varius. Duis vel scelerisque elit, et vestibulum metus. Integer sit amet tincidunt tortor. Ut lacinia ullamcorper massa, a fermentum arcu vehicula ut. Ut efficitur faucibus dui Nullam tristique dolor eget turpis consequat varius. Quisque a interdum augue. Nam ut nibh mauris.</p>
+                <p>
+                Le consegne avvengo dal lunedì al venerdì.
+
+				Successivamente alla ricezione dell’ordine i tempi di elaborazione dell’ordine variano dalle 24 alle 48 ore.
+
+				La consegna avviene in circa  1-2 giorni lavorativi.
+
+				Durante il periodo di promozioni e festività le tempistiche potranno subire dei ritardi.
+
+				Gli ordini saranno consegnati all'indirizzo di spedizione specificato dall'Utente. La data della consegna è da intendersi come indicativa e non vincolante per Closet Culture.
+
+				I clienti effettuando un ordine stabiliscono un rapporto commerciale con Closet Culture e si impegnano ad accettare la consegna del pacco.
+
+				Qualora un pacco non venga recapitato  per incompletezza o errata compilazione dell’indirizzo/numero di telefono/destinatario o altri dati forniti dall'utente o nel caso in cui la spedizione venga rifiutata, il pacco verrà restituito a IN-CON-TRO a carico del cliente comprese eventuali spese ed oneri doganali, queste spese saranno dedotte dal rimborso dovuto.
+	
+				Le spese di spedizione saranno a carico del cliente e variano in base al luogo della consegna.
+
+				La consegna gratuita è prevista solo tramite il raggiungimento delle soglie spesa.
+
+				Sotto sono indicate le spese di spedizione divise per paese e le relative soglie spesa.
+			   </p>
+           
               </div>
-              <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
-                <div class="review-box review-style d-flex flex-wrap justify-content-between">
-                  <div class="review-item d-flex">
-                    <div class="image-holder">
-                      <img src="images/review-image1.jpg" alt="review">
-                    </div>
-                    <div class="review-content">
-                      <div class="rating-container d-flex align-items-center">
-                        <div class="rating">
-                          <i class="icon icon-star-full"></i>
-                        </div>
-                        <div class="rating">
-                          <i class="icon icon-star-full"></i>
-                        </div>
-                        <div class="rating">
-                          <i class="icon icon-star-full"></i>
-                        </div>
-                        <div class="rating">
-                          <i class="icon icon-star-half"></i>
-                        </div>
-                        <div class="rating">
-                          <i class="icon icon-star-empty"></i>
-                        </div>
-                        <span class="rating-count">(3.5)</span>
-                      </div>
-                      <div class="review-header">
-                        <span class="author-name">Tom Johnson</span>
-                        <span class="review-date">– 07/05/2022</span>
-                      </div>
-                      <p>Vitae tortor condimentum lacinia quis vel eros donec ac. Nam at lectus urna duis convallis convallis</p>
-                    </div>
-                  </div>
-                  <div class="review-item d-flex">
-                    <div class="image-holder">
-                      <img src="images/review-image2.jpg" alt="review">
-                    </div>                    
-                    <div class="review-content">
-                      <div class="rating-container d-flex align-items-center">
-                        <div class="rating">
-                          <i class="icon icon-star-full"></i>
-                        </div>
-                        <div class="rating">
-                          <i class="icon icon-star-full"></i>
-                        </div>
-                        <div class="rating">
-                          <i class="icon icon-star-full"></i>
-                        </div>
-                        <div class="rating">
-                          <i class="icon icon-star-half"></i>
-                        </div>
-                        <div class="rating">
-                          <i class="icon icon-star-empty"></i>
-                        </div>
-                        <span class="rating-count">(3.5)</span>
-                      </div>
-                      <div class="review-header">
-                        <span class="author-name">Jenny Willis</span>
-                        <span class="review-date">– 07/05/2022</span>
-                      </div>
-                      <p>Vitae tortor condimentum lacinia quis vel eros donec ac. Nam at lectus urna duis convallis convallis</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="add-review margin-small">
-                  <h3>Add a review</h3>
-                  <p>Your email address will not be published. Required fields are marked *</p>
-                  <div class="review-rating">
-                    <span>Your rating *</span>
-                    <div class="rating-container d-flex align-items-center">
-                      <div class="rating" data-rating="1">
-                        <i class="icon icon-star-empty"></i>
-                      </div>
-                      <div class="rating" data-rating="2">
-                        <i class="icon icon-star-empty"></i>
-                      </div>
-                      <div class="rating" data-rating="3">
-                        <i class="icon icon-star-empty"></i>
-                      </div>
-                      <div class="rating" data-rating="4">
-                        <i class="icon icon-star-empty"></i>
-                      </div>
-                      <div class="rating" data-rating="5">
-                        <i class="icon icon-star-empty"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <input type="file" class="jfilestyle" data-text="Choose your file">
-                  <form id="form" class="padding-small">
-                    <label>Your Review *</label>
-                    <textarea placeholder="Write your review here" class="u-full-width"></textarea>
-                    <label>Your Name *</label>
-                    <input type="text" name="name" placeholder="Write your name here" class="u-full-width">
-                    <label>Your Email *</label>
-                    <input type="text" name="email" placeholder="Write your email here" class="u-full-width">
-                    <label>
-                        <input type="checkbox" required="">
-                        <span class="label-body">Save my name, email, and website in this browser for the next time.</span>
-                    </label>
-                    <button type="submit" name="submit" class="btn btn-dark btn-medium">Submit</button>
-                  </form>
-                </div>
-              </div>
+        
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="latest-blog" class="padding-large">
-      <div class="container">
-        <div class="section-header d-flex flex-wrap align-items-center justify-content-between">
-          <h2 class="section-title">our Journal</h2>
-          <div class="btn-wrap align-right">
-            <a href="blog.html" class="d-flex align-items-center">Read All Articles <i class="icon icon icon-arrow-io"></i>
-            </a>
-          </div>
-        </div>
-        <div class="row d-flex flex-wrap">
-          <article class="col-md-4 post-item">
-            <div class="image-holder zoom-effect">
-              <a href="single-post.html">
-                <img src="images/post-img1.jpg" alt="post" class="post-image">
-              </a>
-            </div>
-            <div class="post-content d-flex">
-              <div class="meta-date">
-                <div class="meta-day text-primary">22</div>
-                <div class="meta-month">Aug-2021</div>
-              </div>
-              <div class="post-header">
-                <h3 class="post-title">
-                  <a href="single-post.html">top 10 casual look ideas to dress up your kids</a>
-                </h3>
-                <a href="blog.html" class="blog-categories">Fashion</a>
-              </div>
-            </div>
-          </article>
-          <article class="col-md-4 post-item">
-            <div class="image-holder zoom-effect">
-              <a href="single-post.html">
-                <img src="images/post-img2.jpg" alt="post" class="post-image">
-              </a>
-            </div>
-            <div class="post-content d-flex">
-              <div class="meta-date">
-                <div class="meta-day text-primary">25</div>
-                <div class="meta-month">Aug-2021</div>
-              </div>
-              <div class="post-header">
-                <h3 class="post-title">
-                  <a href="single-post.html">Latest trends of wearing street wears supremely</a>
-                </h3>
-                <a href="blog.html" class="blog-categories">Trending</a>
-              </div>
-            </div>
-          </article>
-          <article class="col-md-4 post-item">
-            <div class="image-holder zoom-effect">
-              <a href="single-post.html">
-                <img src="images/post-img3.jpg" alt="post" class="post-image">
-              </a>
-            </div>
-            <div class="post-content d-flex">
-              <div class="meta-date">
-                <div class="meta-day text-primary">28</div>
-                <div class="meta-month">Aug-2021</div>
-              </div>
-              <div class="post-header">
-                <h3 class="post-title">
-                  <a href="single-post.html">types of comfortable clothes ideas for women</a>
-                </h3>
-                <a href="blog.html" class="blog-categories">Inspiration</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
     <section id="brand-collection" class="padding-medium bg-light-grey">
       <div class="container">
@@ -600,214 +284,53 @@ if (idProdotto == null || idProdotto.isEmpty()) {
         </div>
       </div>
     </section>
+	<section id="shipping-information">
+		<hr>
+		<div class="container">
+			<div
+				class="row d-flex flex-wrap align-items-center justify-content-between">
+				<div class="col-md-3 col-sm-6">
+					<div class="icon-box">
+						<i class="icon icon-truck"></i>
+						<h4 class="block-title">
+							<strong>Spedizione</strong> in 2/3 giorni lavorativi
+						</h4>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="icon-box">
+						<i class="icon icon-return"></i>
+						<h4 class="block-title">
+							<strong>Rimborso</strong> in giorni lavorativi
+						</h4>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="icon-box">
+						<i class="icon icon-tags1"></i>
+						<h4 class="block-title">
+							<strong>Acquista i nostri prodotti</strong> migliori
+						</h4>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="icon-box">
+						<i class="icon icon-help_outline"></i>
+						<h4 class="block-title">
+							<strong> Hai altre domande?</strong> contatta un esperto
+						</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+	</section>
 
-    <section id="instagram" class="padding-large">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Follow our instagram</h2>
-        </div>
-        <p>Our official Instagram account <a href="#">@ultras</a> or <a href="#">#ultras_clothing</a>
-        </p>
-        <div class="row d-flex flex-wrap justify-content-between">
-          <div class="col-lg-2 col-md-4 col-sm-6">
-            <figure class="zoom-effect">
-              <img src="images/insta-image1.jpg" alt="instagram" class="insta-image">
-              <i class="icon icon-instagram"></i>
-            </figure>
-          </div>
-          <div class="col-lg-2 col-md-4 col-sm-6">
-            <figure class="zoom-effect">
-              <img src="images/insta-image2.jpg" alt="instagram" class="insta-image">
-              <i class="icon icon-instagram"></i>
-            </figure>
-          </div>
-          <div class="col-lg-2 col-md-4 col-sm-6">
-            <figure class="zoom-effect">
-              <img src="images/insta-image3.jpg" alt="instagram" class="insta-image">
-              <i class="icon icon-instagram"></i>
-            </figure>
-          </div>
-          <div class="col-lg-2 col-md-4 col-sm-6">
-            <figure class="zoom-effect">
-              <img src="images/insta-image4.jpg" alt="instagram" class="insta-image">
-              <i class="icon icon-instagram"></i>
-            </figure>
-          </div>
-          <div class="col-lg-2 col-md-4 col-sm-6">
-            <figure class="zoom-effect">
-              <img src="images/insta-image5.jpg" alt="instagram" class="insta-image">
-              <i class="icon icon-instagram"></i>
-            </figure>
-          </div>
-          <div class="col-lg-2 col-md-4 col-sm-6">
-            <figure class="zoom-effect">
-              <img src="images/insta-image6.jpg" alt="instagram" class="insta-image">
-              <i class="icon icon-instagram"></i>
-            </figure>
-          </div>
-        </div>          
-      </div>
-    </section>
+    <%@ include file="fragments/footer.jsp"%>
+	<%@ include file="fragments/miniFooter.jsp"%>
 
-    <section id="shipping-information">
-      <hr>
-      <div class="container">
-        <div class="row d-flex flex-wrap align-items-center justify-content-between">
-          <div class="col-md-3 col-sm-6">
-            <div class="icon-box">
-              <i class="icon icon-truck"></i>
-              <h4 class="block-title">
-                <strong>Free shipping</strong> Over $200
-              </h4>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="icon-box">
-              <i class="icon icon-return"></i>
-              <h4 class="block-title">
-                <strong>Money back</strong> Return within 7 days
-              </h4>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="icon-box">
-              <i class="icon icon-tags1"></i>
-              <h4 class="block-title">
-                <strong>Buy 4 get 5th</strong> 50% off
-              </h4>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="icon-box">
-              <i class="icon icon-help_outline"></i>
-              <h4 class="block-title">
-                <strong>Any questions?</strong> experts are ready
-              </h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr>
-    </section>
 
-    <footer id="footer">
-      <div class="container">
-        <div class="footer-menu-list">
-          <div class="row d-flex flex-wrap justify-content-between">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="footer-menu">
-                <h5 class="widget-title">Ultras</h5>
-                <ul class="menu-list list-unstyled">
-                  <li class="menu-item">
-                    <a href="about.html">About us</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Conditions </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="blog.html">Our Journals</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Careers</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Affiliate Programme</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Ultras Press</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="footer-menu">
-                <h5 class="widget-title">Customer Service</h5>
-                <ul class="menu-list list-unstyled">
-                  <li class="menu-item">
-                    <a href="faqs.html">FAQ</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="contact.html">Contact</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Privacy Policy</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Returns & Refunds</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Cookie Guidelines</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Delivery Information</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="footer-menu">
-                <h5 class="widget-title">Contact Us</h5>
-                <p>Do you have any questions or suggestions? <a href="#" class="email">ourservices@ultras.com</a>
-                </p>
-                <p>Do you need assistance? Give us a call. <br>
-                  <strong>+57 444 11 00 35</strong>
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="footer-menu">
-                <h5 class="widget-title">Forever 2018</h5>
-                <p>Cras mattis sit ornare in metus eu amet adipiscing enim. Ullamcorper in orci, ultrices integer eget arcu. Consectetur leo dignissim lacus, lacus sagittis dictumst.</p>
-                <div class="social-links">
-                  <ul class="d-flex list-unstyled">
-                    <li>
-                      <a href="#">
-                        <i class="icon icon-facebook"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="icon icon-twitter"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="icon icon-youtube-play"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="icon icon-behance-square"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr>
-    </footer>
-
-    <div id="footer-bottom">
-      <div class="container">
-        <div class="d-flex align-items-center flex-wrap justify-content-between">
-          <div class="copyright">
-            <p>Freebies by <a href="https://templatesjungle.com/">Templates Jungle</a>
-            </p>
-          </div>
-          <div class="payment-method">
-            <p>Payment options :</p>
-            <div class="card-wrap">
-              <img src="images/visa-icon.jpg" alt="visa">
-              <img src="images/mastercard.png" alt="mastercard">
-              <img src="images/american-express.jpg" alt="american-express">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  
 
     <script type="text/javascript">
       var initIncrementDecrement = function() {
