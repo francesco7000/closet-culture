@@ -62,21 +62,21 @@ public class RegistrationServlet extends HttpServlet {
 				     if(UserDAO.saveUser(user)) response.sendRedirect("authenticate.jsp");
 				     else{
 				    	 request.setAttribute("errorMessage", "Errore durante il salvataggio!");
-				         RequestDispatcher dispatcher = request.getRequestDispatcher("registration.jsp");
+				         RequestDispatcher dispatcher = request.getRequestDispatcher("authenticate.jsp");
 				         dispatcher.forward(request, response);
 				     }
 		    		 
 		    	 }
 		    	 else {
 		    		 request.setAttribute("errorMessage", "Le due password non corrispondono!");
-			         RequestDispatcher dispatcher = request.getRequestDispatcher("registration.jsp");
+			         RequestDispatcher dispatcher = request.getRequestDispatcher("authenticate.jsp");
 			         dispatcher.forward(request, response);
 		    	 }
 		    	 
 		     }
 		     else {
 		            request.setAttribute("errorMessage", "Username non disponibile!");
-		            RequestDispatcher dispatcher = request.getRequestDispatcher("registration.jsp");
+		            RequestDispatcher dispatcher = request.getRequestDispatcher("authenticate.jsp");
 		            dispatcher.forward(request, response);
 		     }
 		         

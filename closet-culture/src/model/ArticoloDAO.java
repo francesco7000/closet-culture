@@ -10,7 +10,7 @@ public class ArticoloDAO {
 	 static Connection currentCon = null;
 	  static ResultSet rs = null;  
 	  
-	   public static Collection<ArticoloBean> ricerca(String search) {
+	   public static ArrayList<ArticoloBean> ricerca(String search) {
 
 		      PreparedStatement preparedStatement = null;
 		      ArrayList<ArticoloBean> articles = new ArrayList<ArticoloBean>();
@@ -94,7 +94,7 @@ public class ArticoloDAO {
 	   }
 	   
 	   
-	   public static Collection<ArticoloBean> ricerca_per_categoria(String id_categoria) {
+	   public static ArrayList<ArticoloBean> ricerca_per_categoria(String id_categoria) {
 		   	 
 		   	  var id=Integer.parseInt(id_categoria);
 		      PreparedStatement preparedStatement = null;
@@ -104,7 +104,7 @@ public class ArticoloDAO {
 		              "select a.nome,a.codice,a.prezzo,a.id from articolo a "
 		    		  +"WHERE 1=1 ";
 
-	            if (id>0) searchQuery += " AND a.categoria_id=? ";
+	            if (id>0) searchQuery += " AND a.id_categoria_articolo=? ";
 
 		      try 
 		      {

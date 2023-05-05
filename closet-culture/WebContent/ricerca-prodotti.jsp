@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  import="java.util.*, model.*"%>
 
 <%
-	// Provo a prendere dalla request l'attributo prodotti:
-	// Se � nullo, richiama la servlet Catalogo per farlo riempire, altrimenti procede alla generazione della pagina
-
 	Collection<ArticoloBean> obj = (Collection<ArticoloBean>) request.getAttribute("prodotti");
 	request.setAttribute("prodotti", null);
 %>
