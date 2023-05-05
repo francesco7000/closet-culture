@@ -37,6 +37,31 @@ public class ArticoliServlet extends HttpServlet {
 		ArticoloDAO pdao = new ArticoloDAO();
 
 		 String idProdotto = request.getParameter("id");
+		 String idCategoria=request.getParameter("id_categoria");
+		 
+		 if(idCategoria!=null && !idCategoria.isEmpty()) {
+			   // Call the ricerca method to get the list of matching articles
+				Collection<ArticoloBean> matchingArticles = ArticoloDAO.ricerca_per_categoria(request.getParameter("id_categoria"));
+			    // Set the response content type to JSON
+			    if(matchingArticles.size()>0) {
+		    	request.setAttribute("errorMessage", matchingArticles);
+				request.setAttribute("prodotti", matchingArticles); 
+
+		    	   RequestDispatcher dispatcher = request.getRequestDispatcher("ricerca-prodotti.jsp");
+			       dispatcher.forward(request, response);
+			    }else {
+			    	request.setAttribute("errorMessage", "Articoli in Presenti");
+			    	   RequestDispatcher dispatcher = request.getRequestDispatcher("ricerca-prodotti.jsp");
+				         dispatcher.forward(request, response);
+			    }
+			 
+		 }
+		 
+		 
+		 
+		 
+		 
+		 
 	        if (idProdotto == null || idProdotto.isEmpty()) {
 		try
 		{	    
