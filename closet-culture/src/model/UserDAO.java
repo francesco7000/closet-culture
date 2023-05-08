@@ -22,6 +22,7 @@ public class UserDAO
             "select * from utente u "
             + "join persona p on u.persona_id = p.id "
             + "join profilo pr on u.profilo_id = pr.id "
+            + "join indirizzo i on i.id_persona = p.id "
             + "where username='"+ username+ "' AND password='"+ password+ "'";
       
  
@@ -48,6 +49,12 @@ public class UserDAO
          String email = rs.getString("email");
          String nome = rs.getString("nome");
          String cognome = rs.getString("cognome");
+         String provincia = rs.getString("provincia");
+         String citta = rs.getString("citta");
+         String via = rs.getString("via");
+         String cap = rs.getString("cap");
+         String numero = rs.getString("numero");
+         
          Long cellulare = rs.getLong("cellulare");
          
          String ruolo = rs.getString("ruolo");
@@ -59,6 +66,11 @@ public class UserDAO
          bean.setNome(nome);
          bean.setCognome(cognome);
          bean.setCellulare(cellulare);
+         bean.setProvincia(provincia);
+         bean.setCitta(citta);
+         bean.setVia(via);
+         bean.setCap(cap);
+         bean.setNumero(numero);
          bean.setRuolo(ruolo);
          bean.setValid(true);
       }
@@ -107,7 +119,7 @@ return bean;
 
 	      String searchQuery =
 	            "select * from utente u "
-	            + "where username='"+ username+ "'";
+	            + "where u.username='"+ username+ "'";
 	      
 	   try 
 	   {
@@ -117,7 +129,6 @@ return bean;
 	      rs = preparedStatement.executeQuery(searchQuery);	        
 	      boolean more = rs.next();
 		       
-	      // if user does not exist set the isValid variable to false
 	      if (!more) return true;
 	      else return false;
 	      
@@ -158,8 +169,11 @@ return bean;
 	   }
    
    public static boolean saveUser(UserBean bean) {
+	   
 	    PreparedStatement personaStatement = null;
 	    PreparedStatement utenteStatement = null;
+	    PreparedStatement indirizzoStatement = null;
+	    
 	    Connection currentCon = null;
 
 	    try {
@@ -194,8 +208,22 @@ return bean;
 	        utenteStatement.setInt(4, personaId);
 	        utenteStatement.setInt(5, profiloId);
 	        int rowsAffectedUtente = utenteStatement.executeUpdate();
-
-	        if (rowsAffectedPersona > 0 && rowsAffectedUtente > 0) {
+	        
+	        
+	        //Salvo l'indirizzo della persona nel database
+	        String insertIndirizzoQuery = "INSERT INTO indirizzo (provincia, via, cap, citta, numero, id_persona) VALUES (?,?,?,?,?,?)";
+	        indirizzoStatement = currentCon.prepareStatement(insertIndirizzoQuery);
+	        indirizzoStatement.setString(1,bean.getProvincia());
+	        indirizzoStatement.setString(2,bean.getVia());
+	        indirizzoStatement.setString(3,bean.getCap());
+	        indirizzoStatement.setString(4,bean.getCitta());
+	        indirizzoStatement.setString(5,bean.getNumero());
+	        indirizzoStatement.setInt(6,personaId);
+	        int rowsAffectedIndirizzo = indirizzoStatement.executeUpdate();
+	        
+	        
+	       
+	        if (rowsAffectedPersona > 0 && rowsAffectedUtente > 0 && rowsAffectedIndirizzo > 0) {
 	            // Commit della transazione
 	            currentCon.commit();
 	            // L'utente è stato salvato correttamente nel database
@@ -235,6 +263,63 @@ return bean;
 	        }
 	    }
 	}
+
+public static boolean checkEmailAvaiable(String email) {
+	
+	   PreparedStatement preparedStatement = null;
+	
+
+    String searchQuery =
+          "select * from utente u "
+          + "where u.email like '"+ email+ "'";
+    
+ try 
+ {
+    //connect to DB 
+    Connection currentCon = DriverManagerConnectionPool.getConnection();
+    preparedStatement=currentCon.prepareStatement(searchQuery);
+    rs = preparedStatement.executeQuery(searchQuery);	        
+    boolean more = rs.next();
+	       
+    
+    if (!more) return true;
+    else return false;
+    
+ } 
+
+ catch (Exception ex) 
+ {
+    System.out.println("Registration Failed: An Exception has occurred! " + ex);
+ } 
+ finally 
+ {
+    if (rs != null)	{
+       try {
+          rs.close();
+       } catch (Exception e) {}
+          rs = null;
+       }
+	
+    if (preparedStatement != null) {
+       try {
+      	 preparedStatement.close();
+       } catch (Exception e) {}
+       	preparedStatement = null;
+       }
+	
+    if (currentCon != null) {
+       try {
+          currentCon.close();
+       } catch (Exception e) {
+       }
+
+       currentCon = null;
+    }
+ }
+
+ return false;
+	
+}
    
 }
 

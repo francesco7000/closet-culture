@@ -89,7 +89,7 @@ request.setAttribute("articoli", null);
             <h1 class="page-title">Shop page</h1>
             <div class="breadcrumbs">
               <span class="item">
-                <a href="index.html">Home /</a>
+                <a href="home.jsp">Home /</a>
               </span>
               <span class="item">Shop</span>
             </div>

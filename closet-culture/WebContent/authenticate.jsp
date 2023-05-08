@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%
+
+session.setAttribute("currentUser",null);
+session.invalidate();
+
+%>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +73,7 @@
 								<form method="post" action="Login">
 									<div class="form-group">
 										<label for="sign-in">Username *</label> <input type="text"
-											minlength="2" name="un" placeholder="IL tuo Username"
+											minlength="2" name="un" placeholder="Il tuo Username"
 											class="u-full-width bg-light" required>
 									</div>
 									<div class="form-group">
@@ -107,22 +115,46 @@
 											required>
 									</div>
 									<div class="form-group">
-										<label for="sign-in">Nome</label> <input type="password"
+										<label for="sign-in">Nome</label> <input type="text"
 											minlength="2" name="nome" placeholder="Nome"
 											class="u-full-width bg-light" required>
 									</div>
 									<div class="form-group">
-										<label for="sign-in">Cognome</label> <input type="password"
+										<label for="sign-in">Cognome</label> <input type="text"
 											minlength="2" name="cognome" placeholder="Cognome"
 											class="u-full-width bg-light" required>
 									</div>
 									<div class="form-group">
-										<label for="sign-in">Cellulare</label> <input type="password"
+										<label for="sign-in">Cellulare</label> <input type="text"
 											minlength="2" name="cellulare" placeholder="Cellulare"
 											class="u-full-width bg-light" required>
 									</div>
-
-
+									<div class="form-group">
+										<label for="sign-in">Provincia</label> <input type="text"
+											minlength="2" name="prov" placeholder="Provincia"
+											class="u-full-width bg-light" required>
+									</div>
+									<div class="form-group">
+										<label for="sign-in">Città</label> <input type="text"
+											minlength="2" name="citta" placeholder="Città"
+											class="u-full-width bg-light" required>
+									</div>
+									<div class="form-group">
+										<label for="sign-in">Cap</label> <input type="text"
+											minlength="1" name="cap" placeholder="Cap"
+											class="u-full-width bg-light" required>
+									</div>
+									<div class="form-group">
+										<label for="sign-in">Via</label> <input type="text"
+											minlength="2" name="via" placeholder="Via"
+											class="u-full-width bg-light" required>
+									</div>
+									<div class="form-group">
+										<label for="sign-in">Numero</label> <input type="text"
+											minlength="1" name="num" placeholder="Numero"
+											class="u-full-width bg-light" required>
+									</div>
+									
 									<label> <span class="label-body"><a
 											href="home.jsp">Oppure accedi come ospite</a></span>
 									</label>
@@ -137,7 +169,7 @@
 		</section>
 
 		<%@ include file="fragments/footer.jsp"%>
-		
+
 		<%@ include file="fragments/miniFooter.jsp"%>
 
 		<script src="js/jquery-1.11.0.min.js"></script>

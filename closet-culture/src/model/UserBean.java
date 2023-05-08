@@ -12,6 +12,13 @@ public class UserBean {
 	private boolean valid;
 	
 	
+	private String provincia;
+	private String via;
+	private String cap;
+	private String citta;
+	private String numero;
+	
+	
 	public String getUsername() {
 		return username;
 	}
@@ -74,6 +81,49 @@ public class UserBean {
 
 	public void setRuolo(String ruolo) {
 		this.ruolo = ruolo;
+	}
+
+	public String getProvincia() {
+		
+		return provincia;
+	}
+
+	public String getVia() {
+		
+		return via;
+	}
+
+	public String getCap() {
+		
+		return cap;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public void setVia(String via) {
+		this.via = via;
+	}
+
+	public void setCap(String cap) {
+		this.cap = cap;
+	}
+
+	public String getCitta() {
+		return citta;
+	}
+
+	public void setCitta(String citta) {
+		this.citta = citta;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 }

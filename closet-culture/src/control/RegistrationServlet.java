@@ -40,7 +40,7 @@ public class RegistrationServlet extends HttpServlet {
 		    
 		     
 		     
-		     if(UserDAO.checkUsernameAvaiable(request.getParameter("un"))) {
+		     if(UserDAO.checkUsernameAvaiable(request.getParameter("un")) && UserDAO.checkEmailAvaiable(request.getParameter("email"))) {
 		    	 
 		    	 user.setUsername(request.getParameter("un"));
 		    	 String pw = request.getParameter("pw");
@@ -56,6 +56,13 @@ public class RegistrationServlet extends HttpServlet {
 		    		 
 		    		 user.setNome(request.getParameter("nome"));
 		    		 user.setCognome(request.getParameter("cognome"));
+		    		 
+		    		 user.setProvincia(request.getParameter("prov"));
+		    		 user.setVia(request.getParameter("via"));
+		    		 user.setCap(request.getParameter("cap"));
+		    		 user.setCitta(request.getParameter("citta"));
+		    		 user.setNumero(request.getParameter("num"));
+		    		 
 		    		 
 		    		 user.setRuolo("utente");
 		    		 
@@ -75,7 +82,7 @@ public class RegistrationServlet extends HttpServlet {
 		    	 
 		     }
 		     else {
-		            request.setAttribute("errorMessage", "Username non disponibile!");
+		            request.setAttribute("errorMessage", "Username o Email non disponibile!");
 		            RequestDispatcher dispatcher = request.getRequestDispatcher("authenticate.jsp");
 		            dispatcher.forward(request, response);
 		     }

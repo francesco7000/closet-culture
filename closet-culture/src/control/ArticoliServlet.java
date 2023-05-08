@@ -38,6 +38,7 @@ public class ArticoliServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
+		response.setContentType("text/html;charset=UTF-8");
 
 		if (action != null) {
 			ArticoloDAO pdao = new ArticoloDAO();
@@ -60,8 +61,50 @@ public class ArticoliServlet extends HttpServlet {
 
 				request.setAttribute("articoli", articoli);
 
-				RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/home.jsp");
-				dispatcher.forward(request, response);
+				PrintWriter out = response.getWriter();
+				
+				for (ArticoloBean articolo : articoli) {
+					
+					out.print("<div class=\"product-item col-lg-3 col-md-6 col-sm-6\">\n" + 
+							"  <div class=\"image-holder\">\n" + 
+							"    <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
+							"  </div>\n" + 
+							"  <div class=\"cart-concern\">\n" + 
+							"    <div class=\"cart-button d-flex justify-content-between align-items-center\">\n" + 
+							"      <button type=\"button\" class=\"btn-wrap cart-link d-flex align-items-center\">\n" + 
+							"        Aggiungi al Carrello <i class=\"icon icon-arrow-io\"></i>\n" + 
+							"      </button>\n" + 
+							"    </div>\n" + 
+							"  </div>\n" + 
+							"  <div class=\"product-detail\">\n" + 
+							"    <h3 class=\"product-title\">\n" + 
+							"      <a href=\"dettaglio_articolo.jsp?id="+ articolo.getId() + "\">" + articolo.getNome() +"</a>\n" + 
+							"    </h3>\n" + 
+							"    <div class=\"item-price text-primary\">€"+ articolo.getPrezzo() + "</div>\n" + 
+							"  </div>\n" + 
+							"</div>");
+					
+				}
+				
+				out.close();
+			}
+			else if(action.equalsIgnoreCase("getArticolo")) {
+				
+
+				int id = Integer.parseUnsignedInt(request.getParameter("id"));
+
+				ArticoloBean articolo = ArticoloDAO.idRicerca(id);
+				
+				if(articolo != null) {
+					
+					request.setAttribute("articolo", articolo);
+
+					RequestDispatcher dispatcher = request.getRequestDispatcher("dettaglio_articolo.jsp");
+					dispatcher.forward(request, response);
+				}
+				else {
+					response.sendRedirect("errorPage.jsp");
+				}
 			}
 		
 		}

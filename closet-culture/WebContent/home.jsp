@@ -4,11 +4,23 @@
 
 <%
 	UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
-
+	Boolean adminMode = false;
+	
+	
+	//currentUser nullo o non valido allora accesso come ospite
 	if ((currentUser == null) || (!currentUser.isValid())) {
 		session.setAttribute("guest", true);
 
 	}
+	//altrimenti controllo se l'utente loggato è admin e che tipo di visualizzazione vuole
+	else if(currentUser.getRuolo().equals("admin")){
+			String sessionType = (String) session.getAttribute("sessionType");
+			if(sessionType != null && sessionType.equals("admin")){
+				adminMode = true;
+			}
+		
+	}
+
 
 	//cerco di ottenere le categorie
 	ArrayList<CategoriaBean> categorie = (ArrayList<CategoriaBean>) request.getAttribute("categorie");
@@ -18,8 +30,8 @@
 		//redirect alla servlet come parametro getCategorie per dirgli cosa deve fare
 		response.sendRedirect("CategoriaServlet?action=getCategorie");
 	} else {
-		//reset attributo per le prossime chiamate
-		request.setAttribute("categorie", null);
+		ServletContext context = request.getServletContext();
+		context.setAttribute("categorie", categorie);
 	}
 
 	//cerco di ottenere tutti gli articoli
@@ -54,12 +66,38 @@
 	rel="stylesheet">
 <!-- script
     ================================================== -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="js/modernizr.js"></script>
+
+<script>
+$(document).ready(function() {
+	  // Aggiungi un evento di click ai link delle categorie
+	  $('.categoria').click(function(event) {
+	    event.preventDefault(); // Impedisce al browser di seguire il link
+
+	    // Ottieni l'ID della categoria dal data-id dell'elemento
+	    var idCategoria = $(this).data('id');
+
+	    // Invia la richiesta AJAX al server
+	    $.ajax({
+	      type: 'GET',
+	      url: 'ArticoliServlet',
+	      data: { action: 'getArtCat', idCat: idCategoria },
+	      success: function(data) {
+	        // Aggiorna il contenuto della sezione dei prodotti
+	        $('#articoliAjax').html(data);
+	      }
+	    });
+	  });
+	});
+</script>
+
+
+
 </head>
 <%@ include file="fragments/header.jsp"%>
 
 <body>
-
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<section id="billboard" class="overflow-hidden">
@@ -132,10 +170,8 @@
 						for (CategoriaBean categoria : categorie) {
 				%>
 
-				<a href="CategoriaServlet?action=getCategoria&idCat=<%=categoria.getId()%>">
-					<li id="<%=categoria.getId()%>" class="tab categoria"><%=categoria.getDescrizione()%></li>
-				</a>
-
+				<a href="#" class="categoria" data-id="<%=categoria.getId()%>"><li
+					id="<%=categoria.getId()%>" class="tab categoria"><%=categoria.getDescrizione()%></li></a>
 				<%
 					}
 					}
@@ -143,19 +179,14 @@
 
 			</ul>
 
-
-			</ul>
 			<div class="tab-content">
-				<div id="all" data-tab-content class="active">
-					<div class="row d-flex flex-wrap">
-
-
+				<div data-tab-content class="active">
+					<div id="articoliAjax" class="row d-flex flex-wrap">
 
 						<%
 							if (articoli != null) {
 								for (ArticoloBean articolo : articoli) {
 						%>
-
 						<div class="product-item col-lg-3 col-md-6 col-sm-6">
 							<div class="image-holder">
 								<img src="images/selling-products1.jpg" alt="Books"
@@ -164,40 +195,35 @@
 							<div class="cart-concern">
 								<div
 									class="cart-button d-flex justify-content-between align-items-center">
-									<button type="button"
+								<% 	if(!adminMode){ %>
+									<a href="ArticoliServlet?action=getArticolo&id=<%=articolo.getId()%>" type="button" 
 										class="btn-wrap cart-link d-flex align-items-center">
-										Aggiungi al Carrello <i class="icon icon-arrow-io"></i>
-									</button>
-
+										Visualizza <i class="icon icon-arrow-io"></i>
+									</a>
+									<% } else { %>
+									<a href="AdminServlet?action=getArticolo&id=<%= articolo.getId() %>" type="button" 
+										class="btn-wrap cart-link d-flex align-items-center">
+										Modifica <i class="icon icon-arrow-io"></i>
+									</a>
+									<% } %>
 								</div>
 							</div>
-
 							<div class="product-detail">
 								<h3 class="product-title">
-									<a href="dettaglio_articolo.jsp?id=<%=articolo.getId()%>"><%=articolo.getNome()%></a>
+									<a href="ArticoliServlet?action=getArticolo&id=<%=articolo.getId()%>"><%=articolo.getNome()%></a>
 								</h3>
 								<div class="item-price text-primary">
 									€
-									<%=articolo.getPrezzo()%>
-								</div>
+									<%=articolo.getPrezzo()%></div>
 							</div>
-
 						</div>
-
 						<%
 							}
 							}
 						%>
-
-
-
-
-
-
+						
 					</div>
 				</div>
-
-
 			</div>
 		</div>
 	</section>

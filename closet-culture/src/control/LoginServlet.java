@@ -47,6 +47,10 @@ public class LoginServlet extends HttpServlet {
 		          HttpSession session = request.getSession(true);	    
 		          session.setAttribute("currentSessionUser",user); 
 		          session.setAttribute("guest", false);
+		          
+		          //se fa l'accesso un amministratore all'inizio utilizza il sito in modalità utente e dopo può cambiare modalità
+		          //ma se effettua il logout la modalità ritorna utente
+		          session.setAttribute("sessionType", "utente");
 		          response.sendRedirect("home.jsp"); //logged-in page      		
 		     }
 			        

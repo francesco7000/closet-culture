@@ -1,8 +1,10 @@
 package model;
 
 public class ArticoloBean {
+	
+		
 	int id;
-	int visibile;
+	boolean visibile;
 	int sconto;
 	double prezzo;
 	int quantita;
@@ -12,6 +14,9 @@ public class ArticoloBean {
 	String barcode;
 	String composizione;
 	String descrizione;
+	
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -19,10 +24,11 @@ public class ArticoloBean {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getVisibile() {
+	public boolean getVisibile() {
 		return visibile;
 	}
-	public void setVisibile(int visibile) {
+
+	public void setVisibile(boolean visibile) {
 		this.visibile = visibile;
 	}
 	public int getSconto() {

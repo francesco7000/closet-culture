@@ -17,7 +17,7 @@ public class ArticoloDAO {
 		      
 		      String searchQuery =
 		              "select a.nome,a.codice,a.prezzo,a.id from articolo a "
-		    		  +"WHERE 1=1 ";
+		    		  +"WHERE a.visibile = true ";
 
 	            if (search!=null && search!="") searchQuery += " AND a.nome LIKE ?  || a.codice= ? ";
 
@@ -102,7 +102,7 @@ public class ArticoloDAO {
 		      
 		      String searchQuery =
 		              "select a.nome,a.codice,a.prezzo,a.id from articolo a "
-		    		  +"WHERE 1=1 ";
+		    		  +"WHERE a.visibile = true ";
 
 	            if (id>0) searchQuery += " AND a.id_categoria_articolo=? ";
 
@@ -181,9 +181,9 @@ public class ArticoloDAO {
 		   PreparedStatement preparedStatement = null;
 		      
 		      String searchQuery =
-		              "select a.nome,a.codice,a.prezzo,a.descrizione,a.barcode,a.composizione,a.stagione from articolo a "
+		              "select a.* from articolo a "
 		    		  +"WHERE a.id= ? ";
-		      ArticoloBean bean_a=new ArticoloBean();
+		      ArticoloBean bean_a=null;
 		      try 
 		      {
 		         //connect to DB 
@@ -195,8 +195,13 @@ public class ArticoloDAO {
 		            	preparedStatement.setInt(index, id);
 
 		            }
-		         rs = preparedStatement.executeQuery();	  
+		            
+		            rs = preparedStatement.executeQuery();	  
+		          
+		            
+		         
 		         while (rs.next()) {
+		        	 bean_a = new ArticoloBean();
 	            String nomea = rs.getString("nome");
 	            String codicea = rs.getString("codice");
 	            Integer prezzo = rs.getInt("prezzo");
@@ -204,6 +209,7 @@ public class ArticoloDAO {
 	            String barc = rs.getString("barcode");
 	            String comp = rs.getString("composizione");
 	            String st = rs.getString("stagione");
+	            int visibile = rs.getInt("visibile");
 
 	            bean_a.setNome(nomea);
 	            bean_a.setCodice(codicea);
@@ -212,6 +218,9 @@ public class ArticoloDAO {
 	           	bean_a.setBarcode(barc);
 	        	bean_a.setComposizione(comp);
 	        	bean_a.setStagione(st);
+	        	if(visibile == 1)
+	        		bean_a.setVisibile(true);
+	        	else bean_a.setVisibile(false);
 		         }
 		      
 		      }
