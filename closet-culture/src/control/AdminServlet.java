@@ -86,8 +86,8 @@ public class AdminServlet extends HttpServlet {
 				Boolean deleted = false;
 				
 				try {
-					 String str = ArticoloDAO.eliminaArticolo(id);
-					 System.out.println(str);
+					deleted = ArticoloDAO.eliminaArticolo(id);
+					 System.out.println(deleted);
 				}
 				catch(Exception e) {
 					e.printStackTrace();

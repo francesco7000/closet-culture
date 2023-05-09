@@ -383,20 +383,50 @@ public class ArticoloDAO {
 		}
 	   public static boolean eliminaArticolo(int id) {
 		    PreparedStatement preparedStatement = null;
-		    String deleteQuery = "DELETE FROM articolo WHERE id = ?";
-		    int result3 = 0;
+		    String updateQuery = "UPDATE articolo SET visibile = false WHERE id = ?";
+		    int result = 0;
 
 		    try (Connection currentCon = DriverManagerConnectionPool.getConnection()) {
-		        preparedStatement = currentCon.prepareStatement(deleteQuery);
+		        currentCon.setAutoCommit(false); // disattiva l'autocommit
+
+		        preparedStatement = currentCon.prepareStatement(updateQuery);
 		        preparedStatement.setInt(1, id);
-		        result3 = preparedStatement.executeUpdate();
+		        result = preparedStatement.executeUpdate();
+
+		        currentCon.commit(); // esegui il commit esplicitamente
+
 		    } catch (SQLException e) {
 		        // Gestione dell'errore
 		        e.printStackTrace();
+		        try {
+		            if (currentCon != null) {
+		                currentCon.rollback(); // esegui il rollback esplicitamente in caso di errore
+		            }
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
+		        }
 		        return false;
+		    } finally {
+		        if (preparedStatement != null) {
+		            try {
+		                preparedStatement.close();
+		            } catch (SQLException e) {
+		                // Gestione dell'errore
+		                e.printStackTrace();
+		            }
+		        }
+		        try {
+		            if (currentCon != null) {
+		                currentCon.setAutoCommit(true); // riattiva l'autocommit
+		                currentCon.close();
+		            }
+		        } catch (SQLException e) {
+		            // Gestione dell'errore
+		            e.printStackTrace();
+		        }
 		    }
 
-		    return result3 > 0;
+		    return result > 0;
 		}
 
 	   
