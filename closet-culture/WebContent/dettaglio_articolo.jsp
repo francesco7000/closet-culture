@@ -38,21 +38,24 @@ ArticoloBean articolo = (ArticoloBean) request.getAttribute("articolo");
     <!-- script
     ================================================== -->
     <script src="js/modernizr.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script>
 $(document).ready(function() {
 	  // Aggiungi un evento di click ai link delle categorie
-	  $('#colore').click(function(event) {
+	  $('.colore').click(function(event) {
 	    event.preventDefault(); // Impedisce al browser di seguire il link
 
 	    // Ottieni l'ID della categoria dal data-id dell'elemento
 	    var idColore = $(this).data('id');
+	    var idArticolo = $(this).data('idart');
+	    console.log('ID articolo:', idArticolo);
 
 	    // Invia la richiesta AJAX al server
 	    $.ajax({
 	      type: 'GET',
 	      url: 'ArticoliServlet',
-	      data: { action: 'getTaglia', idcol: idColore,idart:articolo.getId() },
+	      data: { action: 'getTaglia', idcol: idColore,idart:idArticolo},
 	      success: function(data) {
 	        // Aggiorna il contenuto della sezione dei prodotti
 	        $('#taglieAjax').html(data);
@@ -159,7 +162,7 @@ $(document).ready(function() {
 				%>
 				
 				
-				<li class="select-item"  id="colore" data-val="Green" title="Green"   data-id="<%=colore.getId()%>">
+				<li  class="colore" data-val="<%=colore.getId()%>" title="Green"  data-idart="<%=articolo.getId()%>" data-id="<%=colore.getId()%>">
                         <a href="#"><%=colore.getNome()%></a>
                 </li>
 				

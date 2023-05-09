@@ -18,6 +18,8 @@ public class ArticoloBean {
 	String descrizione;
 	ArrayList<VariantiBean> listaVarianti = new ArrayList<VariantiBean>();
 	ArrayList<ColoreBean> listaColori =new ArrayList<ColoreBean>();
+	LineaBean linea;
+    MaterialeBean materiale;
 	
 	public ArrayList<ColoreBean> getListaColori() {
 		return listaColori;
