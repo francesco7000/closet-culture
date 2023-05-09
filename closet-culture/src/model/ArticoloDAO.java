@@ -384,19 +384,19 @@ public class ArticoloDAO {
 	   public static boolean eliminaArticolo(int id) {
 		    PreparedStatement preparedStatement = null;
 		    String deleteQuery = "DELETE FROM articolo WHERE id = ?";
-		    int result1 = 0;
+		    int result2 = 0;
 
 		    try (Connection currentCon = DriverManagerConnectionPool.getConnection()) {
 		        preparedStatement = currentCon.prepareStatement(deleteQuery);
 		        preparedStatement.setInt(1, id);
-		        result1 = preparedStatement.executeUpdate();
+		        result2 = preparedStatement.executeUpdate();
 		    } catch (SQLException e) {
 		        // Gestione dell'errore
 		        e.printStackTrace();
 		        return false;
 		    }
 
-		    return result1 > 0;
+		    return result2 > 0;
 		}
 
 	   
