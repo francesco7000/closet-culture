@@ -69,12 +69,13 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="js/modernizr.js"></script>
 
+
 <script>
 $(document).ready(function() {
 	  // Aggiungi un evento di click ai link delle categorie
 	  $('.categoria').click(function(event) {
 	    event.preventDefault(); // Impedisce al browser di seguire il link
-
+		
 	    // Ottieni l'ID della categoria dal data-id dell'elemento
 	    var idCategoria = $(this).data('id');
 

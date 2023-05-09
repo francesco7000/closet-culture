@@ -51,9 +51,42 @@
 <!-- script
     ================================================== -->
 <script src="js/modernizr.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+	  // Aggiungi un evento di click ai link delle categorie
+	  $('.elimina').click(function(event) {
+	    event.preventDefault(); // Impedisce al browser di seguire il link
+
+	    // Ottieni l'ID della categoria dal data-id dell'elemento
+	    var idArt = $(this).data('id');
+	    
+	    // Invia la richiesta AJAX al server
+	    $.ajax({
+	      type: 'GET',
+	      url: 'AdminServlet?action=delArticolo&idArt=' + idArt,
+	      success: function(data) {
+	    	  window.location.href = "home.jsp";
+	        
+	      },
+	      error: function(jqXHR, textStatus, errorThrown) {
+	    	  window.location.href = "errorPage.jsp";
+	      }
+	    });
+	  });
+	});
+</script>
+
+
+
+
 </head>
 <%@ include file="fragments/header.jsp"%>
 <body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<section class="site-banner padding-small bg-light-grey">
 		<div class="container">
 			<div class="row">
@@ -62,7 +95,7 @@
 						<span class="item"> <a href="home.jsp">Home /</a>
 						</span> <span class="item"> <a href="ricerca-prodotti.jsp">Shop
 								/</a>
-						</span> <span class="item">Dettaglio Articolo</span>
+						</span> <span class="item">Gestione Articolo</span>
 					</div>
 				</div>
 			</div>
@@ -226,9 +259,18 @@
 										</div>
 									</div>
 
-									<button type="submit" name="submit"
-										class="btn btn-dark btn-full btn-medium" value="Registration">Salva
-										Modifiche</button>
+									<div class="action-buttons">
+									<a href="#" class="elimina" data-id="<%=art.getId()%>">
+									<li id="<%=art.getId()%>" class="btn btn-medium btn-dark">Elimina</li></a>
+									
+										<button type="submit" name="add" id="add-to-cart" class="btn btn-medium btn-dark">
+											<span id="add-to-cart">Salva Modifiche</span>
+										</button>
+											<button type="submit" name="add" id="add-to-cart"
+											class="btn btn-medium btn-dark">
+											<span id="add-to-cart">Nuovo Articolo</span>
+										</button>
+									</div>
 								</form>
 							</div>
 						</div>
