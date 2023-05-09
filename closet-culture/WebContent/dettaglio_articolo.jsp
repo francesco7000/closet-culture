@@ -162,10 +162,11 @@ $(document).ready(function() {
 				%>
 				
 				
-				<li  class="colore" data-val="<%=colore.getId()%>" title="Green"  data-idart="<%=articolo.getId()%>" data-id="<%=colore.getId()%>">
-                        <a href="#"><%=colore.getNome()%></a>
-                </li>
 				
+				<a href="#" class="colore" data-val="<%=colore.getId()%>" data-idart="<%=articolo.getId()%>" data-id="<%=colore.getId()%>"><li
+					id="<%=colore.getId()%>" class="select-item"><%=colore.getNome()%></li></a>
+			
+								
 				<%
 					}
 					}

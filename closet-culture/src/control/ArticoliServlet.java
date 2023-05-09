@@ -38,7 +38,6 @@ public class ArticoliServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println( request.getParameter("action"));
 
 		String action = request.getParameter("action");
 		response.setContentType("text/html;charset=UTF-8");
@@ -109,10 +108,8 @@ public class ArticoliServlet extends HttpServlet {
 					response.sendRedirect("errorPage.jsp");
 				}
 			}else if(action.equalsIgnoreCase("getTaglia")) {
-				System.out.println("ciaociao");
 				ArrayList<TagliaBean> taglie = new ArrayList<TagliaBean>();
 				taglie = ArticoloDAO.getTagliaByColore(request.getParameter("idcol"),request.getParameter("idart"));
-				System.out.println(taglie);
 
 				
 				PrintWriter out = response.getWriter();
@@ -123,7 +120,6 @@ public class ArticoliServlet extends HttpServlet {
 							"                      <a href=\"#\">"+taglia.getNome()+"</a>\n" + 
 							"                    </li>");
          
-					System.out.println(taglia);
 				}
 				
 				out.close();

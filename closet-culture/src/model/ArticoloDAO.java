@@ -110,7 +110,6 @@ public class ArticoloDAO {
 
 		   
 
-		   System.out.println("ciao"+id_coloren+id_articolon);
 		   PreparedStatement preparedStatement = null;
 		   ArrayList<TagliaBean> taglie = new ArrayList<TagliaBean>();
 		    String searchQuery =
