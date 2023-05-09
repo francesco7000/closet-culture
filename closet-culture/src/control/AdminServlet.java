@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,6 +38,8 @@ public class AdminServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getParameter("action");
+	
+		
 		response.setContentType("text/html;charset=UTF-8");
 
 		HttpSession session = request.getSession(false);
@@ -72,6 +75,36 @@ public class AdminServlet extends HttpServlet {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("dettaglio_articoloAdmin.jsp");
 					dispatcher.forward(request, response);
 				} else {
+					response.sendRedirect("errorPage.jsp");
+				}
+
+			}
+			break;
+			
+			case "delArticolo": {
+				int id = Integer.parseUnsignedInt(request.getParameter("idArt"));
+				Boolean deleted = false;
+				
+				try {
+					 String str = ArticoloDAO.eliminaArticolo(id);
+					 System.out.println(str);
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+				
+			
+
+				if (deleted == true) {
+					
+					System.out.println("aaaaaa");
+					
+					PrintWriter out = response.getWriter();
+					
+					out.print("articolo eliminato");
+					
+				}
+				else {
 					response.sendRedirect("errorPage.jsp");
 				}
 

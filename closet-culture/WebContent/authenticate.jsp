@@ -9,7 +9,6 @@ session.invalidate();
 %>
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
