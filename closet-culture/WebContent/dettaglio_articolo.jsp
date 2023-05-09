@@ -63,6 +63,33 @@ $(document).ready(function() {
 	    });
 	  });
 	});
+
+</script>
+<script>
+$(document).ready(function() {
+	  // Aggiungi un evento di click ai link delle taglie
+	  $('#taglie-container').on('click', '.taglia', function(event) {
+	    event.preventDefault(); // Impedisce al browser di seguire il link
+	    
+	    // Ottieni l'ID della categoria dal data-id dell'elemento
+	    var idtaglia = $(this).data('id');
+	    var idArticolo = $(this).attr('data-idart');
+	    var idcol =  $(this).attr('data-idcol');
+	    // Invia la richiesta AJAX al server
+	    alert('ID articolo:', idArticolo);
+	    alert('ID taglia:', idcol);
+
+	    $.ajax({
+	      type: 'GET',
+	      url: 'ArticoliServlet',
+	      data: { action: 'getQt', idt: idtaglia, idart: idArticolo, idcolore: idcol },
+	      success: function(data) {
+	        // Aggiorna il contenuto della sezione dei prodotti
+	        $('#qtAjax').html(data);
+	      }
+	    });
+	  });
+	});
 </script>
   </head>
   <%@ include file="fragments/header.jsp"%>
@@ -181,10 +208,14 @@ $(document).ready(function() {
                     
                   </div>
                 </div>
+                
+                
                 <div class="swatch product-select" data-option-index="1">
                   <h4 class="item-title no-margin">Size:</h4>
+                  <div id="taglie-container">
+                 
                   <ul class="select-list list-unstyled d-flex" id="taglieAjax">
-                    <li data-value="S" class="select-item">
+                   <!-- <li data-value="S" class="select-item">
                       <a href="#">S</a>
                     </li>
                     <li data-value="M" class="select-item">
@@ -192,10 +223,11 @@ $(document).ready(function() {
                     </li>
                     <li data-value="L" class="select-item">
                       <a href="#">L</a>
-                    </li>
-                  </ul>
+                    </li>-->
+                  </ul> 
                 </div>
-                <div class="product-quantity">
+                </div> 
+                 <div class="product-quantity">
                   <div class="item-title">
                     <strong>2 in stock</strong>
                   </div>
@@ -205,7 +237,7 @@ $(document).ready(function() {
                       <div class="qty-field d-flex">
                         <div class="qty-number d-flex justify-content-start align-items-center">
                             <button class="decrement-button">-</button>
-                              <input type="text" id="quantity" name="quantity" class="spin-number-output" value="1" min="1" max="100">
+                              <input id="qtAjax" type="text" id="quantity" name="quantity" class="spin-number-output" value="1" min="1" max="100">
                             <button class="increment-button">+</button>
                         </div>
                       </div>
@@ -215,7 +247,7 @@ $(document).ready(function() {
                 <div class="action-buttons">
                   <button type="submit" class="btn btn-medium btn-dark">Buy now</button>
                   <button type="submit" name="add" id="add-to-cart" class="btn btn-medium btn-dark">
-                    <span id="add-to-cart">Add to cart</span>
+                    <span id="add-to-cart">Aggiungi al Carrello</span>
                   </button>
                   <button type="submit" class="btn btn-medium btn-dark"><i class="icon icon-heart"></i></button>
                 </div>

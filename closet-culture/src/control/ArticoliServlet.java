@@ -111,19 +111,24 @@ public class ArticoliServlet extends HttpServlet {
 				ArrayList<TagliaBean> taglie = new ArrayList<TagliaBean>();
 				taglie = ArticoloDAO.getTagliaByColore(request.getParameter("idcol"),request.getParameter("idart"));
 
-				
+				String idArticolo = request.getParameter("idart");
+				String idColore = request.getParameter("idcol");
 				PrintWriter out = response.getWriter();
 				
 				for (TagliaBean taglia : taglie) {
-					
-					out.print(" <li data-value="+taglia.getId()+" class=\"select-item\"> \n" + 
-							"                      <a href=\"#\">"+taglia.getNome()+"</a>\n" + 
-							"                    </li>");
-         
+
+					out.print("<a href=\"#\" data-idart=\"" + idArticolo + "\" data-idcol=\"" + idColore + "\" class=\"taglia\" data-val=\"" + taglia.getId() + "\" data-id=\"" + taglia.getId() + "\"><li id=\"" + taglia.getId() + "\" class=\"select-item\">" + taglia.getNome() + "</li></a>");
 				}
+				
 				
 				out.close();
 				
+			}else {
+				if(action.equalsIgnoreCase("getQt")) {
+					System.out.println(action.equalsIgnoreCase("getQt"));
+					System.out.println(request.getParameter("idt")+request.getParameter("idart")+request.getParameter("idcolore"));
+					
+				}
 			}
 		
 		}
