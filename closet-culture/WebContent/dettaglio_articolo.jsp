@@ -38,6 +38,29 @@ ArticoloBean articolo = (ArticoloBean) request.getAttribute("articolo");
     <!-- script
     ================================================== -->
     <script src="js/modernizr.js"></script>
+    
+    <script>
+$(document).ready(function() {
+	  // Aggiungi un evento di click ai link delle categorie
+	  $('#colore').click(function(event) {
+	    event.preventDefault(); // Impedisce al browser di seguire il link
+
+	    // Ottieni l'ID della categoria dal data-id dell'elemento
+	    var idColore = $(this).data('id');
+
+	    // Invia la richiesta AJAX al server
+	    $.ajax({
+	      type: 'GET',
+	      url: 'ArticoliServlet',
+	      data: { action: 'getTaglia', idcol: idColore,idart:articolo.getId() },
+	      success: function(data) {
+	        // Aggiorna il contenuto della sezione dei prodotti
+	        $('#taglieAjax').html(data);
+	      }
+	    });
+	  });
+	});
+</script>
   </head>
   <%@ include file="fragments/header.jsp"%>
   <body>
@@ -126,21 +149,37 @@ ArticoloBean articolo = (ArticoloBean) request.getAttribute("articolo");
                   <div class="color-toggle" data-option-index="0">
                     <h4 class="item-title no-margin">Color:</h4>
                     <ul class="select-list list-unstyled d-flex">
-                      <li class="select-item" data-val="Green" title="Green">
-                        <a href="#">Green</a>
-                      </li>
-                      <li class="select-item" data-val="Orange" title="Orange">
-                        <a href="#">Orange</a>
-                      </li>
-                      <li class="select-item" data-val="Red" title="Red">
-                        <a href="#">Red</a>
-                      </li>
+                    
+   
+				<%
+					if (articolo != null) {
+						
+						for (ColoreBean colore : articolo.getListaColori()) {
+							if(colore!=null)
+				%>
+				
+				
+				<li class="select-item"  id="colore" data-val="Green" title="Green"   data-id="<%=colore.getId()%>">
+                        <a href="#"><%=colore.getNome()%></a>
+                </li>
+				
+				<%
+					}
+					}
+				%>
+                    
+                     
+                      
+                      
+                      
                     </ul>
+                    
+                    
                   </div>
                 </div>
                 <div class="swatch product-select" data-option-index="1">
                   <h4 class="item-title no-margin">Size:</h4>
-                  <ul class="select-list list-unstyled d-flex">
+                  <ul class="select-list list-unstyled d-flex" id="taglieAjax">
                     <li data-value="S" class="select-item">
                       <a href="#">S</a>
                     </li>
@@ -266,6 +305,20 @@ In tutto questo processo, la qualità e l'attenzione ai dettagli sono fondamenta
         </div>
       </div>
     </section>
+    
+   
+				<%
+					if (articolo != null) {
+						
+						for (VariantiBean variante : articolo.getListaVarianti()) {
+							if(variante!=null)
+				%>
+				<p><%=variante.getDescrizione()%></p>
+				<%
+					}
+					}
+				%>
+
 
 
     <section id="brand-collection" class="padding-medium bg-light-grey">

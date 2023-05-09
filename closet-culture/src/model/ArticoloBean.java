@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class ArticoloBean {
 	
 		
@@ -14,9 +16,25 @@ public class ArticoloBean {
 	String barcode;
 	String composizione;
 	String descrizione;
+	ArrayList<VariantiBean> listaVarianti = new ArrayList<VariantiBean>();
+	ArrayList<ColoreBean> listaColori =new ArrayList<ColoreBean>();
 	
-	
-	
+	public ArrayList<ColoreBean> getListaColori() {
+		return listaColori;
+	}
+
+	public void setListaColori(ArrayList<ColoreBean> listaColori) {
+		this.listaColori = listaColori;
+	}
+
+	public ArrayList<VariantiBean> getListaVarianti() {
+		return listaVarianti;
+	}
+
+	public void setListaVarianti(ArrayList<VariantiBean> listaVarianti) {
+		this.listaVarianti = listaVarianti;
+	}
+
 	public int getId() {
 		return id;
 	}

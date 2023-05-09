@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ArticoloBean;
 import model.ArticoloDAO;
+import model.TagliaBean;
 import model.UserBean;
 import model.UserDAO;
 
@@ -105,6 +106,26 @@ public class ArticoliServlet extends HttpServlet {
 				else {
 					response.sendRedirect("errorPage.jsp");
 				}
+			}else if(action.equalsIgnoreCase("getTaglia")) {
+				
+				ArrayList<TagliaBean> taglie = new ArrayList<TagliaBean>();
+
+				taglie = ArticoloDAO.getTagliaByColore(request.getParameter("idcol"),request.getParameter("idart"));
+
+				
+				PrintWriter out = response.getWriter();
+				
+				for (TagliaBean taglia : taglie) {
+					
+					out.print(" <li data-value="+taglia.getId()+" class=\"select-item\"> \n" + 
+							"                      <a href=\"#\">"+taglia.getNome()+"</a>\n" + 
+							"                    </li>");
+         
+					
+				}
+				
+				out.close();
+				
 			}
 		
 		}
