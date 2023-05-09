@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -380,7 +381,24 @@ public class ArticoloDAO {
 
 		    return bean_a;
 		}
-	   
+	   public static boolean eliminaArticolo(int id) {
+		    PreparedStatement preparedStatement = null;
+		    String deleteQuery = "DELETE FROM articolo WHERE id = ?";
+		    int result = 0;
+
+		    try (Connection currentCon = DriverManagerConnectionPool.getConnection()) {
+		        preparedStatement = currentCon.prepareStatement(deleteQuery);
+		        preparedStatement.setInt(1, id);
+		        result = preparedStatement.executeUpdate();
+		    } catch (SQLException e) {
+		        // Gestione dell'errore
+		        e.printStackTrace();
+		        return false;
+		    }
+
+		    return result > 0;
+		}
+
 	   
 
 
