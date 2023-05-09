@@ -128,7 +128,54 @@ public class ArticoliServlet extends HttpServlet {
 					System.out.println(action.equalsIgnoreCase("getQt"));
 					System.out.println(request.getParameter("idt")+request.getParameter("idart")+request.getParameter("idcolore"));
 					
+				}else if (action.equalsIgnoreCase("getRicercaArticoli")) {
+
+					ArrayList<ArticoloBean> articoli = new ArrayList<ArticoloBean>();
+
+					articoli = ArticoloDAO.ricerca("");
+
+					request.setAttribute("articoli", articoli);
+
+					RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ricerca-prodotti.jsp");
+					dispatcher.forward(request, response);
+
+				} else if (action.equalsIgnoreCase("getArtCatRicArt")) {
+
+					ArrayList<ArticoloBean> articoli = new ArrayList<ArticoloBean>();
+
+					articoli = ArticoloDAO.ricerca_per_categoria(request.getParameter("idCat"));
+
+					request.setAttribute("articoli", articoli);
+
+					PrintWriter out = response.getWriter();
+					
+					for (ArticoloBean articolo : articoli) {
+						
+						out.print("<div class=\"product-item col-lg-4 col-md-6 col-sm-6\">\n" + 
+								"  <div class=\"image-holder\">\n" + 
+								"    <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
+								"  </div>\n" + 
+								"  <div class=\"cart-concern\">\n" + 
+								"    <div class=\"cart-button d-flex justify-content-between align-items-center\">\n" + 
+								"      <button type=\"button\" class=\"btn-wrap cart-link d-flex align-items-center\">\n" + 
+								"        Aggiungi al Carrello <i class=\"icon icon-arrow-io\"></i>\n" + 
+								"      </button>\n" + 
+								"    </div>\n" + 
+								"  </div>\n" + 
+								"  <div class=\"product-detail\">\n" + 
+								"    <h3 class=\"product-title\">\n" + 
+								"      <a href=\"dettaglio_articolo.jsp?id="+ articolo.getId() + "\">" + articolo.getNome() +"</a>\n" + 
+								"    </h3>\n" + 
+								"    <div class=\"item-price text-primary\">€"+ articolo.getPrezzo() + "</div>\n" + 
+								"  </div>\n" + 
+								"</div>");
+						
+					}
+					
+					out.close();
 				}
+					
+					
 			}
 		
 		}

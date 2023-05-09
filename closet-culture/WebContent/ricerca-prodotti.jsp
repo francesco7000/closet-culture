@@ -1,19 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  import="java.util.*, model.*"%>
 
 <%
-UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
 
-if ((currentUser == null) || (!currentUser.isValid())) {
-	session.setAttribute("guest", true);
+//cerco di ottenere le categorie
+ArrayList<CategoriaBean> categorie = (ArrayList<CategoriaBean>) request.getAttribute("categorie");
 
+//se le categorie sono vuote allora chiamo la servlet per ottenerle
+if (categorie == null) {
+	//redirect alla servlet come parametro getCategorie per dirgli cosa deve fare
+	response.sendRedirect("CategoriaServlet?action=getRicerca");
+} else {
+	ServletContext context = request.getServletContext();
+	context.setAttribute("categorie", categorie);
 }
 
+//cerco di ottenere tutti gli articoli
+ArrayList<ArticoloBean> articoli = (ArrayList<ArticoloBean>) request.getAttribute("articoli");
 
-ArrayList<ArticoloBean> obj = (ArrayList<ArticoloBean>) request.getAttribute("articoli");
+//reset attributo per le prossime chiamate
 request.setAttribute("articoli", null);
-
-
 %>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,8 +43,34 @@ request.setAttribute("articoli", null);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- script
-    ================================================== -->
-    <script src="js/modernizr.js"></script>
+     ================================================== -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/modernizr.js"></script>
+
+    
+<script>
+$(document).ready(function() {
+	  // Aggiungi un evento di click ai link delle categorie
+	  $('.categoria').click(function(event) {
+	    event.preventDefault(); // Impedisce al browser di seguire il link
+		
+	    // Ottieni l'ID della categoria dal data-id dell'elemento
+	    var idCategoria = $(this).data('id');
+
+	    // Invia la richiesta AJAX al server
+	    $.ajax({
+	      type: 'GET',
+	      url: 'ArticoliServlet',
+	      data: { action: 'getArtCatRicArt', idCat: idCategoria },
+	      success: function(data) {
+	        // Aggiorna il contenuto della sezione dei prodotti
+	        $('#articoliAjax').html(data);
+	      }
+	    });
+	  });
+	});
+</script>
+
   </head>
   <%@ include file="fragments/header.jsp"%>
 
@@ -48,11 +82,10 @@ request.setAttribute("articoli", null);
 
         <form role="search" method="get" class="search-form" action="">
           <input type="search" id="search" name="search" class="search-field" placeholder="Type and press enter" value=""/>
-          <button onclick="search()" type="submit" class="search-submit"><a href="#"><i class="icon icon-search"></i></a></button>
+          <button  type="submit" class="search-submit"><a href="#"><i class="icon icon-search"></i></a></button>
         </form>
         
-        <script>
-</script>
+
 
         <h5 class="cat-list-title">Browse Categories</h5>
         
@@ -105,24 +138,29 @@ request.setAttribute("articoli", null);
           <section id="selling-products" class="col-md-9 product-store">
             <div class="container">
               <ul class="tabs list-unstyled">
-                <li data-tab-target="#all" class="active tab">All</li>
-                <li data-tab-target="#shoes" class="tab">Shoes</li>
-                <li data-tab-target="#tshirts" class="tab">Tshirts</li>
-                <li data-tab-target="#pants" class="tab">Pants</li>
-                <li data-tab-target="#hoodie" class="tab">Hoodie</li>
-                <li data-tab-target="#outer" class="tab">Outer</li>
-                <li data-tab-target="#jackets" class="tab">Jackets</li>
-                <li data-tab-target="#accessories" class="tab">Accessories</li>
+              
+              	<%
+					if (categorie != null) {
+						for (CategoriaBean categoria : categorie) {
+				%>
+
+				<a href="#" class="categoria" data-id="<%=categoria.getId()%>"><li
+					id="<%=categoria.getId()%>" class="tab"><%=categoria.getDescrizione()%></li></a>
+				<%
+					}
+					}
+				%>
+             
               </ul>
               <div class="tab-content">
                 <div id="all" data-tab-content class="active">
-                  <div class="row d-flex flex-wrap">
+                  <div id="articoliAjax" class="row d-flex flex-wrap">
                   
                   
                     <%
 			// Il for crea una variabile del tipo ProdottoBean ed ad ogni iterazione va ad assegnare a quella variabile il contenuto di obj all'i-esima posizione 
-			if (obj != null)
-				for (ArticoloBean var : obj) {
+			if (articoli != null)
+				for (ArticoloBean var : articoli) {
 					
 					
 			%>
@@ -305,8 +343,9 @@ request.setAttribute("articoli", null);
    	<%@ include file="fragments/footer.jsp"%>
 
 	<%@ include file="fragments/miniFooter.jsp"%>
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/script.js"></script>
+  
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/script.js"></script>
   </body>
 </html>
