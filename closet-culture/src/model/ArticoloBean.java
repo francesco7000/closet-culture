@@ -20,6 +20,7 @@ public class ArticoloBean {
 	ArrayList<ColoreBean> listaColori =new ArrayList<ColoreBean>();
 	LineaBean linea;
     MaterialeBean materiale;
+    CategoriaBean categoria;
 	
 	public ArrayList<ColoreBean> getListaColori() {
 		return listaColori;
@@ -27,6 +28,30 @@ public class ArticoloBean {
 
 	public void setListaColori(ArrayList<ColoreBean> listaColori) {
 		this.listaColori = listaColori;
+	}
+
+	public LineaBean getLinea() {
+		return linea;
+	}
+
+	public void setLinea(LineaBean linea) {
+		this.linea = linea;
+	}
+
+	public MaterialeBean getMateriale() {
+		return materiale;
+	}
+
+	public void setMateriale(MaterialeBean materiale) {
+		this.materiale = materiale;
+	}
+
+	public CategoriaBean getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaBean categoria) {
+		this.categoria = categoria;
 	}
 
 	public ArrayList<VariantiBean> getListaVarianti() {

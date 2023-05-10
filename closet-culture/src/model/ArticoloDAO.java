@@ -298,6 +298,10 @@ public class ArticoloDAO {
 		            bean_a.setComposizione(comp);
 		            bean_a.setId(ida);
 		            bean_a.setStagione(st);
+		            
+		            bean_a.setLinea(getLinea(bean_a.getId()));
+		            bean_a.setCategoria(CategoriaDao.getCategoriaArticolo(bean_a.getId()));
+		            bean_a.setMateriale(getMateriale(bean_a.getId()));
 
 		            if (visibile == 1) {
 		                bean_a.setVisibile(true);
@@ -381,26 +385,106 @@ public class ArticoloDAO {
 
 		    return bean_a;
 		}
-	   public static boolean eliminaArticolo(int id) {
+	   
+	   
+	   
+	   
+	   public static MaterialeBean getMateriale(int id) {
+		    PreparedStatement preparedStatement = null;
+		    MaterialeBean bean_m = null;
+
+		    String searchQuery = "SELECT m.id, m.tipo FROM materiale m JOIN articolo a ON m.id = a.materiale_id WHERE a.id = ?";
+
+		    try {
+		        Connection currentCon = DriverManagerConnectionPool.getConnection();
+		        preparedStatement = currentCon.prepareStatement(searchQuery);
+		        preparedStatement.setInt(1, id);
+
+		        ResultSet rs = preparedStatement.executeQuery();
+
+		        if (rs.next()) {
+		            bean_m = new MaterialeBean();
+		            Integer id_m = rs.getInt("id");
+		            String tipo = rs.getString("tipo");
+
+		            bean_m.setId(id_m);
+		            bean_m.setTipo(tipo);
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (preparedStatement != null) {
+		                preparedStatement.close();
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return bean_m;
+		}
+
+		public static LineaBean getLinea(int id) {
+		    PreparedStatement preparedStatement = null;
+		    LineaBean bean_l = null;
+
+		    String searchQuery = "SELECT l.id, l.codice, l.descrizione FROM linea l JOIN articolo a ON l.id = a.linea_id WHERE a.id = ?";
+
+		    try {
+		        Connection currentCon = DriverManagerConnectionPool.getConnection();
+		        preparedStatement = currentCon.prepareStatement(searchQuery);
+		        preparedStatement.setInt(1, id);
+
+		        ResultSet rs = preparedStatement.executeQuery();
+
+		        if (rs.next()) {
+		            bean_l = new LineaBean();
+		            Integer id_l = rs.getInt("id");
+		            String codice = rs.getString("codice");
+		            String descrizione = rs.getString("descrizione");
+
+		            bean_l.setId(id_l);
+		            bean_l.setCodice(codice);
+		            bean_l.setDescrizione(descrizione);
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (preparedStatement != null) {
+		                preparedStatement.close();
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return bean_l;
+		}
+		
+
+
+	public static boolean eliminaArticolo(int id) {
 		    PreparedStatement preparedStatement = null;
 		    String updateQuery = "UPDATE articolo SET visibile = false WHERE id = ?";
 		    int result = 0;
 
 		    try (Connection currentCon = DriverManagerConnectionPool.getConnection()) {
-		        currentCon.setAutoCommit(false); // disattiva l'autocommit
+		        currentCon.setAutoCommit(false); // disattivo l'autocommit
 
 		        preparedStatement = currentCon.prepareStatement(updateQuery);
 		        preparedStatement.setInt(1, id);
 		        result = preparedStatement.executeUpdate();
 
-		        currentCon.commit(); // esegui il commit esplicitamente
+		        currentCon.commit(); // eseguo il commit esplicitamente
 
 		    } catch (SQLException e) {
 		        // Gestione dell'errore
 		        e.printStackTrace();
 		        try {
 		            if (currentCon != null) {
-		                currentCon.rollback(); // esegui il rollback esplicitamente in caso di errore
+		                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
 		            }
 		        } catch (SQLException ex) {
 		            ex.printStackTrace();
@@ -417,7 +501,7 @@ public class ArticoloDAO {
 		        }
 		        try {
 		            if (currentCon != null) {
-		                currentCon.setAutoCommit(true); // riattiva l'autocommit
+		                currentCon.setAutoCommit(true); // riattivo l'autocommit
 		                currentCon.close();
 		            }
 		        } catch (SQLException e) {

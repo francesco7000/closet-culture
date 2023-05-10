@@ -220,7 +220,7 @@ $(document).ready(function() {
 										<div class="col-md-4 col-sm-12">
 											<label for="artCat">Categoria Articolo</label> <select
 												class="u-medium-width bg-light" aria-label="artCat">
-												<option selected="<%=art.getNome()%>" hidden=""><%=art.getNome()%></option>
+												<option selected="<%=art.getCategoria().getId()%>" hidden=""><%=art.getCategoria().getDescrizione()%></option>
 
 												<%
 													if (categorie != null) {

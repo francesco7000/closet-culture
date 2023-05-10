@@ -8,8 +8,7 @@ if ((currentUser == null) || (!currentUser.isValid())) {
 
 }
 
-
-ArrayList<ArticoloBean> obj = (ArrayList<ArticoloBean>) request.getAttribute("articoli");
+//ArrayList<ArticoloBean> obj = (ArrayList<ArticoloBean>) request.getAttribute("articoli");
 request.setAttribute("articoli", null);
 
 
