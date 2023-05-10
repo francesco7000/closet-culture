@@ -1,40 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  import="java.util.*, model.*"%>
 
 <%
-UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
 
-if ((currentUser == null) || (!currentUser.isValid())) {
-	session.setAttribute("guest", true);
+//cerco di ottenere le categorie
+ArrayList<CategoriaBean> categorie = (ArrayList<CategoriaBean>) request.getAttribute("categorie");
 
+//se le categorie sono vuote allora chiamo la servlet per ottenerle
+if (categorie == null) {
+	//redirect alla servlet come parametro getCategorie per dirgli cosa deve fare
+	response.sendRedirect("CategoriaServlet?action=getRicerca");
+} else {
+	ServletContext context = request.getServletContext();
+	context.setAttribute("categorie", categorie);
 }
 
-<<<<<<< HEAD
 //cerco di ottenere tutti gli articoli
 ArrayList<ArticoloBean> articoli = (ArrayList<ArticoloBean>) request.getAttribute("articoli");
 ArrayList<LineaBean> linee = (ArrayList<LineaBean>) request.getAttribute("linee");
 // Recupera la lista di tutti i prodotti
 
-// Controlla se è stata effettuata una ricerca
-String searchQuery = request.getParameter("search");
-if (searchQuery != null && !searchQuery.isEmpty()) {
- // Filtra la lista in base alla query di ricerca
- ArrayList<ArticoloBean> listaProdottiFiltrata = new ArrayList<>();
- for (ArticoloBean prodotto : articoli) {
-   if (prodotto.getNome().toLowerCase().contains(searchQuery.toLowerCase())) {
-     listaProdottiFiltrata.add(prodotto);
-   }
- }
- articoli = listaProdottiFiltrata;
 
-}
 //reset attributo per le prossime chiamate
-=======
-//ArrayList<ArticoloBean> obj = (ArrayList<ArticoloBean>) request.getAttribute("articoli");
->>>>>>> branch 'master' of https://github.com/francesco7000/closet-culture.git
 request.setAttribute("articoli", null);
-
-
 %>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -56,7 +46,6 @@ request.setAttribute("articoli", null);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- script
-<<<<<<< HEAD
      ================================================== -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="js/modernizr.js"></script>
@@ -93,7 +82,8 @@ $(document).ready(function() {
 	  $('.linea').click(function(event) {
 	    event.preventDefault(); // Impedisce al browser di seguire il link
 	    // Ottieni l'ID della categoria dal data-id dell'elemento
-   		 var idlinea = $(this).data('id');
+	    var idlinea =$(this).data("id");
+		alert("cioa");
 	    // Invia la richiesta AJAX al server
 	    $.ajax({
 	      type: 'GET',
@@ -109,10 +99,6 @@ $(document).ready(function() {
 
 </script>
 
-=======
-    ================================================== -->
-    <script src="js/modernizr.js"></script>
->>>>>>> branch 'master' of https://github.com/francesco7000/closet-culture.git
   </head>
   <%@ include file="fragments/header.jsp"%>
 
@@ -122,17 +108,7 @@ $(document).ready(function() {
       <div class="search-popup-container">
 
 
-<<<<<<< HEAD
 
-=======
-        <form role="search" method="get" class="search-form" action="">
-          <input type="search" id="search" name="search" class="search-field" placeholder="Type and press enter" value=""/>
-          <button onclick="search()" type="submit" class="search-submit"><a href="#"><i class="icon icon-search"></i></a></button>
-        </form>
-        
-        <script>
-</script>
->>>>>>> branch 'master' of https://github.com/francesco7000/closet-culture.git
 
         <h5 class="cat-list-title">Browse Categories</h5>
         
@@ -185,31 +161,31 @@ $(document).ready(function() {
           <section id="selling-products" class="col-md-9 product-store">
             <div class="container">
               <ul class="tabs list-unstyled">
-                <li data-tab-target="#all" class="active tab">All</li>
-                <li data-tab-target="#shoes" class="tab">Shoes</li>
-                <li data-tab-target="#tshirts" class="tab">Tshirts</li>
-                <li data-tab-target="#pants" class="tab">Pants</li>
-                <li data-tab-target="#hoodie" class="tab">Hoodie</li>
-                <li data-tab-target="#outer" class="tab">Outer</li>
-                <li data-tab-target="#jackets" class="tab">Jackets</li>
-                <li data-tab-target="#accessories" class="tab">Accessories</li>
+              
+              	<%
+					if (categorie != null) {
+						for (CategoriaBean categoria : categorie) {
+				%>
+
+				<a href="#" class="categoria" data-id="<%=categoria.getId()%>"><li
+					id="<%=categoria.getId()%>" class="tab"><%=categoria.getDescrizione()%></li></a>
+				<%
+					}
+					}
+				%>
+             
               </ul>
               <div class="tab-content">
                 <div id="all" data-tab-content class="active">
-<<<<<<< HEAD
                   <div id="articoliAjax" class="row d-flex flex-wrap">
                
                
 
-=======
-                  <div class="row d-flex flex-wrap">
-                  
->>>>>>> branch 'master' of https://github.com/francesco7000/closet-culture.git
                   
                     <%
 			// Il for crea una variabile del tipo ProdottoBean ed ad ogni iterazione va ad assegnare a quella variabile il contenuto di obj all'i-esima posizione 
-			if (obj != null)
-				for (ArticoloBean var : obj) {
+			if (articoli != null)
+				for (ArticoloBean var : articoli) {
 					
 					
 			%>
@@ -236,7 +212,7 @@ $(document).ready(function() {
                       </div>
                       <div class="product-detail">
                         <h3 class="product-title">
-                          <a href="ArticoliServlet?action=getArticolo&id=<%=var.getId()%>" >  <%=var.getNome()%></a>
+                          <a href="ArticoliServlet?action=getArticolo&id=<%= var.getId() %>" >  <%=var.getNome()%></a>
                         </h3>
                         <div class="item-price text-primary">€<%=var.getPrezzo()%></div>
                       </div>
@@ -280,55 +256,37 @@ $(document).ready(function() {
                     <button class="btn btn-dark"  class="ric"><i   class="ric"class="icon icon-search"></i></button>
                   </form>
                 </div> 
-<<<<<<< HEAD
               </div> --> 
       
-=======
-              </div>
-              <div class="widgets widget-product-tags">
-                <h5 class="widget-title">Tags</h5>
-                <ul class="product-tags sidebar-list list-unstyled">
-                  <li class="tags-item">
-                    <a href="">White</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Cheap</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Branded</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Modern</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Simple</a>
-                  </li>
-                </ul>
-              </div>
->>>>>>> branch 'master' of https://github.com/francesco7000/closet-culture.git
               <div class="widgets widget-product-brands">
-                <h5 class="widget-title">Brands</h5>
+                <h5 class="widget-title">Linee</h5>
                 <ul class="product-tags sidebar-list list-unstyled">
-                  <li class="tags-item">
-<<<<<<< HEAD
-                    <a  class="linea"  data-id="<%=linea.getId()%>"><li
-					id="<%=linea.getId()%>"  href="#"><%=linea.getDescrizione()%></a>
-=======
-                    <a href="">Nike</a>
->>>>>>> branch 'master' of https://github.com/francesco7000/closet-culture.git
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Adidas</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Puma</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Spike</a>
-                  </li>
+                
+                     
+                    <%
+			// Il for crea una variabile del tipo ProdottoBean ed ad ogni iterazione va ad assegnare a quella variabile il contenuto di obj all'i-esima posizione 
+			if (linee != null)
+				for (LineaBean linea : linee) {
+					
+					
+			%>
+                  
+                
+                 
+				<a href="#" class="linea" data-id="<%=linea.getId()%>"><li
+					id="<%=linea.getId()%>" class="tags-item"><%=linea.getDescrizione()%></li></a>
+				
+                  
+                                   
+        <%
+					
+				}
+			%>
+                    
+                 
                 </ul>
               </div>
-              <div class="widgets widget-price-filter">
+            <!-- <div class="widgets widget-price-filter">
                 <h5 class="widget-title">Filter By Price</h5>
                 <ul class="product-tags sidebar-list list-unstyled">
                   <li class="tags-item">
@@ -347,7 +305,7 @@ $(document).ready(function() {
                     <a href="">$40- $50</a>
                   </li>
                 </ul>
-              </div>
+              </div>-->
             </div>
           </aside>
           
@@ -402,8 +360,9 @@ $(document).ready(function() {
    	<%@ include file="fragments/footer.jsp"%>
 
 	<%@ include file="fragments/miniFooter.jsp"%>
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/script.js"></script>
+  
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/script.js"></script>
   </body>
 </html>
