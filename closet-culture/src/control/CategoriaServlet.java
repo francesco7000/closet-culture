@@ -74,7 +74,7 @@ public class CategoriaServlet extends HttpServlet {
 
 				request.setAttribute("categorie", categorie);
 			    
-			    RequestDispatcher dispatcher = request.getRequestDispatcher("ArticoliServlet?action=getRicercaArticoli");
+			    RequestDispatcher dispatcher = request.getRequestDispatcher("CaratteristicheServlet?action=getLineeRicerca");
 			    dispatcher.forward(request, response);
 			
 			}

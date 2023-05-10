@@ -16,6 +16,7 @@ if (categorie == null) {
 
 //cerco di ottenere tutti gli articoli
 ArrayList<ArticoloBean> articoli = (ArrayList<ArticoloBean>) request.getAttribute("articoli");
+ArrayList<LineaBean> linee = (ArrayList<LineaBean>) request.getAttribute("linee");
 
 //reset attributo per le prossime chiamate
 request.setAttribute("articoli", null);
@@ -155,7 +156,21 @@ $(document).ready(function() {
               <div class="tab-content">
                 <div id="all" data-tab-content class="active">
                   <div id="articoliAjax" class="row d-flex flex-wrap">
-                  
+               
+               
+               
+               <%
+			  String searchQuery = request.getParameter("search");
+  			if (searchQuery != null) {
+ 			  ArrayList<ArticoloBean> searchResults = new ArrayList<>();
+    for (ArticoloBean var : articoli) {
+      if (var.getNome().toLowerCase().contains(searchQuery.toLowerCase())) {
+        searchResults.add(var);
+      }
+    }
+    articoli = searchResults;
+  }
+%>   
                   
                     <%
 			// Il for crea una variabile del tipo ProdottoBean ed ad ogni iterazione va ad assegnare a quella variabile il contenuto di obj all'i-esima posizione 
@@ -232,7 +247,7 @@ $(document).ready(function() {
                   </form>
                 </div> 
               </div>
-              <div class="widgets widget-product-tags">
+           <!--    <div class="widgets widget-product-tags">
                 <h5 class="widget-title">Tags</h5>
                 <ul class="product-tags sidebar-list list-unstyled">
                   <li class="tags-item">
@@ -251,25 +266,35 @@ $(document).ready(function() {
                     <a href="">Simple</a>
                   </li>
                 </ul>
-              </div>
+              </div> -->
               <div class="widgets widget-product-brands">
-                <h5 class="widget-title">Brands</h5>
+                <h5 class="widget-title">Linee</h5>
                 <ul class="product-tags sidebar-list list-unstyled">
+                
+                     
+                    <%
+			// Il for crea una variabile del tipo ProdottoBean ed ad ogni iterazione va ad assegnare a quella variabile il contenuto di obj all'i-esima posizione 
+			if (linee != null)
+				for (LineaBean linea : linee) {
+					
+					
+			%>
+                  
+                
                   <li class="tags-item">
-                    <a href="">Nike</a>
+                    <a href=""><%=linea.getDescrizione()%></a>
                   </li>
-                  <li class="tags-item">
-                    <a href="">Adidas</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Puma</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Spike</a>
-                  </li>
+                  
+                                   
+        <%
+					
+				}
+			%>
+                    
+                 
                 </ul>
               </div>
-              <div class="widgets widget-price-filter">
+            <!-- <div class="widgets widget-price-filter">
                 <h5 class="widget-title">Filter By Price</h5>
                 <ul class="product-tags sidebar-list list-unstyled">
                   <li class="tags-item">
@@ -288,7 +313,7 @@ $(document).ready(function() {
                     <a href="">$40- $50</a>
                   </li>
                 </ul>
-              </div>
+              </div>-->
             </div>
           </aside>
           
