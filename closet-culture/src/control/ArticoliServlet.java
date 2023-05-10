@@ -128,6 +128,7 @@ public class ArticoliServlet extends HttpServlet {
 					System.out.println(action.equalsIgnoreCase("getQt"));
 					System.out.println(request.getParameter("idt")+request.getParameter("idart")+request.getParameter("idcolore"));
 					
+
 				}else if (action.equalsIgnoreCase("getRicercaArticoli")) {
 
 					ArrayList<ArticoloBean> articoli = new ArrayList<ArticoloBean>();
@@ -210,13 +211,10 @@ public class ArticoliServlet extends HttpServlet {
 						}
 						
 						out.close();
-				}
-					
+				}					
 				}
 				
 				
-					
-					
 			}
 		
 		}

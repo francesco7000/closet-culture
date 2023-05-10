@@ -14,6 +14,8 @@ import model.CategoriaBean;
 import model.CategoriaDao;
 import model.LineaBean;
 import model.LineaDao;
+import model.MaterialeBean;
+import model.MaterialeDao;
 
 /**
  * Servlet implementation class CaratteristicheServlet
@@ -38,6 +40,7 @@ public class CaratteristicheServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		if(action != null) {
 			LineaDao linDao = new LineaDao();
+			MaterialeDao matDao = new MaterialeDao();
 			if(action.equalsIgnoreCase("getLineeRicerca")) {
 				
 				ArrayList<LineaBean> linee = new ArrayList<LineaBean>();
@@ -49,8 +52,32 @@ public class CaratteristicheServlet extends HttpServlet {
 			    RequestDispatcher dispatcher = request.getRequestDispatcher("ArticoliServlet?action=getRicercaArticoli");
 			    dispatcher.forward(request, response);
 			
-				
 			}
+			else if(action.equalsIgnoreCase("getAllAdmin")) {
+				
+				ArrayList<LineaBean> linee = new ArrayList<LineaBean>();
+				
+				linee = linDao.doRetrieveAll();
+
+				request.setAttribute("linee", linee);
+				
+				
+				ArrayList<MaterialeBean> materiali = new ArrayList<MaterialeBean>();
+				
+				materiali = matDao.doRetrieveAll();
+
+				request.setAttribute("materiali", materiali);
+				
+				
+			    RequestDispatcher dispatcher = request.getRequestDispatcher("/dettaglio_articoloAdmin.jsp");
+			    dispatcher.forward(request, response);
+			    
+			    
+			    
+			}
+			
+			
+			
 	}
 }
 	/**

@@ -67,16 +67,6 @@ public class CategoriaServlet extends HttpServlet {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("ArticoliServlet?action=getArtCat&idCat="+request.getParameter("idCat"));
 				    dispatcher.forward(request, response);
 					
-			}else if (action.equalsIgnoreCase("getRicerca")){
-				ArrayList<CategoriaBean> categorie = new ArrayList<CategoriaBean>();
-				
-				categorie = catDao.doRetrieveAll();
-
-				request.setAttribute("categorie", categorie);
-			    
-			    RequestDispatcher dispatcher = request.getRequestDispatcher("CaratteristicheServlet?action=getLineeRicerca");
-			    dispatcher.forward(request, response);
-			
 			}
 		}
 		

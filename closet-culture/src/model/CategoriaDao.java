@@ -45,5 +45,43 @@ public class CategoriaDao {
 		
 		return categorie;
 	}
+	
+	
+	public static CategoriaBean getCategoriaArticolo(int id) {
+	    PreparedStatement preparedStatement = null;
+	    CategoriaBean bean_c = null;
+
+	    String searchQuery = "SELECT c.id, c.descrizione FROM categoria_articolo c JOIN articolo a ON c.id = a.id_categoria_articolo WHERE a.id = ?";
+
+	    try {
+	        Connection currentCon = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = currentCon.prepareStatement(searchQuery);
+	        preparedStatement.setInt(1, id);
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        if (rs.next()) {
+	            bean_c = new CategoriaBean();
+	            Integer id_c = rs.getInt("id");
+	            String descrizione = rs.getString("descrizione");
+
+	            bean_c.setId(id_c);
+	            bean_c.setDescrizione(descrizione);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return bean_c;
+	}
+	
  
 }
