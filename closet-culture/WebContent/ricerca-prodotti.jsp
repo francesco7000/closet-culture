@@ -17,7 +17,21 @@ if (categorie == null) {
 //cerco di ottenere tutti gli articoli
 ArrayList<ArticoloBean> articoli = (ArrayList<ArticoloBean>) request.getAttribute("articoli");
 ArrayList<LineaBean> linee = (ArrayList<LineaBean>) request.getAttribute("linee");
+// Recupera la lista di tutti i prodotti
 
+// Controlla se è stata effettuata una ricerca
+String searchQuery = request.getParameter("search");
+if (searchQuery != null && !searchQuery.isEmpty()) {
+ // Filtra la lista in base alla query di ricerca
+ ArrayList<ArticoloBean> listaProdottiFiltrata = new ArrayList<>();
+ for (ArticoloBean prodotto : articoli) {
+   if (prodotto.getNome().toLowerCase().contains(searchQuery.toLowerCase())) {
+     listaProdottiFiltrata.add(prodotto);
+   }
+ }
+ articoli = listaProdottiFiltrata;
+
+}
 //reset attributo per le prossime chiamate
 request.setAttribute("articoli", null);
 %>
@@ -72,6 +86,30 @@ $(document).ready(function() {
 	});
 </script>
 
+
+<script>
+
+$(document).ready(function() {
+	  // Aggiungi un evento di click ai link delle categorie
+	  $('.linea').click(function(event) {
+	    event.preventDefault(); // Impedisce al browser di seguire il link
+	    // Ottieni l'ID della categoria dal data-id dell'elemento
+   		 var idlinea = $(this).data('id');
+	    // Invia la richiesta AJAX al server
+	    $.ajax({
+	      type: 'GET',
+	      url: 'ArticoliServlet',
+	      data: { action: 'getArtLineaRicArt', idlin: idlinea },
+	      success: function(data) {
+	        // Aggiorna il contenuto della sezione dei prodotti
+	        $('#articoliAjax').html(data);
+	      }
+	    });
+	  });
+	});
+
+</script>
+
   </head>
   <%@ include file="fragments/header.jsp"%>
 
@@ -81,11 +119,6 @@ $(document).ready(function() {
       <div class="search-popup-container">
 
 
-        <form role="search" method="get" class="search-form" action="">
-          <input type="search" id="search" name="search" class="search-field" placeholder="Type and press enter" value=""/>
-          <button  type="submit" class="search-submit"><a href="#"><i class="icon icon-search"></i></a></button>
-        </form>
-        
 
 
         <h5 class="cat-list-title">Browse Categories</h5>
@@ -158,19 +191,7 @@ $(document).ready(function() {
                   <div id="articoliAjax" class="row d-flex flex-wrap">
                
                
-               
-               <%
-			  String searchQuery = request.getParameter("search");
-  			if (searchQuery != null) {
- 			  ArrayList<ArticoloBean> searchResults = new ArrayList<>();
-    for (ArticoloBean var : articoli) {
-      if (var.getNome().toLowerCase().contains(searchQuery.toLowerCase())) {
-        searchResults.add(var);
-      }
-    }
-    articoli = searchResults;
-  }
-%>   
+
                   
                     <%
 			// Il for crea una variabile del tipo ProdottoBean ed ad ogni iterazione va ad assegnare a quella variabile il contenuto di obj all'i-esima posizione 
@@ -202,9 +223,9 @@ $(document).ready(function() {
                       </div>
                       <div class="product-detail">
                         <h3 class="product-title">
-                          <a href="single-product.html">  <%=var.getNome()%></a>
+                          <a href="ArticoliServlet?action=getArticolo&id=<%=var.getId()%>" >  <%=var.getNome()%></a>
                         </h3>
-                        <div class="item-price text-primary"><%=var.getPrezzo()%></div>
+                        <div class="item-price text-primary">€<%=var.getPrezzo()%></div>
                       </div>
                     </div>
                     
@@ -239,34 +260,15 @@ $(document).ready(function() {
 
           <aside class="col-md-3">
             <div class="sidebar">
-              <div class="widgets widget-menu">
+            <!--  <div class="widgets widget-menu">
                 <div class="widget-search-bar">
                   <form role="search" method="get" class="d-flex">
                     <input class="search-field" placeholder="Search" type="text">
-                    <button class="btn btn-dark"><i class="icon icon-search"></i></button>
+                    <button class="btn btn-dark"  class="ric"><i   class="ric"class="icon icon-search"></i></button>
                   </form>
                 </div> 
-              </div>
-           <!--    <div class="widgets widget-product-tags">
-                <h5 class="widget-title">Tags</h5>
-                <ul class="product-tags sidebar-list list-unstyled">
-                  <li class="tags-item">
-                    <a href="">White</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Cheap</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Branded</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Modern</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">Simple</a>
-                  </li>
-                </ul>
-              </div> -->
+              </div> --> 
+      
               <div class="widgets widget-product-brands">
                 <h5 class="widget-title">Linee</h5>
                 <ul class="product-tags sidebar-list list-unstyled">
@@ -282,7 +284,8 @@ $(document).ready(function() {
                   
                 
                   <li class="tags-item">
-                    <a href=""><%=linea.getDescrizione()%></a>
+                    <a  class="linea"  data-id="<%=linea.getId()%>"><li
+					id="<%=linea.getId()%>"  href="#"><%=linea.getDescrizione()%></a>
                   </li>
                   
                                    

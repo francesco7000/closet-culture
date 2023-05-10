@@ -173,7 +173,48 @@ public class ArticoliServlet extends HttpServlet {
 					}
 					
 					out.close();
+				}else {
+					if (action.equalsIgnoreCase("getArtLineaRicArt")) {
+						
+						
+
+						ArrayList<ArticoloBean> articoli = new ArrayList<ArticoloBean>();
+
+						articoli = ArticoloDAO.ricerca_per_linea(request.getParameter("idlin"));
+
+						request.setAttribute("articoli", articoli);
+
+						PrintWriter out = response.getWriter();
+						
+						for (ArticoloBean articolo : articoli) {
+							
+							out.print("<div class=\"product-item col-lg-4 col-md-6 col-sm-6\">\n" + 
+									"  <div class=\"image-holder\">\n" + 
+									"    <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
+									"  </div>\n" + 
+									"  <div class=\"cart-concern\">\n" + 
+									"    <div class=\"cart-button d-flex justify-content-between align-items-center\">\n" + 
+									"      <button type=\"button\" class=\"btn-wrap cart-link d-flex align-items-center\">\n" + 
+									"        Aggiungi al Carrello <i class=\"icon icon-arrow-io\"></i>\n" + 
+									"      </button>\n" + 
+									"    </div>\n" + 
+									"  </div>\n" + 
+									"  <div class=\"product-detail\">\n" + 
+									"    <h3 class=\"product-title\">\n" + 
+									"      <a href=\"dettaglio_articolo.jsp?id="+ articolo.getId() + "\">" + articolo.getNome() +"</a>\n" + 
+									"    </h3>\n" + 
+									"    <div class=\"item-price text-primary\">€"+ articolo.getPrezzo() + "</div>\n" + 
+									"  </div>\n" + 
+									"</div>");
+							
+						}
+						
+						out.close();
 				}
+					
+				}
+				
+				
 					
 					
 			}
