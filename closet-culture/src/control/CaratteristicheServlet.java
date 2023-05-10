@@ -49,7 +49,7 @@ public class CaratteristicheServlet extends HttpServlet {
 
 				request.setAttribute("linee", linee);
 			    
-			    RequestDispatcher dispatcher = request.getRequestDispatcher("ArticoliServlet?action=getRicercaArticoli");
+			    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("ArticoliServlet?action=getRicercaArticoli");
 			    dispatcher.forward(request, response);
 			
 			}

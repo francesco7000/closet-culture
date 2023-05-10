@@ -21,6 +21,21 @@
 		//reset attributo per le prossime chiamate
 		request.setAttribute("categorie", null);
 	}
+
+	ArrayList<LineaBean> linee = (ArrayList<LineaBean>) request.getAttribute("linee");
+
+	ArrayList<MaterialeBean> materiali = (ArrayList<MaterialeBean>) request.getAttribute("materiali");
+
+	if (linee == null || materiali == null) {
+		response.sendRedirect("errorPage.jsp");
+
+	} else {
+		//reset linee
+		request.setAttribute("linee", null);
+
+		//reset materiali
+		request.setAttribute("materiali", null);
+	}
 %>
 
 
@@ -54,27 +69,27 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-$(document).ready(function() {
-	  // Aggiungi un evento di click ai link delle categorie
-	  $('.elimina').click(function(event) {
-	    event.preventDefault(); // Impedisce al browser di seguire il link
+	$(document).ready(function() {
+		// Aggiungi un evento di click ai link delle categorie
+		$('#elimina').click(function(event) {
+			event.preventDefault(); // Impedisce al browser di seguire il link
 
-	    // Ottieni l'ID della categoria dal data-id dell'elemento
-	    var idArt = $(this).data('id');
-	    
-	    // Invia la richiesta AJAX al server
-	    $.ajax({
-	      type: 'GET',
-	      url: 'AdminServlet?action=delArticolo&idArt=' + idArt,
-	      success: function(data) {
-	    	  window.location.href = "home.jsp";
-	        
-	      },
-	      error: function(jqXHR, textStatus, errorThrown) {
-	    	  window.location.href = "errorPage.jsp";
-	      }
-	    });
-	  });
+			// Ottieni l'ID della categoria dal data-id dell'elemento
+			var idArt = $(this).data('id');
+
+			// Invia la richiesta AJAX al server
+			$.ajax({
+				type : 'GET',
+				url : 'AdminServlet?action=delArticolo&idArt=' + idArt,
+				success : function(data) {
+					window.location.href = "home.jsp";
+
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					window.location.href = "errorPage.jsp";
+				}
+			});
+		});
 	});
 </script>
 
@@ -85,7 +100,7 @@ $(document).ready(function() {
 <%@ include file="fragments/header.jsp"%>
 <body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<section class="site-banner padding-small bg-light-grey">
 		<div class="container">
@@ -144,8 +159,8 @@ $(document).ready(function() {
 
 									<div class="form-group">
 										<label for="artActive">Articolo Attivo &nbsp; <input
-											type="checkbox" name="artActive"
-											<%=art.getVisibile() ? "checked" : ""%> required>
+											type="checkbox" name="artActive" value="true"
+											<%=art.getVisibile() ? "checked" : ""%>>
 										</label>
 									</div>
 
@@ -168,7 +183,7 @@ $(document).ready(function() {
 										<div class="col-md-4 col-sm-12">
 
 											<div class="form-group">
-												<label for="artStag">Quantità Articolo</label> <input
+												<label for="artQta">Quantità Articolo</label> <input
 													type="number" class="u-small-width bg-light mx-2" disabled
 													value="<%=art.getQuantita()%>">
 											</div>
@@ -216,61 +231,104 @@ $(document).ready(function() {
 										</div>
 									</div>
 
+									<div class="action-buttons">
+
+										<button name="add" id="elimina" data-id="<%=art.getId()%>"
+											class="btn btn-medium btn-dark">
+											<span id="add-to-cart">Elimina</span>
+										</button>
+
+
+										<button type="submit" name="action" id="add-to-cart"
+											class="btn btn-medium btn-dark" value="modifica">
+											<span id="add-to-cart">Salva Modifiche</span>
+										</button>
+
+
+										<button type="submit" name="add" id="add-to-cart"
+											class="btn btn-medium btn-dark">
+											<span id="add-to-cart">Nuovo Articolo</span>
+										</button>
+
+									</div>
+
 									<div class="row">
 										<div class="col-md-4 col-sm-12">
 											<label for="artCat">Categoria Articolo</label> <select
-												class="u-medium-width bg-light" aria-label="artCat">
-												<option selected="<%=art.getCategoria().getId()%>" hidden=""><%=art.getCategoria().getDescrizione()%></option>
+												class="u-medium-width bg-light" name="artCat">
+												<%
+													if (art.getCategoria() == null) {
+												%>
+												<option value="" selected></option>
+												<%
+													}
+												%>
 
 												<%
 													if (categorie != null) {
 														for (CategoriaBean categoria : categorie) {
 												%>
-
-												<option value="<%=categoria.getId()%>">
-													<%=categoria.getDescrizione()%></option>
+												<option value="<%=categoria.getId()%>"
+													<%=art.getCategoria() != null && art.getCategoria().getId() == categoria.getId() ? "selected"
+							: ""%>><%=categoria.getDescrizione()%></option>
 												<%
 													}
 													}
 												%>
 											</select>
 										</div>
+
 										<div class="col-md-4 col-sm-12">
 											<label for="artLin">Linea Articolo</label> <select
-												class="u-medium-width bg-light" aria-label="artCat">
-												<option selected="" hidden=""><%=art.getNome()%></option>
-												<option value="1">New York</option>
-												<option value="2">Chicago</option>
-												<option value="3">Texas</option>
-												<option value="3">San Jose</option>
-												<option value="3">Houston</option>
+												class="u-medium-width bg-light" name="artLin">
+												<%
+													if (art.getLinea() == null) {
+												%>
+												<option value="" selected></option>
+												<%
+													}
+												%>
+
+												<%
+													if (linee != null) {
+														for (LineaBean linea : linee) {
+												%>
+												<option value="<%=linea.getId()%>"
+													<%=art.getLinea() != null && art.getLinea().getId() == linea.getId() ? "selected" : ""%>><%=linea.getDescrizione()%></option>
+												<%
+													}
+													}
+												%>
 											</select>
 										</div>
+
 										<div class="col-md-4 col-sm-12">
 											<label for="artMat">Materiale Articolo</label> <select
-												class="u-medium-width bg-light" aria-label="artCat">
-												<option selected="" hidden=""><%=art.getNome()%></option>
-												<option value="1">New York</option>
-												<option value="2">Chicago</option>
-												<option value="3">Texas</option>
-												<option value="3">San Jose</option>
-												<option value="3">Houston</option>
+												class="u-medium-width bg-light" name="artMat">
+												<%
+													if (art.getMateriale() == null) {
+												%>
+												<option value="" selected></option>
+												<%
+													}
+												%>
+
+												<%
+													if (materiali != null) {
+														for (MaterialeBean materiale : materiali) {
+												%>
+												<option value="<%=materiale.getId()%>"
+													<%=art.getMateriale() != null && art.getMateriale().getId() == materiale.getId() ? "selected"
+							: ""%>><%=materiale.getTipo()%></option>
+												<%
+													}
+													}
+												%>
 											</select>
 										</div>
 									</div>
 
-									<div class="action-buttons">
-									<a href="#" class="elimina" data-id="<%=art.getId()%>">
-									<li id="<%=art.getId()%>" class="btn btn-medium btn-dark">Elimina</li></a>
-									
-										<button type="submit" name="add" id="add-to-cart" class="btn btn-medium btn-dark">
-											<span id="add-to-cart">Salva Modifiche</span>
-										</button>
-											<button type="submit" name="add" id="add-to-cart"
-											class="btn btn-medium btn-dark">
-											<span id="add-to-cart">Nuovo Articolo</span>
-										</button>
-									</div>
+
 								</form>
 							</div>
 						</div>
