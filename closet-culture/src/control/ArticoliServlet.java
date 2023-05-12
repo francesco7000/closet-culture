@@ -117,7 +117,10 @@ public class ArticoliServlet extends HttpServlet {
 				
 				for (TagliaBean taglia : taglie) {
 
-					out.print("<a href=\"#\" data-idart=\"" + idArticolo + "\" data-idcol=\"" + idColore + "\" class=\"taglia\" data-val=\"" + taglia.getId() + "\" data-id=\"" + taglia.getId() + "\"><li id=\"" + taglia.getId() + "\" class=\"select-item\">" + taglia.getNome() + "</li></a>");
+					/*out.print("<a href=\"#\" data-idart=\"" + idArticolo + "\" data-idcol=\"" + idColore + "\" class=\"taglia\" data-val=\"" + taglia.getId() + "\" data-id=\"" + taglia.getId() + "\"><li id=\"" + taglia.getId() + "\" class=\"select-item\">" + taglia.getNome() + "</li></a>");*/
+					out.print("<li data-value=\"" + taglia.getNome() + "\" class=\"select-item\">");
+					out.print("<a href=\"#\" data-idart=\"" + idArticolo + "\" data-idcol=\"" + idColore + "\" class=\"taglia\" data-val=\"" + taglia.getId() + "\" data-id=\"" + taglia.getId() + "\">" + taglia.getNome() + "</a>");
+					out.print("</li>");
 				}
 				
 				
@@ -125,9 +128,13 @@ public class ArticoliServlet extends HttpServlet {
 				
 			}else {
 				if(action.equalsIgnoreCase("getQt")) {
-					System.out.println(action.equalsIgnoreCase("getQt"));
-					System.out.println(request.getParameter("idt")+request.getParameter("idart")+request.getParameter("idcolore"));
-					
+					Float qta=ArticoloDAO.getQta(request.getParameter("idcolore"),request.getParameter("idart"),request.getParameter("idt"));
+					System.out.println(qta);
+
+					PrintWriter out = response.getWriter();
+
+					out.print("<input type=\"text\" id=\"quantity\" name=\"quantity\" class=\"spin-number-output\" value=\"1\" min=\"1\" max=\""+qta+"\">");
+				
 
 				}else if (action.equalsIgnoreCase("getRicercaArticoli")) {
 

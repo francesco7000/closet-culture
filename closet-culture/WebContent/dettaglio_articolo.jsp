@@ -18,7 +18,7 @@ ArticoloBean articolo = (ArticoloBean) request.getAttribute("articolo");
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Ultras - Clothing Store eCommerce Store HTML Website Template</title>
+    <title>Closet Culture</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,8 +76,7 @@ $(document).ready(function() {
 	    var idArticolo = $(this).attr('data-idart');
 	    var idcol =  $(this).attr('data-idcol');
 	    // Invia la richiesta AJAX al server
-	    alert('ID articolo:', idArticolo);
-	    alert('ID taglia:', idcol);
+
 
 	    $.ajax({
 	      type: 'GET',
@@ -91,6 +90,28 @@ $(document).ready(function() {
 	  });
 	});
 </script>
+
+
+    <script >
+      var initIncrementDecrement = function() {
+        const decrementButton = document.querySelector('.decrement-button');
+        const incrementButton = document.querySelector('.increment-button');
+        const quantityInput = document.querySelector('#quantity');
+
+        decrementButton.addEventListener('click', () => {
+          if (quantityInput.value > 1) {
+            quantityInput.value--;
+          }
+        });
+
+        incrementButton.addEventListener('click', () => {
+          if (quantityInput.value < 100) {
+            quantityInput.value++;
+          }
+        });
+      }
+      initIncrementDecrement();
+    </script>
   </head>
   <%@ include file="fragments/header.jsp"%>
   <body>
@@ -237,7 +258,10 @@ $(document).ready(function() {
                       <div class="qty-field d-flex">
                         <div class="qty-number d-flex justify-content-start align-items-center">
                             <button class="decrement-button">-</button>
-                              <input id="qtAjax" type="text" id="quantity" name="quantity" class="spin-number-output" value="1" min="1" max="100">
+                            <div id="qtAjax">
+                              <input type="text" id="quantity" name="quantity" class="spin-number-output" value="1" min="1" max="100">
+                            
+                            </div>
                             <button class="increment-button">+</button>
                         </div>
                       </div>
@@ -416,26 +440,6 @@ In tutto questo processo, la qualità e l'attenzione ai dettagli sono fondamenta
 
   
 
-    <script type="text/javascript">
-      var initIncrementDecrement = function() {
-        const decrementButton = document.querySelector('.decrement-button');
-        const incrementButton = document.querySelector('.increment-button');
-        const quantityInput = document.querySelector('#quantity');
-
-        decrementButton.addEventListener('click', () => {
-          if (quantityInput.value > 1) {
-            quantityInput.value--;
-          }
-        });
-
-        incrementButton.addEventListener('click', () => {
-          if (quantityInput.value < 100) {
-            quantityInput.value++;
-          }
-        });
-      }
-      initIncrementDecrement();
-    </script>
 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/plugins.js"></script>

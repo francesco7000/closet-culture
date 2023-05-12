@@ -659,6 +659,85 @@ public class ArticoloDAO {
 
 	    return result > 0;
 	}
+	
+	
+	
+
+	   public static Float getQta(String id_coloren,String id_articolon,String id_tagliat) {
+		   var idcolore=Integer.parseInt(id_coloren);
+		   var id_articolo=Integer.parseInt(id_articolon);
+		   var id_taglia=Integer.parseInt(id_tagliat);
+		   Float qta = null;
+
+		   PreparedStatement preparedStatement = null;
+		    String searchQuery =
+		              "select v.quantita from variante_articolo v join taglia t on v.id_taglia=t.id ";
+	       if (idcolore>0 && id_articolo>0 && id_taglia>0) searchQuery += " AND v.id_colore=? and v.id_articolo=?  and v.id_taglia=? group by v.id";
+	       
+	       
+	       try 
+		      {
+		         //connect to DB 
+		         Connection currentCon = DriverManagerConnectionPool.getConnection();
+		        
+		         preparedStatement=currentCon.prepareStatement(searchQuery);
+		         int index = 1;
+		            if (idcolore>0 && id_articolo>0 && id_taglia>0) {
+		            	preparedStatement.setInt(index, idcolore);	
+		            	++index;
+		            	preparedStatement.setInt(index, id_articolo);	
+		            	++index;
+		            	preparedStatement.setInt(index, id_taglia);
+
+		            }
+		         rs = preparedStatement.executeQuery();	        
+		         //boolean more = rs.next();
+		         while (rs.next()) {
+
+		      
+		        	 qta= rs.getFloat("quantita");
+		     
+		       
+		      } 
+		      }
+
+		      catch (Exception ex) 
+		      {
+		         System.out.println("Errore Ricerca TAGLIA " + ex);
+		      } 
+		   	    
+		      //some exception handling
+		      finally 
+		      {
+		         if (rs != null)	{
+		            try {
+		               rs.close();
+		            } catch (Exception e) {}
+		               rs = null;
+		            }
+		   	
+		         if (preparedStatement != null) {
+		            try {
+		           	 preparedStatement.close();
+		            } catch (Exception e) {}
+		            preparedStatement = null;
+		            }
+		   	
+		         if (currentCon != null) {
+		            try {
+		               currentCon.close();
+		            } catch (Exception e) {
+		            }
+
+		            currentCon = null;
+		         }
+		      }
+
+		   return qta;
+
+	   }
+	   
+	
 
 	   
 
