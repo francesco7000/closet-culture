@@ -38,14 +38,14 @@ public class AdminServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getParameter("action");
-		
+
 		response.setContentType("text/html;charset=UTF-8");
 
 		HttpSession session = request.getSession(false);
 		UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
 
 		if (action != null) {
-			
+
 			switch (action) {
 
 			case "utente":
@@ -71,102 +71,80 @@ public class AdminServlet extends HttpServlet {
 
 					request.setAttribute("articolo", articolo);
 
-					RequestDispatcher dispatcher = request.getRequestDispatcher("CaratteristicheServlet?action=getAllAdmin");
+					RequestDispatcher dispatcher = request
+							.getRequestDispatcher("CaratteristicheServlet?action=getAllAdmin");
 					dispatcher.forward(request, response);
 				} else {
 					response.sendRedirect("errorPage.jsp");
 				}
 
 			}
-			break;
-			
+				break;
+
 			case "delArticolo": {
 				int id = Integer.parseUnsignedInt(request.getParameter("idArt"));
 				Boolean deleted = false;
-				
+
 				try {
 					deleted = ArticoloDAO.eliminaArticolo(id);
-					 System.out.println(deleted);
-				}
-				catch(Exception e) {
+					System.out.println(deleted);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-			
 
 				if (deleted == true) {
-					
+
 					System.out.println("aaaaaa");
-					
+
 					PrintWriter out = response.getWriter();
-					
+
 					out.print("articolo eliminato");
-					
-				}
-				else {
+
+				} else {
 					response.sendRedirect("errorPage.jsp");
 				}
 
 			}
-			break;
-			
+				break;
+
 			case "modifica": {
-				
 
-		        boolean artActive = Boolean.parseBoolean(request.getParameter("artActive"));
+				int id = Integer.parseInt(request.getParameter("idArt"));
+				boolean artActive = Boolean.parseBoolean(request.getParameter("artActive"));
 				String artCod = request.getParameter("artCod");
-		        String artBarCod = request.getParameter("artBarCod");
-		        String artNome = request.getParameter("artNome");
-		        String artDescr = request.getParameter("artDescr");
-		        double artPrz = Double.parseDouble(request.getParameter("artPrz"));
-		        int artSconto = Integer.parseInt(request.getParameter("artSconto"));
-		        String artStag = request.getParameter("artStag");
-		        String artCat = request.getParameter("artCat");
-		        String artLin = request.getParameter("artLin");
-		        String artMat = request.getParameter("artMat");
-		        
-		        
+				String artBarCod = request.getParameter("artBarCod");
+				String artNome = request.getParameter("artNome");
+				String artDescr = request.getParameter("artDescr");
+				double artPrz = Double.parseDouble(request.getParameter("artPrz"));
+				int artSconto = Integer.parseInt(request.getParameter("artSconto"));
+				String artStag = request.getParameter("artStag");
+				int artCat = Integer.parseInt(request.getParameter("artCat"));
+				int artLin = Integer.parseInt(request.getParameter("artLin"));
+				int artMat = Integer.parseInt(request.getParameter("artMat"));
+				
+				Boolean result = false;
+				
 
-				
-		        
-				
 				try {
-					//to do
-				}
-				catch(Exception e) {
+					result = ArticoloDAO.modificaArticolo(id, artActive, artCod, artBarCod, artNome, artDescr, artPrz, artSconto, artStag, artCat, artLin, artMat);
+
+					if(result) {
+						response.sendRedirect("home.jsp");
+					} else {
+						response.sendRedirect("errorPage.jsp");
+					}
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-			
 
-				if (true) {
-					
-					 System.out.println("artActive: " + artActive);
-				        System.out.println("artCod: " + artCod);
-				        System.out.println("artBarCod: " + artBarCod);
-				        System.out.println("artNome: " + artNome);
-				        System.out.println("artDescr: " + artDescr);
-				        System.out.println("artPrz: " + artPrz);
-				        System.out.println("artSconto: " + artSconto);
-				        System.out.println("artStag: " + artStag);
-				        System.out.println("artCat: " + artCat);
-				        System.out.println("artLin: " + artLin);
-				        System.out.println("artMat: " + artMat);
-
-					
-				}
-				else {
-					response.sendRedirect("errorPage.jsp");
-				}
 
 			}
-			break;
-			
+				break;
+
 			}
 
 		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

@@ -2,15 +2,9 @@
 	pageEncoding="UTF-8" import="java.util.*, model.*"%>
 
 <%
-	ArticoloBean art = (ArticoloBean) request.getAttribute("articolo");
+	ArticoloBean art = new ArticoloBean();
 
-	if (art == null) {
-		request.setAttribute("errorMessage", "Articolo non trovato!");
-		response.sendRedirect("errorPage.jsp");
-	} else {
-		//reset articolo
-		request.setAttribute("articolo", null);
-	}
+
 
 	ServletContext context = request.getServletContext();
 	ArrayList<CategoriaBean> categorie = (ArrayList<CategoriaBean>) context.getAttribute("categorie");
@@ -43,7 +37,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Admin | Gestione Articoli</title>
+<title>Admin | Nuovo Articolo</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,15 +88,6 @@
 </script>
 
 
-<script>
-	// Aggiunge un evento di click al bottone "nuovo"
-	document.getElementById("nuovo").addEventListener("click", function() {
-		
-		// Reindirizza l'utente alla JSP desiderata utilizzando l'ID dell'articolo
-		window.location.href = "nuovoArticoloAdmin.jsp";
-	});
-</script>
-
 
 
 </head>
@@ -119,7 +104,7 @@
 						<span class="item"> <a href="home.jsp">Home /</a>
 						</span> <span class="item"> <a href="ricerca-prodotti.jsp">Shop
 								/</a>
-						</span> <span class="item">Gestione Articolo</span>
+						</span> <span class="item">Nuovo Articolo</span>
 					</div>
 				</div>
 			</div>
@@ -166,12 +151,11 @@
 								aria-labelledby="nav-register-tab">
 								<form method="post" action="AdminServlet">
 
-									<input type="hidden" name="idArt" value="<%=art.getId()%>">
-
+									
 									<div class="form-group">
 										<label for="artActive">Articolo Attivo &nbsp; <input
 											type="checkbox" name="artActive" value="true"
-											<%=art.getVisibile() ? "checked" : ""%>>
+											checked>
 										</label>
 									</div>
 
@@ -180,7 +164,7 @@
 											<div class="form-group">
 												<label for="artCod">Codice Articolo</label> <input
 													type="text" name="artCod" required
-													value="<%=art.getCodice()%>">
+											>
 											</div>
 										</div>
 										<div class="col-md-4 col-sm-12">
@@ -188,7 +172,7 @@
 												<label for="artBarCod">Barcode Articolo</label> <input
 													type="text" name="artBarCod"
 													class="u-medium-width bg-light mx-2" required
-													value="<%=art.getBarcode()%>">
+													>
 											</div>
 										</div>
 										<div class="col-md-4 col-sm-12">
@@ -196,7 +180,7 @@
 											<div class="form-group">
 												<label for="artQta">Quantità Articolo</label> <input
 													type="number" class="u-small-width bg-light mx-2" disabled
-													value="<%=art.getQuantita()%>">
+													>
 											</div>
 										</div>
 									</div>
@@ -205,13 +189,13 @@
 									<div class="form-group">
 										<label for="artNome">Nome Articolo</label> <input type="text"
 											name="artNome" class="u-full-width bg-light" required
-											value="<%=art.getNome()%>">
+											>
 									</div>
 
 									<div class="form-group">
 										<label for="artDescr">Descrizione Articolo</label> <input
 											type="text" name="artDescr" class="u-full-width bg-light"
-											required value="<%=art.getDescrizione()%>">
+											required >
 									</div>
 
 
@@ -220,7 +204,7 @@
 											<div class="form-group">
 												<label for="artPrz">Prezzo Articolo</label> <input
 													type="number" name="artPrz" class="u-small-width bg-light"
-													required value="<%=art.getPrezzo()%>">
+													required >
 											</div>
 										</div>
 
@@ -229,7 +213,7 @@
 												<label for="artSconto">Sconto Articolo</label> <input
 													type="number" name="artSconto"
 													class="u-small-width bg-light" required
-													value="<%=art.getSconto()%>">
+													>
 											</div>
 										</div>
 
@@ -237,26 +221,15 @@
 											<div class="form-group">
 												<label for="artStag">Stagione Articolo</label> <input
 													type="text" name="artStag" class="u-small-width bg-light"
-													required value="<%=art.getStagione()%>">
+													required >
 											</div>
 										</div>
 									</div>
 
 									<div class="action-buttons">
 
-										<button name="add" id="elimina" data-id="<%=art.getId()%>"
+										<button name="add" id="nuovo" data-id="<%=art.getId()%>"
 											class="btn btn-medium btn-dark">
-											<span id="add-to-cart">Elimina</span>
-										</button>
-
-
-										<button type="submit" name="action" id="add-to-cart"
-											class="btn btn-medium btn-dark" value="modifica">
-											<span id="add-to-cart">Salva Modifiche</span>
-										</button>
-
-
-										<button name="add" id="nuovo" class="btn btn-medium btn-dark">
 											<span id="add-to-cart">Inserisci</span>
 										</button>
 
@@ -266,13 +239,6 @@
 										<div class="col-md-4 col-sm-12">
 											<label for="artCat">Categoria Articolo</label> <select
 												class="u-medium-width bg-light" name="artCat">
-												<%
-													if (art.getCategoria() == null) {
-												%>
-												<option value="" selected></option>
-												<%
-													}
-												%>
 
 												<%
 													if (categorie != null) {
@@ -291,13 +257,6 @@
 										<div class="col-md-4 col-sm-12">
 											<label for="artLin">Linea Articolo</label> <select
 												class="u-medium-width bg-light" name="artLin">
-												<%
-													if (art.getLinea() == null) {
-												%>
-												<option value="" selected></option>
-												<%
-													}
-												%>
 
 												<%
 													if (linee != null) {
@@ -315,13 +274,6 @@
 										<div class="col-md-4 col-sm-12">
 											<label for="artMat">Materiale Articolo</label> <select
 												class="u-medium-width bg-light" name="artMat">
-												<%
-													if (art.getMateriale() == null) {
-												%>
-												<option value="" selected></option>
-												<%
-													}
-												%>
 
 												<%
 													if (materiali != null) {

@@ -9,7 +9,7 @@ session.invalidate();
 %>
 
 
-<!DOCTYPE html>
+<!DOCTYPE html>\
 <html lang="en">
 <head>
 <title>Authenticate | Closet Culture</title>
