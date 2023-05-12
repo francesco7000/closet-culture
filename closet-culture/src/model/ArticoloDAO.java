@@ -661,6 +661,70 @@ public class ArticoloDAO {
 	}
 	
 	
+	public static boolean nuovoArticolo(boolean visibile, String codice, String barcode, String nome, String descrizione, double prezzo, int sconto, String stagione, int id_categoria, int id_linea, int id_materiale) {
+	    PreparedStatement preparedStatement = null;
+	    String insertQuery = "INSERT INTO articolo (visibile, codice, barcode, nome, descrizione, prezzo, sconto, stagione, id_categoria_articolo, linea_id, materiale_id, quantità, composizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)";
+	    int result = 0;
+	    Connection currentCon = null;
+
+	    try {
+	        currentCon = DriverManagerConnectionPool.getConnection();
+	        currentCon.setAutoCommit(false); // disattivo l'autocommit
+
+	        preparedStatement = currentCon.prepareStatement(insertQuery);
+	        preparedStatement.setBoolean(1, visibile);
+	        preparedStatement.setString(2, codice);
+	        preparedStatement.setString(3, barcode);
+	        preparedStatement.setString(4, nome);
+	        preparedStatement.setString(5, descrizione);
+	        preparedStatement.setDouble(6, prezzo);
+	        preparedStatement.setInt(7, sconto);
+	        preparedStatement.setString(8, stagione);
+	        preparedStatement.setInt(9, id_categoria);
+	        preparedStatement.setInt(10, id_linea);
+	        preparedStatement.setInt(11, id_materiale);
+	        preparedStatement.setInt(12, 0);
+	        preparedStatement.setString(13, "composizione di prova");
+	        result = preparedStatement.executeUpdate();
+
+	        currentCon.commit(); // eseguo il commit esplicitamente
+
+	    } catch (SQLException e) {
+	        // Gestione dell'errore
+	        e.printStackTrace();
+	        try {
+	            if (currentCon != null) {
+	            	System.out.println("rollback");
+	                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
+	            }
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	        return false;
+	    } finally {
+	        if (preparedStatement != null) {
+	            try {
+	                preparedStatement.close();
+	            } catch (SQLException e) {
+	                // Gestione dell'errore
+	                e.printStackTrace();
+	            }
+	        }
+	        if (currentCon != null) {
+	            try {
+	                currentCon.setAutoCommit(true); // riattivo l'autocommit
+	                currentCon.close();
+	            } catch (SQLException e) {
+	                // Gestione dell'errore
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    return result > 0;
+	}
+	
+	
 	
 
 	   public static Float getQta(String id_coloren,String id_articolon,String id_tagliat) {

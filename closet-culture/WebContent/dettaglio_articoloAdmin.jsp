@@ -30,9 +30,13 @@
 		response.sendRedirect("errorPage.jsp");
 
 	} else {
+		
+		context.setAttribute("linee", linee);
+		context.setAttribute("materiali", materiali);
+		
+		
 		//reset linee
-		request.setAttribute("linee", null);
-
+				request.setAttribute("linee", null);
 		//reset materiali
 		request.setAttribute("materiali", null);
 	}
@@ -96,10 +100,11 @@
 
 <script>
 	// Aggiunge un evento di click al bottone "nuovo"
-	document.getElementById("nuovo").addEventListener("click", function() {
+	document.getElementById("nuovoArt").addEventListener("click", function() {
 		
+		alert("ciao");
 		// Reindirizza l'utente alla JSP desiderata utilizzando l'ID dell'articolo
-		window.location.href = "nuovoArticoloAdmin.jsp";
+		//window.location.href = "nuovoArticoloAdmin.jsp";
 	});
 </script>
 
@@ -244,10 +249,10 @@
 
 									<div class="action-buttons">
 
-										<button name="add" id="elimina" data-id="<%=art.getId()%>"
+										<a name="add" id="elimina" data-id="<%=art.getId()%>"
 											class="btn btn-medium btn-dark">
 											<span id="add-to-cart">Elimina</span>
-										</button>
+										</a>
 
 
 										<button type="submit" name="action" id="add-to-cart"
@@ -256,9 +261,9 @@
 										</button>
 
 
-										<button name="add" id="nuovo" class="btn btn-medium btn-dark">
-											<span id="add-to-cart">Inserisci</span>
-										</button>
+										<a href="nuovoArticoloAdmin.jsp" name="add" id="nuovoArt" class="btn btn-medium btn-dark">
+											<span id="add-to-cart">Nuovo Articolo</span>
+										</a>
 
 									</div>
 

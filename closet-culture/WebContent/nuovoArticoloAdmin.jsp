@@ -16,9 +16,9 @@
 		request.setAttribute("categorie", null);
 	}
 
-	ArrayList<LineaBean> linee = (ArrayList<LineaBean>) request.getAttribute("linee");
+	ArrayList<LineaBean> linee = (ArrayList<LineaBean>) context.getAttribute("linee");
 
-	ArrayList<MaterialeBean> materiali = (ArrayList<MaterialeBean>) request.getAttribute("materiali");
+	ArrayList<MaterialeBean> materiali = (ArrayList<MaterialeBean>) context.getAttribute("materiali");
 
 	if (linee == null || materiali == null) {
 		response.sendRedirect("errorPage.jsp");
@@ -226,14 +226,6 @@
 										</div>
 									</div>
 
-									<div class="action-buttons">
-
-										<button name="add" id="nuovo" data-id="<%=art.getId()%>"
-											class="btn btn-medium btn-dark">
-											<span id="add-to-cart">Inserisci</span>
-										</button>
-
-									</div>
 
 									<div class="row">
 										<div class="col-md-4 col-sm-12">
@@ -290,6 +282,14 @@
 										</div>
 									</div>
 
+									<div class="action-buttons">
+
+										<button id="nuovo" name="action" value="nuovoArt" type="submit"
+											class="btn btn-medium btn-dark">
+											<span id="add-to-cart">Inserisci</span>
+										</button>
+
+									</div>
 
 								</form>
 							</div>
@@ -302,7 +302,6 @@
 
 	<%@ include file="fragments/footer.jsp"%>
 	<%@ include file="fragments/miniFooter.jsp"%>
-
 
 
 	<script src="js/jquery-1.11.0.min.js"></script>

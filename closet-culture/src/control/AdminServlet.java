@@ -135,6 +135,42 @@ public class AdminServlet extends HttpServlet {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					response.sendRedirect("errorPage.jsp");
+				}
+
+
+			}
+				break;
+				
+			case "nuovoArt": {
+
+				boolean artActive = Boolean.parseBoolean(request.getParameter("artActive"));
+				String artCod = request.getParameter("artCod");
+				String artBarCod = request.getParameter("artBarCod");
+				String artNome = request.getParameter("artNome");
+				String artDescr = request.getParameter("artDescr");
+				double artPrz = Double.parseDouble(request.getParameter("artPrz"));
+				int artSconto = Integer.parseInt(request.getParameter("artSconto"));
+				String artStag = request.getParameter("artStag");
+				int artCat = Integer.parseInt(request.getParameter("artCat"));
+				int artLin = Integer.parseInt(request.getParameter("artLin"));
+				int artMat = Integer.parseInt(request.getParameter("artMat"));
+				
+				Boolean result = false;
+				
+
+				try {
+					
+					result = ArticoloDAO.nuovoArticolo(artActive, artCod, artBarCod, artNome, artDescr, artPrz, artSconto, artStag, artCat, artLin, artMat);
+
+					if(result) {
+						response.sendRedirect("home.jsp");
+					} else {
+						response.sendRedirect("errorPage.jsp");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					response.sendRedirect("errorPage.jsp");
 				}
 
 
