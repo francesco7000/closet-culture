@@ -6,7 +6,7 @@ public class VariantiBean {
 	String descrizione;
 	String codice;
 	String barcode;
-	float quantita;
+	int quantita;
 	TagliaBean taglia=new TagliaBean();
 	ColoreBean colore = new ColoreBean();
 	
@@ -46,10 +46,10 @@ public class VariantiBean {
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
 	}
-	public float getQuantita() {
+	public int getQuantita() {
 		return quantita;
 	}
-	public void setQuantita(float quantita) {
+	public void setQuantita(int quantita) {
 		this.quantita = quantita;
 	}
 	

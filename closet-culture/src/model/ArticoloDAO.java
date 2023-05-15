@@ -727,11 +727,11 @@ public class ArticoloDAO {
 	
 	
 
-	   public static Float getQta(String id_coloren,String id_articolon,String id_tagliat) {
+	   public static int getQta(String id_coloren,String id_articolon,String id_tagliat) {
 		   var idcolore=Integer.parseInt(id_coloren);
 		   var id_articolo=Integer.parseInt(id_articolon);
 		   var id_taglia=Integer.parseInt(id_tagliat);
-		   Float qta = null;
+		   int qta = 0;
 
 		   PreparedStatement preparedStatement = null;
 		    String searchQuery =
@@ -759,7 +759,7 @@ public class ArticoloDAO {
 		         while (rs.next()) {
 
 		      
-		        	 qta= rs.getFloat("quantita");
+		        	 qta= rs.getInt("quantita");
 		     
 		       
 		      } 

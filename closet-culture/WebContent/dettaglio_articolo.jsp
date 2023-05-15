@@ -1,10 +1,12 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, model.*"%>
 
 <%
 
 ArticoloBean articolo = (ArticoloBean) request.getAttribute("articolo");
-
+ServletContext context = request.getServletContext();
+int colorecolore=0;
 	if(articolo == null ){
 		response.sendRedirect("errorPage.jsp");
 	}else{
@@ -41,6 +43,7 @@ ArticoloBean articolo = (ArticoloBean) request.getAttribute("articolo");
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script>
+    var colorecolore;
 $(document).ready(function() {
 	  // Aggiungi un evento di click ai link delle categorie
 	  $('.colore').click(function(event) {
@@ -75,7 +78,9 @@ $(document).ready(function() {
 	    var idtaglia = $(this).data('id');
 	    var idArticolo = $(this).attr('data-idart');
 	    var idcol =  $(this).attr('data-idcol');
+	    colorecolore=idcol;
 	    // Invia la richiesta AJAX al server
+	    console.log('è: ' +"*****"+ document.getElementById('col').getAttribute('data-id')+"******"+taglia);
 
 
 	    $.ajax({
@@ -89,6 +94,31 @@ $(document).ready(function() {
 	    });
 	  });
 	});
+</script>
+    <script>
+$(document).ready(function() {
+	  // Aggiungi un evento di click ai link delle categorie
+	  $('#aggiungi').click(function(event) {
+	    event.preventDefault(); // Impedisce al browser di seguire il link
+
+	    // Ottieni l'ID della categoria dal data-id dell'elemento
+	    var colorenew = <%=colorecolore%>;
+	    var taglia = document.getElementById('taglia').getAttribute('data-id');
+		var idarticolo=<%=articolo.getId()%>;
+		var qta= (document.querySelector('#quantity'));
+	    // Invia la richiesta AJAX al server
+	    $.ajax({
+	      type: 'GET',
+	      url: 'CarrelloServlet',
+	      data: { action: 'aggiungiAlCarrello',idart:idarticolo, idcol:colorecolore,idtaglia:taglia,qta:parseInt(qta.value)},
+	      success: function(data) {
+	        // Aggiorna il contenuto della sezione dei prodotti
+	        /* $('#taglieAjax').html(data); */
+	      }
+	    });
+	  });
+	});
+
 </script>
 
 
@@ -211,7 +241,7 @@ $(document).ready(function() {
 				
 				
 				
-				<a href="#" class="colore" data-val="<%=colore.getId()%>" data-idart="<%=articolo.getId()%>" data-id="<%=colore.getId()%>"><li
+				<a href="#" class="colore" id="col" data-val="<%=colore.getId()%>" data-idart="<%=articolo.getId()%>" data-id="<%=colore.getId()%>"><li
 					id="<%=colore.getId()%>" class="select-item"><%=colore.getNome()%></li></a>
 			
 								
@@ -268,9 +298,9 @@ $(document).ready(function() {
                     </div>
                   </div>
                 </div>
-                <div class="action-buttons">
+               <div class="action-buttons">
                   <button type="submit" class="btn btn-medium btn-dark">Buy now</button>
-                  <button type="submit" name="add" id="add-to-cart" class="btn btn-medium btn-dark">
+                  <button id="aggiungi" type="submit" name="add"  class="btn btn-medium btn-dark">
                     <span id="add-to-cart">Aggiungi al Carrello</span>
                   </button>
                   <button type="submit" class="btn btn-medium btn-dark"><i class="icon icon-heart"></i></button>
