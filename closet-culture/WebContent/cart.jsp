@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"  import="java.util.*,model.*" %>
 
     
+    <%    
+   CarrelloBean carrello = (CarrelloBean) request.getAttribute("carrello");
+    
+    if(carrello == null){
+    	
+    	response.sendRedirect("CarrelloServlet?action=getAll");
+    	
+    }
+    
+    %>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -57,95 +67,98 @@
               <h3 class="cart-title col-lg-3">Quantità</h3>
               <h3 class="cart-title col-lg-4">Subtotal</h3>
             </div>
-          </div>
-          <div class="cart-item border-bottom padding-small">
-            <div class="row"> 
-              <div class="col-lg-4 col-md-3">
-                <div class="row cart-info d-flex flex-wrap">
-                  <div class="col-lg-5">
-                    <div class="card-image">
-                      <img src="images/selling-products6.jpg" alt="cloth" class="img-fluid">
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="card-detail">
-                      <h3 class="card-title">
-                        <a href="#">Iphone 13</a>
-                      </h3>
-                      <div class="card-price">
-                        <span class="money text-primary" data-currency-usd="$1200.00">$1500.00</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          </div>	
+        	      
+        	  
+          
+        
+        <% if(carrello != null){ 
+    Map<Map<VariantiBean, ArticoloBean>, Integer> varianteCarrello = carrello.getCarrello();
+    
+    for (Map.Entry<Map<VariantiBean, ArticoloBean>, Integer> entry : varianteCarrello.entrySet()) {
+        Map<VariantiBean, ArticoloBean> elemento = entry.getKey();
+        VariantiBean variante = null;
+        ArticoloBean articolo = null;
+        int quantita = entry.getValue();
+        for (Map.Entry<VariantiBean, ArticoloBean> entryElemento : elemento.entrySet()) {
+            variante = entryElemento.getKey();
+            articolo = entryElemento.getValue();
+        }
+%>
+    <div class="cart-item border-bottom padding-small">
+      <div class="row"> 
+
+        <div class="col-lg-4 col-md-3">
+          <div class="row cart-info d-flex flex-wrap">
+            <div class="col-lg-5">
+              <div class="card-image">
+                <img src="images/selling-products6.jpg" alt="cloth" class="img-fluid">
               </div>
-              <div class="col-lg-6 col-md-7">
-                <div class="row d-flex">
-                  <div class="col-md-6">
-                    <div class="qty-number d-flex align-items-center justify-content-start">
-                        <button class="decrement-button">-</button>
-                          <input type="text" name="quantity" class="spin-number-output" value="1" min="1" max="100">
-                        <button class="increment-button">+</button>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="total-price">
-                      <span class="money text-primary">$1500.00</span>
-                    </div>
-                  </div>   
-                </div>             
-              </div>
-              <div class="col-lg-1 col-md-2">
-                <div class="cart-remove">
-                  <a href="#"><i class="icon icon-close"></i></a>
+            </div>
+            <div class="col-lg-7">
+              <div class="card-detail">
+                <h3 class="card-title">
+                  <a href="#"><%= variante.getDescrizione() %></a>
+                </h3>
+                <div class="card-price">
+                  <span class="money text-primary" data-currency-usd="<%= articolo.getPrezzo() %>">$<%= articolo.getPrezzo() %></span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="cart-item border-bottom padding-small">
-            <div class="row">
-              <div class="col-lg-4 col-md-3">
-                <div class="row cart-info d-flex flex-wrap">
-                  <div class="col-lg-5">
-                    <div class="card-image">
-                      <img src="images/selling-products7.jpg" alt="cloth" class="img-fluid">
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="card-detail">
-                      <h3 class="card-title">
-                        <a href="#">Pink watch</a>
-                      </h3>
-                      <div class="card-price">
-                        <span class="money text-primary" data-currency-usd="$1200.00">$870.00</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-7">
-                <div class="row d-flex">
-                  <div class="col-lg-6">
-                    <div class="qty-number d-flex align-items-center justify-content-start">
-                        <button class="decrement-button">-</button>
-                          <input type="text" name="quantity" class="spin-number-output" value="1" min="1" max="100">
-                        <button class="increment-button">+</button>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="total-price">
-                      <span class="money text-primary">$870.00</span>
-                    </div>
-                  </div>   
-                </div>             
-              </div>
-              <div class="col-lg-1 col-md-2">
-                <div class="cart-remove">
-                  <a href="#"><i class="icon icon-close"></i></a>
-                </div>
+        </div>
+
+        <div class="col-lg-6 col-md-7">
+          <div class="row d-flex">
+            <div class="col-md-6">
+              <div class="qty-number d-flex align-items-center justify-content-start">
+                <button class="decrement-button">-</button>
+                <input type="text" name="quantity" class="spin-number-output" value="<%= quantita %>" min="1" max="100">
+                <button class="increment-button">+</button>
               </div>
             </div>
+            <div class="col-md-4">
+              <div class="total-price">
+                <span class="money text-primary">$<%= articolo.getPrezzo() * quantita %></span>
+              </div>
+            </div>   
+          </div>             
+        </div>
+
+        <div class="col-lg-1 col-md-2">
+          <div class="cart-remove">
+            <a href="CarrelloServlet?action=removeVar&id_var=<%= variante.getId()%>"><i class="icon icon-close"></i></a>
           </div>
+        </div>
+
+      </div>
+    </div>
+<% 
+    }
+} 
+%>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
         </div>
         <div class="cart-totals">
           <h2 class="section-title">Totale Carrello</h2>

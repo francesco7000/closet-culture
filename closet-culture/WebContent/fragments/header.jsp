@@ -46,7 +46,7 @@
 									<ul class="submenu">
 										<li><a href="ricerca-prodotti.jsp" class="item-anchor">Ricerca</a></li>
 
-										<li><a href="checkout.jsp" class="item-anchor">Checkout<span
+										<li><a href="cart.jsp" class="item-anchor">Carrello<span
 												class="text-primary"></span></a></li>
 									</ul></li>
 

@@ -99,11 +99,7 @@ public class ArticoloDAO {
 		   return articles;
 		 
 	   }
-	   
-	   
-	   
-	  
-	   
+	     
 
 	   public static ArrayList<TagliaBean> getTagliaByColore(String id_coloren,String id_articolon) {
 		   var idcolore=Integer.parseInt(id_coloren);
@@ -184,7 +180,6 @@ public class ArticoloDAO {
 		   return taglie;
 
 	   }
-	   
 	   
 	   
 	   public static ArrayList<ArticoloBean> ricerca_per_categoria(String id_categoria) {
@@ -345,11 +340,6 @@ public class ArticoloDAO {
 		   return articles;
 		 
 	   }
-	   
-	   
-	   
-	   
-	   
 	   
 	   
 	   public static ArticoloBean idRicerca(int id) {

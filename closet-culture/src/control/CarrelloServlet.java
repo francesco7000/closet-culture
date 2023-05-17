@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.ArticoloBean;
 import model.ArticoloDAO;
+import model.CarrelloBean;
 import model.CarrelloDao;
 import model.VarianteDAO;
 import model.VariantiBean;
@@ -54,11 +55,21 @@ public class CarrelloServlet extends HttpServlet {
 				}*/
 			
 			}
+			else if (action.equalsIgnoreCase("getAll")) {
 
+				CarrelloBean carrello = CarrelloDao.caricaCarrello(1);
+				request.setAttribute("carrello",carrello);
 				
-
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/cart.jsp");
+			    dispatcher.forward(request, response);
+			}
+			else if(action.equalsIgnoreCase("removeArt")) {
+				System.out.println("oofowef");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/cart.jsp");
+			    dispatcher.forward(request, response);
 			}
 		
+	}
 	}
 
 	/**

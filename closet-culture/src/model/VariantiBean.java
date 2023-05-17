@@ -9,6 +9,14 @@ public class VariantiBean {
 	int quantita;
 	TagliaBean taglia=new TagliaBean();
 	ColoreBean colore = new ColoreBean();
+	int id_art;
+	
+	public int getId_art() {
+		return id_art;
+	}
+	public void setId_art(int id_art) {
+		this.id_art = id_art;
+	}
 	
 	public TagliaBean getTaglia() {
 		return taglia;
