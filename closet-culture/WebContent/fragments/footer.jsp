@@ -5,69 +5,50 @@
           <div class="row d-flex flex-wrap justify-content-between">
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="footer-menu">
-                <h5 class="widget-title">Ultras</h5>
+                <h5 class="widget-title">Closet Culture</h5>
                 <ul class="menu-list list-unstyled">
                   <li class="menu-item">
-                    <a href="about.html">About us</a>
+                    <a href="ricerca-prodotti.jsp">Prodotti</a>
                   </li>
                   <li class="menu-item">
-                    <a href="#">Conditions </a>
+                    <a href="checkout.jsp">Checkout </a>
                   </li>
-                  <li class="menu-item">
-                    <a href="blog.html">Our Journals</a>
+                    <li class="menu-item">
+                    <a href="profilo.jsp">Profilo</a>
                   </li>
-                  <li class="menu-item">
-                    <a href="#">Careers</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Affiliate Programme</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Ultras Press</a>
-                  </li>
+                 
                 </ul>
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="footer-menu">
-                <h5 class="widget-title">Customer Service</h5>
+                <h5 class="widget-title">Informazioni</h5>
                 <ul class="menu-list list-unstyled">
                   <li class="menu-item">
-                    <a href="faqs.html">FAQ</a>
+                    <a href="chi-siamo.jsp">Chi Siamo</a>
                   </li>
                   <li class="menu-item">
-                    <a href="contact.html">Contact</a>
+                    <a href="contatti.jsp">Contatti</a>
                   </li>
-                  <li class="menu-item">
-                    <a href="#">Privacy Policy</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Returns & Refunds</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Cookie Guidelines</a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="#">Delivery Information</a>
-                  </li>
+          
                 </ul>
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="footer-menu">
-                <h5 class="widget-title">Contact Us</h5>
-                <p>Do you have any questions or suggestions? <a href="#" class="email">ourservices@ultras.com</a>
+                <h5 class="widget-title">Contattaci</h5>
+                <p>Hai qualche dubbio contattaci alla nostra email? <a href="#" class="email">closetculture@gmail.com</a>
                 </p>
-                <p>Do you need assistance? Give us a call. <br>
-                  <strong>+57 444 11 00 35</strong>
+                <p>Hai bisogno di assistenza? <br>
+                  <strong>Non esitare a contattarci</strong>
                 </p>
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="footer-menu">
-                <h5 class="widget-title">Forever 2018</h5>
-                <p>Cras mattis sit ornare in metus eu amet adipiscing enim. Ullamcorper in orci, ultrices integer eget arcu. Consectetur leo dignissim lacus, lacus sagittis dictumst.</p>
-                <div class="social-links">
+                <h5 class="widget-title">Insieme dal 2020</h5>
+                <p>La nostra filosofia è quella di creare abbigliamento di alta qualità che si adatti al tuo stile di vita. Siamo impegnati a promuovere l'eleganza, la comodità e la sostenibilità nella moda.</p>
+            <!--     <div class="social-links">
                   <ul class="d-flex list-unstyled">
                     <li>
                       <a href="#">
@@ -91,7 +72,7 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

@@ -72,7 +72,7 @@
 			<form class="form-group">
 				<div class="row d-flex flex-wrap">
 					<div class="col-lg-6">
-						<h2 class="section-title">Billing Details</h2>
+						<h2 class="section-title">Indirizzo di Spedizione</h2>
 						<div class="billing-details">
 						<% if(currentUser != null) { %>
 							<label for="fname">Provincia</label> <input type="text"
@@ -98,27 +98,27 @@
 						<% } %>
 					</div>
 					<div class="col-lg-6">
-						<h2 class="section-title">Additional Information</h2>
+						<h2 class="section-title">Ulteriori informazioni</h2>
 						<div class="billing-details">
-							<label for="fname">Order notes (optional)</label>
+							<label for="fname">Note ordine(opzionali)</label>
 							<textarea class="form-control"
-								placeholder="Notes about your order. Like special notes for delivery."></textarea>
+								placeholder="Scrivi le tue note addizionali qui..."></textarea>
 						</div>
 
 						<div class="your-order">
-							<h2 class="section-title">Cart Totals</h2>
+							<h2 class="section-title">Totale Carrello</h2>
 							<div class="total-price">
 								<table cellspacing="0" class="table">
 									<tbody>
 										<tr class="subtotal">
-											<th>Subtotal</th>
+											<th>Subtotale</th>
 											<td data-title="Subtotal"><span
 												class="price-amount amount text-primary"> <bdi>
 													<span class="price-currency-symbol">$</span>2,370.00 </bdi>
 											</span></td>
 										</tr>
 										<tr class="order-total">
-											<th>Total</th>
+											<th>Totale</th>
 											<td data-title="Total"><span
 												class="price-amount amount text-primary"> <bdi>
 													<span class="price-currency-symbol">$</span>2,370.00 </bdi>
@@ -147,19 +147,9 @@
 										}
 									%>
 
-
-
-
-
-
-
-
-
-
 								</div>
 								<button type="submit" name="submit"
-									class="btn btn-dark btn-full btn-medium">Place an
-									order</button>
+									class="btn btn-dark btn-full btn-medium">Procedi all'ordine</button>
 							</div>
 						</div>
 					</div>

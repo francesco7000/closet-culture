@@ -123,24 +123,28 @@ $(document).ready(function() {
 
 
     <script >
-      var initIncrementDecrement = function() {
-        const decrementButton = document.querySelector('.decrement-button');
-        const incrementButton = document.querySelector('.increment-button');
-        const quantityInput = document.querySelector('#quantity');
+    document.addEventListener('DOMContentLoaded', function() {
+    	  // Seleziona i bottoni e l'input della quantità
+    	  const decrementButton = document.querySelector('.decrement-button');
+    	  const incrementButton = document.querySelector('.increment-button');
+    	  const quantityInput = document.querySelector('#quantity');
 
-        decrementButton.addEventListener('click', () => {
-          if (quantityInput.value > 1) {
-            quantityInput.value--;
-          }
-        });
+    	  // Aggiungi un event listener al pulsante decremento
+    	  decrementButton.addEventListener('click', function() {
+    	    let currentValue = parseInt(quantityInput.value, 10);
+    	    if (currentValue > 1) {
+    	      quantityInput.value = currentValue - 1;
+    	    }
+    	  });
 
-        incrementButton.addEventListener('click', () => {
-          if (quantityInput.value < 100) {
-            quantityInput.value++;
-          }
-        });
-      }
-      initIncrementDecrement();
+    	  // Aggiungi un event listener al pulsante incremento
+    	  incrementButton.addEventListener('click', function() {
+    	    let currentValue = parseInt(quantityInput.value, 10);
+    	    if (currentValue < 100) {
+    	      quantityInput.value = currentValue + 1;
+    	    }
+    	  });
+    	});
     </script>
   </head>
   <%@ include file="fragments/header.jsp"%>
@@ -200,24 +204,7 @@ $(document).ready(function() {
             <div class="product-info">
               <div class="element-header">
                 <h2 itemprop="name" class="product-title"><%=articolo.getNome()%></h2>
-                <div class="rating-container d-flex align-items-center">
-                  <div class="rating" data-rating="1" onclick=rate(1)>
-                    <i class="icon icon-star-full"></i>
-                  </div>
-                  <div class="rating" data-rating="2" onclick=rate(1)>
-                    <i class="icon icon-star-full"></i>
-                  </div>
-                  <div class="rating" data-rating="3" onclick=rate(1)>
-                    <i class="icon icon-star-full"></i>
-                  </div>
-                  <div class="rating" data-rating="4" onclick=rate(1)>
-                    <i class="icon icon-star-half"></i>
-                  </div>
-                  <div class="rating" data-rating="5" onclick=rate(1)>
-                    <i class="icon icon-star-empty"></i>
-                  </div>
-                  <span class="rating-count">(3.5)</span>
-                </div>
+             
               </div>
               <div class="product-price">
                 <strong><%=articolo.getPrezzo()%>€</strong>
@@ -279,31 +266,25 @@ $(document).ready(function() {
                 </div>
                 </div> 
                  <div class="product-quantity">
-                  <div class="item-title">
-                    <strong>2 in stock</strong>
-                  </div>
-                  <div class="stock-button-wrap">
-                    <div class="product-quantity d-flex align-items-center">
-                      <h4 class="item-title no-margin">Quantity:</h4>                
-                      <div class="qty-field d-flex">
-                        <div class="qty-number d-flex justify-content-start align-items-center">
-                            <button class="decrement-button">-</button>
-                            <div id="qtAjax">
-                              <input type="text" id="quantity" name="quantity" class="spin-number-output" value="1" min="1" max="100">
-                            
-                            </div>
-                            <button class="increment-button">+</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  
+                   <div class="stock-button-wrap">
+        <div class="product-quantity d-flex align-items-center">
+            <h4 class="item-title no-margin">Quantity:</h4>
+            <div class="qty-field d-flex">
+                <div class="qty-number d-flex justify-content-start align-items-center" id="qtAjax">
+                    <!-- <button class="decrement-button">-</button>-->
+                        <input type="number" id="quantity" name="quantity" class="spin-number-output" value="1" min="1" max="100">
+                   <!--  <button class="increment-button">+</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
                 </div>
                <div class="action-buttons">
-                  <button type="submit" class="btn btn-medium btn-dark">Buy now</button>
                   <button id="aggiungi" type="submit" name="add"  class="btn btn-medium btn-dark">
                     <span id="add-to-cart">Aggiungi al Carrello</span>
                   </button>
-                  <button type="submit" class="btn btn-medium btn-dark"><i class="icon icon-heart"></i></button>
                 </div>
               </div>
               <div class="meta-product margin-small">
@@ -395,21 +376,6 @@ In tutto questo processo, la qualità e l'attenzione ai dettagli sono fondamenta
         </div>
       </div>
     </section>
-    
-   
-				<%
-					if (articolo != null) {
-						
-						for (VariantiBean variante : articolo.getListaVarianti()) {
-							if(variante!=null)
-				%>
-				<p><%=variante.getDescrizione()%></p>
-				<%
-					}
-					}
-				%>
-
-
 
     <section id="brand-collection" class="padding-medium bg-light-grey">
       <div class="container">

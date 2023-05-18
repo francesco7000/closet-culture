@@ -40,7 +40,7 @@
 								<li><a href="chi-siamo.jsp" class="item-anchor"
 									data-effect="About">Chi Siamo</a></li>
 
-								<li class="menu-item has-sub"><a href="shop.html"
+								<li class="menu-item has-sub"><a href="ricerca-prodotti.jsp"
 									class="item-anchor d-flex align-item-center" data-effect="Shop">Prodotti<i
 										class="icon icon-chevron-down"></i></a>
 									<ul class="submenu">
@@ -70,15 +70,36 @@
 								<%
 									}
 								%>
+								
+									<%
+									if (admin) {
+								%>
 
+									<li><a href="ricerca-utenti.jsp" class="item-anchor"
+									data-effect="About">Utenti</a></li>
+
+								<%
+									}
+								%>
 
 
 
 								<li><a href="contact.html" class="item-anchor"
 									data-effect="Contact">Contatti</a></li>
 									
-									<li><a href="authenticate.jsp" class="item-anchor"
-									data-effect="Contact">Logout</a></li>
+								
+							<li class="menu-item has-sub"><a href="#"
+									class="item-anchor d-flex align-item-center"
+									data-effect="Pages">Utility<i
+										class="icon icon-chevron-down"></i></a>
+									<ul class="submenu">
+										<li><a href="modifica-profilo.jsp" class="item-anchor">Profilo<span
+												class="text-primary"></span></a></li>
+										<li><a href="authenticate.jsp" class="item-anchor">Logout<span
+												class="text-primary"></span></a></li>
+									
+									</ul></li>
+								
 							</ul>
 						</div>
 

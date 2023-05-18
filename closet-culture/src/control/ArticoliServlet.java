@@ -129,11 +129,10 @@ public class ArticoliServlet extends HttpServlet {
 			}else {
 				if(action.equalsIgnoreCase("getQt")) {
 					int qta=ArticoloDAO.getQta(request.getParameter("idcolore"),request.getParameter("idart"),request.getParameter("idt"));
-
+			
 					PrintWriter out = response.getWriter();
 
-					out.print("<input type=\"text\" id=\"quantity\" name=\"quantity\" class=\"spin-number-output\" value=\""+qta+"\" min=\"1\" max=\""+qta+"\">");
-				
+				out.print( "<input type=\"number\" style=\"width:100px!Important\" id=\"quantity\" name=\"quantity\" class=\"spin-number-output\" value=\"1\" min=\"1\" max=\""+qta+"\">");
 				
 				}else if (action.equalsIgnoreCase("getRicercaArticoli")) {
 

@@ -320,6 +320,55 @@ public static boolean checkEmailAvaiable(String email) {
  return false;
 	
 }
+
+
+public static ArrayList<UserBean> ricercautenti(String cerca) {
+	
+
+	ArrayList<UserBean> users = new ArrayList<>();
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	UserBean user = new UserBean();
+	
+
+ String searchQuery =
+       "select email,username from utente u "
+       + "where u.username=? ";
+ 
+try 
+{
+ //connect to DB 
+ Connection currentCon = DriverManagerConnectionPool.getConnection();
+ preparedStatement=currentCon.prepareStatement(searchQuery);
+ if (cerca!=null && cerca!="") {
+	 	preparedStatement.setString(1, cerca);
+  }
+ rs = preparedStatement.executeQuery();	        
+
+	while (rs.next()) {
+		
+		user.setEmail(rs.getString("email"));
+		user.setUsername(rs.getString("username"));
+		users.add(user);
+	}
+} 
+catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+} 
+finally {
+	try {
+		preparedStatement.close();
+		DriverManagerConnectionPool.releaseConnection(currentCon);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+
+return users;
+}
    
 }
 

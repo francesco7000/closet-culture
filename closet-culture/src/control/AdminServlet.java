@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import model.ArticoloBean;
 import model.ArticoloDAO;
 import model.UserBean;
+import model.UserDAO;
 
 /**
  * Servlet implementation class AdminServlet
@@ -168,6 +170,36 @@ public class AdminServlet extends HttpServlet {
 					} else {
 						response.sendRedirect("errorPage.jsp");
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					response.sendRedirect("errorPage.jsp");
+				}
+
+
+			}
+				break;
+				
+			case "ricercaUtenti": {
+				
+				try {
+					ArrayList<UserBean> users = new ArrayList<UserBean>();
+
+					users = UserDAO.ricercautenti(request.getParameter("query"));
+					PrintWriter out = response.getWriter();
+					
+					for (UserBean user : users) {
+						System.out.println(user.getUsername());
+						
+						out.print("<li>"+ user.getUsername() +"</li>");
+						
+
+					}
+					if(users.size()<=0) {
+						out.print("<li>Nessun utente trovato</li>");
+					}
+					
+					out.close();
+
 				} catch (Exception e) {
 					e.printStackTrace();
 					response.sendRedirect("errorPage.jsp");
