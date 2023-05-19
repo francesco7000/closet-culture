@@ -12,7 +12,8 @@
     }
     
     %>
-    
+   
+   
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,6 +37,33 @@
     <!-- script
     ================================================== -->
     <script src="js/modernizr.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+$(document).ready(function() {
+	  // Aggiungi un evento di click ai link delle categorie
+	  $('.eliminaVar').click(function(event) {
+	    event.preventDefault(); // Impedisce al browser di seguire il link
+		
+	    // Ottieni l'ID della categoria dal data-id dell'elemento
+	    var id = $(this).data('id');
+	    
+	    console.log(id);
+	  
+	    // Invia la richiesta AJAX al server
+	    $.ajax({
+	      type: 'GET',
+	      url: 'CarrelloServlet',
+	      data: { action: 'removeVar', idRow: id},
+	      success: function(data) {
+	        // Aggiorna il contenuto della sezione dei prodotti
+	        $('#variantiAjax').html(data);
+	      }
+	    });
+	  });
+	});
+</script>
+    
   </head>
   <body>
 	<%@ include file="fragments/header.jsp"%>
@@ -51,7 +79,7 @@
               <span class="item">
                 <a href="ricerca-prodotti.jsp">Shop /</a>
               </span>
-              <span class="item">Cart</span>
+              <span class="item">Carrello</span>
             </div>
           </div>
         </div>
@@ -65,27 +93,28 @@
             <div class="row d-flex">
               <h3 class="cart-title col-lg-4">Prodotti</h3>
               <h3 class="cart-title col-lg-3">Quantità</h3>
-              <h3 class="cart-title col-lg-4">Subtotal</h3>
+              <h3 class="cart-title col-lg-4">Totale</h3>
             </div>
           </div>	
         	      
         	  
-          
-        
-        <% if(carrello != null){ 
-    Map<Map<VariantiBean, ArticoloBean>, Integer> varianteCarrello = carrello.getCarrello();
+          <div class="cart-item border-bottom padding-small">
+        <div id="variantiAjax">
+        <% 
+        int totale = 0;
+        if(carrello != null){ 
+        	Map<Integer, ElementoCarrello> elementiCarrello = carrello.getCarrello();
     
-    for (Map.Entry<Map<VariantiBean, ArticoloBean>, Integer> entry : varianteCarrello.entrySet()) {
-        Map<VariantiBean, ArticoloBean> elemento = entry.getKey();
-        VariantiBean variante = null;
-        ArticoloBean articolo = null;
-        int quantita = entry.getValue();
-        for (Map.Entry<VariantiBean, ArticoloBean> entryElemento : elemento.entrySet()) {
-            variante = entryElemento.getKey();
-            articolo = entryElemento.getValue();
-        }
+        	for (Map.Entry<Integer, ElementoCarrello> entry : elementiCarrello.entrySet()) {
+				ElementoCarrello elemento = entry.getValue();
+				VariantiBean variante = elemento.getVariante();
+				ArticoloBean articolo = elemento.getArticolo();
+				int quantita = elemento.getQuantita();
+
+				totale += articolo.getPrezzo() * quantita;
 %>
-    <div class="cart-item border-bottom padding-small">
+
+    
       <div class="row"> 
 
         <div class="col-lg-4 col-md-3">
@@ -127,38 +156,18 @@
 
         <div class="col-lg-1 col-md-2">
           <div class="cart-remove">
-            <a href="CarrelloServlet?action=removeVar&id_var=<%= variante.getId()%>"><i class="icon icon-close"></i></a>
+            <a href="#" class=eliminaVar data-id="<%=entry.getKey()%>"><i class="icon icon-close"></i></a>
           </div>
         </div>
-
+        
       </div>
     </div>
 <% 
     }
 } 
 %>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-          
+</div>
+    
         </div>
         <div class="cart-totals">
           <h2 class="section-title">Totale Carrello</h2>
@@ -166,21 +175,12 @@
             <table cellspacing="0" class="table">
               <tbody>
                 <tr class="subtotal">
-                  <th>Subtotal</th>
+                  <th>Totale</th>
                   <td data-title="Subtotal">
                     <span class="price-amount amount text-primary">
                       <bdi>
-                        <span class="price-currency-symbol">$</span>2,370.00
+                        <span class="price-currency-symbol">$</span><%= totale %>
                       </bdi>
-                    </span>
-                  </td>
-                </tr>
-                <tr class="order-total">
-                  <th>Totale</th>
-                  <td data-title="Total">
-                    <span class="price-amount amount text-primary">
-                      <bdi>
-                        <span class="price-currency-symbol">$</span>2,370.00</bdi>
                     </span>
                   </td>
                 </tr>

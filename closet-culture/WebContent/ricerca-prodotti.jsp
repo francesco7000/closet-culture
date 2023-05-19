@@ -217,8 +217,7 @@ $(document).ready(function() {
                         <div class="item-price text-primary">€<%=var.getPrezzo()%></div>
                       </div>
                     </div>
-                    
-                    
+                       
                       
         <%
 					

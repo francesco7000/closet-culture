@@ -6,7 +6,7 @@ public class CarrelloBean {
     
     private int idUtente;
     
-    private Map<Map<VariantiBean, ArticoloBean>, Integer> carrello;
+    private Map<Integer,ElementoCarrello> carrello;
 
     public CarrelloBean() {
         this.idUtente = -1;
@@ -21,47 +21,34 @@ public class CarrelloBean {
         this.idUtente = idUtente;
     }
 
-    public Map<Map<VariantiBean, ArticoloBean>, Integer> getCarrello() {
+    public Map<Integer,ElementoCarrello> getCarrello() {
         return carrello;
     }
 
-    public void setCarrello(Map<Map<VariantiBean, ArticoloBean>, Integer> carrello) {
+    public void setCarrello(Map<Integer,ElementoCarrello> carrello) {
         this.carrello = carrello;
     }
 
-    public void addElemento(VariantiBean variante, ArticoloBean articolo, int quantita) {
-        Map<VariantiBean, ArticoloBean> elemento = new HashMap<>();
-        elemento.put(variante, articolo);
-        if (carrello.containsKey(elemento)) {
-            int nuovaQuantita = carrello.get(elemento) + quantita;
-            carrello.put(elemento, nuovaQuantita);
-        } else {
-            carrello.put(elemento, quantita);
-        }
+    
+    
+    public void addElemento(VariantiBean variante, ArticoloBean articolo, int quantita, int idRow) {
+    	
+    	ElementoCarrello elemento = new ElementoCarrello(variante,articolo,quantita);
+    	
+        carrello.put(idRow, elemento);
+        
     }
+    
 
-    public void removeElemento(VariantiBean variante, ArticoloBean articolo, int quantita) {
-        Map<VariantiBean, ArticoloBean> elemento = new HashMap<>();
-        elemento.put(variante, articolo);
-        if (carrello.containsKey(elemento)) {
-            int nuovaQuantita = carrello.get(elemento) - quantita;
-            if (nuovaQuantita <= 0) {
-                carrello.remove(elemento);
-            } else {
-                carrello.put(elemento, nuovaQuantita);
-            }
-        }
+    public void removeElemento(int idRow) {
+    	
+    	System.out.println(idRow);
+    	
+   
+    	
+    	//carrello.remove(idRow);
+    	
+    	
     }
-
-    public int getQuantita(VariantiBean variante, ArticoloBean articolo) {
-        Map<VariantiBean, ArticoloBean> elemento = new HashMap<>();
-        elemento.put(variante, articolo);
-        return carrello.getOrDefault(elemento, 0);
-    }
-
-    public boolean getElemento(VariantiBean variante, ArticoloBean articolo) {
-        Map<VariantiBean, ArticoloBean> elemento = new HashMap<>();
-        elemento.put(variante, articolo);
-        return carrello.containsKey(elemento);
-    }
+    
 }
