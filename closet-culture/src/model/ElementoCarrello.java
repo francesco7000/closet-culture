@@ -22,7 +22,7 @@ public class ElementoCarrello {
     }
 
     public ArticoloBean getArticolo() {
-        return articolo;
+        return articolo; 
     }
 
     public void setArticolo(ArticoloBean articolo) { 
