@@ -29,7 +29,7 @@ public class ElementoCarrello {
         this.articolo = articolo;
     }
 
-    public int getQuantita() { 
+    public int getQuantita() {  
         return quantita;
     }
 
