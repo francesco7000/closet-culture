@@ -25,7 +25,7 @@ public class ElementoCarrello {
         return articolo;
     }
 
-    public void setArticolo(ArticoloBean articolo) {
+    public void setArticolo(ArticoloBean articolo) { 
         this.articolo = articolo;
     }
 
