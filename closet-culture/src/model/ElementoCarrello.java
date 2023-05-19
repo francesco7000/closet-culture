@@ -33,7 +33,7 @@ public class ElementoCarrello {
         return quantita;
     }
 
-    public void setQuantita(int quantita) {
+    public void setQuantita(int quantita) { 
         this.quantita = quantita;
     }
 
