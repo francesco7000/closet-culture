@@ -562,7 +562,7 @@ public class ArticoloDAO {
 		                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
 		            }
 		        } catch (SQLException ex) {
-		            ex.printStackTrace();
+		            //ex.printStackTrace();
 		        }
 		        return false;
 		    } finally {
@@ -624,7 +624,7 @@ public class ArticoloDAO {
 	                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
 	            }
 	        } catch (SQLException ex) {
-	            ex.printStackTrace();
+	            //ex.printStackTrace();
 	        }
 	        return false;
 	    } finally {
@@ -688,7 +688,7 @@ public class ArticoloDAO {
 	                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
 	            }
 	        } catch (SQLException ex) {
-	            ex.printStackTrace();
+	            //ex.printStackTrace();
 	        }
 	        return false;
 	    } finally {
