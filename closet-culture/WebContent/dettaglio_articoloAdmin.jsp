@@ -70,7 +70,7 @@
 <!-- script
     ================================================== -->
 <script src="js/modernizr.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <script>
 	$(document).ready(function() {
@@ -114,7 +114,7 @@
 <%@ include file="fragments/header.jsp"%>
 <body>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 	<section class="site-banner padding-small bg-light-grey">
 		<div class="container">
