@@ -4,8 +4,6 @@
 <%
 	ArticoloBean art = new ArticoloBean();
 
-
-
 	ServletContext context = request.getServletContext();
 	ArrayList<CategoriaBean> categorie = (ArrayList<CategoriaBean>) context.getAttribute("categorie");
 
@@ -151,11 +149,10 @@
 								aria-labelledby="nav-register-tab">
 								<form method="post" action="AdminServlet">
 
-									
+
 									<div class="form-group">
 										<label for="artActive">Articolo Attivo &nbsp; <input
-											type="checkbox" name="artActive" value="true"
-											checked>
+											type="checkbox" name="artActive" value="true" checked>
 										</label>
 									</div>
 
@@ -163,24 +160,21 @@
 										<div class="col-md-4 col-sm-12">
 											<div class="form-group">
 												<label for="artCod">Codice Articolo</label> <input
-													type="text" name="artCod" required
-											>
+													type="text" name="artCod" required>
 											</div>
 										</div>
 										<div class="col-md-4 col-sm-12">
 											<div class="form-group">
 												<label for="artBarCod">Barcode Articolo</label> <input
 													type="text" name="artBarCod"
-													class="u-medium-width bg-light mx-2" required
-													>
+													class="u-medium-width bg-light mx-2" required>
 											</div>
 										</div>
 										<div class="col-md-4 col-sm-12">
 
 											<div class="form-group">
 												<label for="artQta">Quantità Articolo</label> <input
-													type="number" class="u-small-width bg-light mx-2" disabled
-													>
+													type="number" class="u-small-width bg-light mx-2" disabled>
 											</div>
 										</div>
 									</div>
@@ -188,14 +182,13 @@
 
 									<div class="form-group">
 										<label for="artNome">Nome Articolo</label> <input type="text"
-											name="artNome" class="u-full-width bg-light" required
-											>
+											name="artNome" class="u-full-width bg-light" required>
 									</div>
 
 									<div class="form-group">
 										<label for="artDescr">Descrizione Articolo</label> <input
 											type="text" name="artDescr" class="u-full-width bg-light"
-											required >
+											required>
 									</div>
 
 
@@ -204,7 +197,7 @@
 											<div class="form-group">
 												<label for="artPrz">Prezzo Articolo</label> <input
 													type="number" name="artPrz" class="u-small-width bg-light"
-													required >
+													required>
 											</div>
 										</div>
 
@@ -212,8 +205,7 @@
 											<div class="form-group">
 												<label for="artSconto">Sconto Articolo</label> <input
 													type="number" name="artSconto"
-													class="u-small-width bg-light" required
-													>
+													class="u-small-width bg-light" required>
 											</div>
 										</div>
 
@@ -221,7 +213,7 @@
 											<div class="form-group">
 												<label for="artStag">Stagione Articolo</label> <input
 													type="text" name="artStag" class="u-small-width bg-light"
-													required >
+													required>
 											</div>
 										</div>
 									</div>
@@ -284,8 +276,8 @@
 
 									<div class="action-buttons">
 
-										<button id="nuovo" name="action" value="nuovoArt" type="submit"
-											class="btn btn-medium btn-dark">
+										<button id="nuovo" name="action" value="nuovoArt"
+											type="submit" class="btn btn-medium btn-dark">
 											<span id="add-to-cart">Inserisci</span>
 										</button>
 

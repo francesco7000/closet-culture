@@ -7,7 +7,7 @@ public class UserBean {
 	private String email;
 	private String nome;
 	private String cognome;
-	private Long cellulare;
+	private String cellulare;
 	private String ruolo;
 	private boolean valid;
 	
@@ -67,11 +67,11 @@ public class UserBean {
 		this.cognome = cognome;
 	}
 
-	public Long getCellulare() {
+	public String getCellulare() {
 		return cellulare;
 	}
 
-	public void setCellulare(Long cellulare) {
+	public void setCellulare(String cellulare) {
 		this.cellulare = cellulare;
 	}
 

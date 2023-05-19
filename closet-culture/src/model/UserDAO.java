@@ -369,6 +369,121 @@ finally {
 
 return users;
 }
+
+/*
+public static boolean nuovoprofilo(String nome, String cognome, String email, String cellulare)
+    String insertQuery = "INSERT INTO articolo (visibile, codice, barcode, nome, descrizione, prezzo, sconto, stagione, id_categoria_articolo, linea_id, materiale_id, quantità, composizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)";
+    int result = 0;
+    Connection currentCon = null;
+
+    try {
+        currentCon = DriverManagerConnectionPool.getConnection();
+        currentCon.setAutoCommit(false); // disattivo l'autocommit
+
+        preparedStatement = currentCon.prepareStatement(insertQuery);
+        preparedStatement.setBoolean(1, visibile);
+        preparedStatement.setString(2, codice);
+        preparedStatement.setString(3, barcode);
+        preparedStatement.setString(4, nome);
+        preparedStatement.setString(5, descrizione);
+        preparedStatement.setDouble(6, prezzo);
+        preparedStatement.setInt(7, sconto);
+        preparedStatement.setString(8, stagione);
+        preparedStatement.setInt(9, id_categoria);
+        preparedStatement.setInt(10, id_linea);
+        preparedStatement.setInt(11, id_materiale);
+        preparedStatement.setInt(12, 0);
+        preparedStatement.setString(13, "composizione di prova");
+        result = preparedStatement.executeUpdate();
+
+        currentCon.commit(); // eseguo il commit esplicitamente
+
+    } catch (SQLException e) {
+        // Gestione dell'errore
+        e.printStackTrace();
+        try {
+            if (currentCon != null) {
+            	System.out.println("rollback");
+                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    } finally {
+        if (preparedStatement != null) {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                // Gestione dell'errore
+                e.printStackTrace();
+            }
+        }
+        if (currentCon != null) {
+            try {
+                currentCon.setAutoCommit(true); // riattivo l'autocommit
+                currentCon.close();
+            } catch (SQLException e) {
+                // Gestione dell'errore
+                e.printStackTrace();
+            }
+        }
+    }
+
+    return result > 0;
+}
+*/
+
+
+
+
+public  UserBean dettagli_profilo() {
+
+	ArrayList<UserBean> users = new ArrayList<>();
+	PreparedStatement preparedStatement = null;
+	UserBean user = new UserBean();
+	
+
+ String searchQuery =
+       "select u.email,u.username,p.nome,p.cognome,p.cellulare from utente u join persona p on u.persona_id=p.id "
+       + "where u.id=? ";
+ 
+try 
+{
+ //connect to DB 
+ Connection currentCon = DriverManagerConnectionPool.getConnection();
+ preparedStatement=currentCon.prepareStatement(searchQuery);
+ preparedStatement.setInt(1, 1);
+ rs = preparedStatement.executeQuery();	        
+
+	while (rs.next()) {
+		
+		user.setEmail(rs.getString("email"));
+		user.setUsername(rs.getString("username"));
+		user.setNome(rs.getString("nome"));
+		user.setCognome(rs.getString("cognome"));
+		user.setCellulare(rs.getString("cellulare"));
+		users.add(user);
+	}
+} 
+catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+} 
+finally {
+	try {
+		preparedStatement.close();
+		DriverManagerConnectionPool.releaseConnection(currentCon);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+
+return user;
+	
+}
    
 }
 

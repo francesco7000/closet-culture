@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.ArticoloDAO;
 import model.CategoriaBean;
 import model.CategoriaDao;
+import model.UserBean;
+import model.UserDAO;
 
 /**
  * Servlet implementation class UserServlet
@@ -35,11 +38,49 @@ public class UserServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		if(action != null) {
 			if(action.equalsIgnoreCase("profilo")) {
+		
+				UserDAO userD = new UserDAO();
+
+				UserBean us = new UserBean();
 				
-				
+				us = userD.dettagli_profilo();
+				System.out.println(us.getNome());
+
+				request.setAttribute("profilo", us);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("modifica-profilo.jsp");
+			    dispatcher.forward(request, response);
+	
 				
 			
+			}else {
+				if(action.equalsIgnoreCase("nuovoprofilo")) {
+				
+
+				String nome = request.getParameter("nome");
+				String cognome = request.getParameter("cognome");
+				String email = request.getParameter("email");
+				String cellulare = request.getParameter("cellulare");
+
+				
+				Boolean result = false;
+				
+
+				try {
+					
+					result = UserDao.nuovoprofilo(nome, cognome, email, cellulare);
+
+					if(result) {
+						response.sendRedirect("home.jsp");
+					} else {
+						response.sendRedirect("errorPage.jsp");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					response.sendRedirect("errorPage.jsp");
+				}
 			}
+			
+		}
 	}
 }
 

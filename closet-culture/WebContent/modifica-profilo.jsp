@@ -2,12 +2,10 @@
 	pageEncoding="UTF-8" import="java.util.*, model.*"%>
 
 <%
-//cerco di ottenere le categorie
 UserBean user = (UserBean) request.getAttribute("profilo");
-//se le categorie sono vuote allora chiamo la servlet per ottenerle
 if (user == null) {
 	//redirect alla servlet come parametro getCategorie per dirgli cosa deve fare
-	response.sendRedirect("CategoriaServlet?action=getRicerca");
+	response.sendRedirect("UserServlet?action=profilo");
 } else {
 	ServletContext context = request.getServletContext();
 	context.setAttribute("profilo", user);
@@ -20,7 +18,7 @@ if (user == null) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Modifica Profilo</title>
+<title>Admin | Nuovo Articolo</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,9 +83,9 @@ if (user == null) {
 				<div class="col-md-12">
 					<div class="breadcrumbs">
 						<span class="item"> <a href="home.jsp">Home /</a>
-						</span> <span class="item"> <a href="ricerca-prodotti.jsp">Shop
+						</span> <span class="item"> <a href="home.jsp">Utility
 								/</a>
-						</span> <span class="item">Mio Profilo</span>
+						</span> <span class="item">Modifica Profilo</span>
 					</div>
 				</div>
 			</div>
@@ -97,36 +95,7 @@ if (user == null) {
 	<section class="single-product padding-large">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-5">
-					<div class="row product-preview">
-						<div thumbsSlider="" class="swiper thumb-swiper col-md-3 col-xs-3">
-							<div class="swiper-wrapper d-flex flex-wrap">
-								<div class="swiper-slide">
-									<img src="images/product-thumbnail-1.jpg" alt="">
-								</div>
-								<div class="swiper-slide">
-									<img src="images/product-thumbnail-2.jpg" alt="">
-								</div>
-								<div class="swiper-slide">
-									<img src="images/product-thumbnail-3.jpg" alt="">
-								</div>
-							</div>
-						</div>
-						<div class="swiper large-swiper overflow-hidden col-md-9 col-xs-9">
-							<div class="swiper-wrapper">
-								<div class="swiper-slide">
-									<img src="images/product-large-1.jpg" alt="single-product">
-								</div>
-								<div class="swiper-slide">
-									<img src="images/product-large-2.jpg" alt="single-product">
-								</div>
-								<div class="swiper-slide">
-									<img src="images/product-large-3.jpg" alt="single-product">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			
 				<div class="col-md-7">
 					<div class="product-info">
 						<div class="element-header">
@@ -135,34 +104,27 @@ if (user == null) {
 								<form method="post" action="AdminServlet">
 
 									
-									<div class="form-group">
-										<label for="artActive">Nome &nbsp; <input
-											type="checkbox" name="artActive" value="true"
-											checked>
-										</label>
-									</div>
-
 									<div class="row">
 										<div class="col-md-4 col-sm-12">
 											<div class="form-group">
-												<label for="artCod">Email</label> <input
-													type="text" name="artCod" required
-											>
+												<label >Username</label> <input
+													type="text" required
+											name="username" value="<%=user.getUsername()%>" >
 											</div>
 										</div>
 										<div class="col-md-4 col-sm-12">
 											<div class="form-group">
-												<label for="artBarCod">Barcode Articolo</label> <input
-													type="text" name="artBarCod"
+												<label for="artBarCod">Nome</label> <input
+													type="text" name="nome"
 													class="u-medium-width bg-light mx-2" required
-													>
+												value="<%=user.getNome()%>" 	>
 											</div>
 										</div>
 										<div class="col-md-4 col-sm-12">
 
 											<div class="form-group">
-												<label for="artQta">Quantità Articolo</label> <input
-													type="number" class="u-small-width bg-light mx-2" disabled
+												<label for="artQta">Cognome</label> <input
+												value="<%=user.getCognome()%>"  name="cognome"	type="number" class="u-small-width bg-light mx-2" disabled
 													>
 											</div>
 										</div>
@@ -170,45 +132,16 @@ if (user == null) {
 
 
 									<div class="form-group">
-										<label for="artNome">Nome Articolo</label> <input type="text"
-											name="artNome" class="u-full-width bg-light" required
+										<label for="artNome">Email</label> <input type="text"
+										value="<%=user.getEmail()%>"	name="email" class="u-full-width bg-light" required
 											>
 									</div>
 
 									<div class="form-group">
-										<label for="artDescr">Descrizione Articolo</label> <input
-											type="text" name="artDescr" class="u-full-width bg-light"
+										<label for="artDescr">Cellulare</label> <input
+										value="<%=user.getCellulare()%>"	type="text" name="cellulare" class="u-full-width bg-light"
 											required >
 									</div>
-
-
-									<div class="row">
-										<div class="col-md-4 col-sm-12">
-											<div class="form-group">
-												<label for="artPrz">Prezzo Articolo</label> <input
-													type="number" name="artPrz" class="u-small-width bg-light"
-													required >
-											</div>
-										</div>
-
-										<div class="col-md-4 col-sm-12">
-											<div class="form-group">
-												<label for="artSconto">Sconto Articolo</label> <input
-													type="number" name="artSconto"
-													class="u-small-width bg-light" required
-													>
-											</div>
-										</div>
-
-										<div class="col-md-4 col-sm-12">
-											<div class="form-group">
-												<label for="artStag">Stagione Articolo</label> <input
-													type="text" name="artStag" class="u-small-width bg-light"
-													required >
-											</div>
-										</div>
-									</div>
-
 
 									<div class="action-buttons">
 
@@ -218,6 +151,7 @@ if (user == null) {
 										</button>
 
 									</div>
+
 
 								</form>
 							</div>
