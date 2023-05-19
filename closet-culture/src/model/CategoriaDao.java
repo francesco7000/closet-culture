@@ -32,14 +32,14 @@ public class CategoriaDao {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}finally{
 			try {
 				preparedStatement.close();
 				DriverManagerConnectionPool.releaseConnection(connection);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 		
@@ -69,14 +69,14 @@ public class CategoriaDao {
 	            bean_c.setDescrizione(descrizione);
 	        }
 	    } catch (SQLException e) {
-	        e.printStackTrace();
+	        //e.printStackTrace();
 	    } finally {
 	        try {
 	            if (preparedStatement != null) {
 	                preparedStatement.close();
 	            }
 	        } catch (SQLException e) {
-	            e.printStackTrace();
+	            //e.printStackTrace();
 	        }
 	    }
 

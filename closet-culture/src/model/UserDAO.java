@@ -354,7 +354,7 @@ try
 } 
 catch (SQLException e) {
 	// TODO Auto-generated catch block
-	e.printStackTrace();
+	////e.printStackTrace()StackTrace();
 } 
 finally {
 	try {
@@ -362,7 +362,7 @@ finally {
 		DriverManagerConnectionPool.releaseConnection(currentCon);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
-		e.printStackTrace();
+		////e.printStackTrace();
 	}
 }
 
@@ -400,7 +400,7 @@ public static boolean nuovoprofilo(String nome, String cognome, String email, St
 
     } catch (SQLException e) {
         // Gestione dell'errore
-        e.printStackTrace();
+        //e.printStackTrace();
         try {
             if (currentCon != null) {
             	System.out.println("rollback");
@@ -416,7 +416,7 @@ public static boolean nuovoprofilo(String nome, String cognome, String email, St
                 preparedStatement.close();
             } catch (SQLException e) {
                 // Gestione dell'errore
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
         if (currentCon != null) {
@@ -425,7 +425,7 @@ public static boolean nuovoprofilo(String nome, String cognome, String email, St
                 currentCon.close();
             } catch (SQLException e) {
                 // Gestione dell'errore
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
     }
@@ -468,7 +468,7 @@ try
 } 
 catch (SQLException e) {
 	// TODO Auto-generated catch block
-	e.printStackTrace();
+	////e.printStackTrace();
 } 
 finally {
 	try {
@@ -476,7 +476,7 @@ finally {
 		DriverManagerConnectionPool.releaseConnection(currentCon);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
-		e.printStackTrace();
+		////e.printStackTrace();
 	}
 }
 

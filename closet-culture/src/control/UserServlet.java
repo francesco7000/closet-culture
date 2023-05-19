@@ -75,7 +75,7 @@ public class UserServlet extends HttpServlet {
 						response.sendRedirect("errorPage.jsp");
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 					response.sendRedirect("errorPage.jsp");
 				}
 			}

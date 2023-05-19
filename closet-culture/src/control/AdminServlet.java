@@ -91,7 +91,7 @@ public class AdminServlet extends HttpServlet {
 					deleted = ArticoloDAO.eliminaArticolo(id);
 					System.out.println(deleted);
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 
 				if (deleted == true) {
@@ -136,7 +136,7 @@ public class AdminServlet extends HttpServlet {
 						response.sendRedirect("errorPage.jsp");
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 					response.sendRedirect("errorPage.jsp");
 				}
 
@@ -171,7 +171,7 @@ public class AdminServlet extends HttpServlet {
 						response.sendRedirect("errorPage.jsp");
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 					response.sendRedirect("errorPage.jsp");
 				}
 
@@ -201,7 +201,7 @@ public class AdminServlet extends HttpServlet {
 					out.close();
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 					response.sendRedirect("errorPage.jsp");
 				}
 

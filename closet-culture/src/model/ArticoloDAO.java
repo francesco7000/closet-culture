@@ -486,14 +486,14 @@ public class ArticoloDAO {
 		            bean_m.setTipo(tipo);
 		        }
 		    } catch (SQLException e) {
-		        e.printStackTrace();
+		        //e.printStackTrace();
 		    } finally {
 		        try {
 		            if (preparedStatement != null) {
 		                preparedStatement.close();
 		            }
 		        } catch (SQLException e) {
-		            e.printStackTrace();
+		            //e.printStackTrace();
 		        }
 		    }
 
@@ -524,14 +524,14 @@ public class ArticoloDAO {
 		            bean_l.setDescrizione(descrizione);
 		        }
 		    } catch (SQLException e) {
-		        e.printStackTrace();
+		        //e.printStackTrace();
 		    } finally {
 		        try {
 		            if (preparedStatement != null) {
 		                preparedStatement.close();
 		            }
 		        } catch (SQLException e) {
-		            e.printStackTrace();
+		            //e.printStackTrace();
 		        }
 		    }
 
@@ -556,7 +556,7 @@ public class ArticoloDAO {
 
 		    } catch (SQLException e) {
 		        // Gestione dell'errore
-		        e.printStackTrace();
+		        //e.printStackTrace();
 		        try {
 		            if (currentCon != null) {
 		                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
@@ -571,7 +571,7 @@ public class ArticoloDAO {
 		                preparedStatement.close();
 		            } catch (SQLException e) {
 		                // Gestione dell'errore
-		                e.printStackTrace();
+		                //e.printStackTrace();
 		            }
 		        }
 		        try {
@@ -581,7 +581,7 @@ public class ArticoloDAO {
 		            }
 		        } catch (SQLException e) {
 		            // Gestione dell'errore
-		            e.printStackTrace();
+		            //e.printStackTrace();
 		        }
 		    }
 
@@ -618,7 +618,7 @@ public class ArticoloDAO {
 
 	    } catch (SQLException e) {
 	        // Gestione dell'errore
-	        e.printStackTrace();
+	        //e.printStackTrace();
 	        try {
 	            if (currentCon != null) {
 	                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
@@ -633,7 +633,7 @@ public class ArticoloDAO {
 	                preparedStatement.close();
 	            } catch (SQLException e) {
 	                // Gestione dell'errore
-	                e.printStackTrace();
+	                //e.printStackTrace();
 	            }
 	        }
 	        if (currentCon != null) {
@@ -642,7 +642,7 @@ public class ArticoloDAO {
 	                currentCon.close();
 	            } catch (SQLException e) {
 	                // Gestione dell'errore
-	                e.printStackTrace();
+	                //e.printStackTrace();
 	            }
 	        }
 	    }
@@ -681,7 +681,7 @@ public class ArticoloDAO {
 
 	    } catch (SQLException e) {
 	        // Gestione dell'errore
-	        e.printStackTrace();
+	        //e.printStackTrace();
 	        try {
 	            if (currentCon != null) {
 	            	System.out.println("rollback");
@@ -697,7 +697,7 @@ public class ArticoloDAO {
 	                preparedStatement.close();
 	            } catch (SQLException e) {
 	                // Gestione dell'errore
-	                e.printStackTrace();
+	                //e.printStackTrace();
 	            }
 	        }
 	        if (currentCon != null) {
@@ -706,7 +706,7 @@ public class ArticoloDAO {
 	                currentCon.close();
 	            } catch (SQLException e) {
 	                // Gestione dell'errore
-	                e.printStackTrace();
+	                //e.printStackTrace();
 	            }
 	        }
 	    }

@@ -33,7 +33,7 @@ public class LineaDao {
 		} 
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} 
 		finally {
 			try {
@@ -41,7 +41,7 @@ public class LineaDao {
 				DriverManagerConnectionPool.releaseConnection(connection);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 

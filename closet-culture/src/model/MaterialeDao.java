@@ -33,7 +33,7 @@ public class MaterialeDao {
 		} 
 		catch (SQLException e) {
 			
-			e.printStackTrace();
+			//e.printStackTrace();
 		} 
 		finally {
 			try {
@@ -41,7 +41,7 @@ public class MaterialeDao {
 				DriverManagerConnectionPool.releaseConnection(connection);
 			} catch (SQLException e) {
 				
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 
