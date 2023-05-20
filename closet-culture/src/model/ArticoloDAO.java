@@ -86,7 +86,7 @@ public class ArticoloDAO {
 		   	
 		         if (currentCon != null) {
 		            try {
-		               currentCon.close();
+		            	DriverManagerConnectionPool.releaseConnection(currentCon);
 		            } catch (Exception e) {
 		            }
 
@@ -169,7 +169,7 @@ public class ArticoloDAO {
 		   	
 		         if (currentCon != null) {
 		            try {
-		               currentCon.close();
+		            	DriverManagerConnectionPool.releaseConnection(currentCon);
 		            } catch (Exception e) {
 		            }
 
@@ -249,7 +249,8 @@ public class ArticoloDAO {
 		   	
 		         if (currentCon != null) {
 		            try {
-		               currentCon.close();
+		            	DriverManagerConnectionPool.releaseConnection(currentCon);
+		    				
 		            } catch (Exception e) {
 		            }
 
@@ -329,7 +330,8 @@ public class ArticoloDAO {
 		   	
 		         if (currentCon != null) {
 		            try {
-		               currentCon.close();
+		            	
+		    			DriverManagerConnectionPool.releaseConnection(currentCon);
 		            } catch (Exception e) {
 		            }
 
@@ -392,9 +394,12 @@ public class ArticoloDAO {
 		                + " left join taglia t on vd.id_taglia=t.id "
 		                + " WHERE vd.id_articolo = ? ";
 
-		            try (PreparedStatement preparedStatement2 = currentCon.prepareStatement(searchQueryVar)) {
+		            PreparedStatement preparedStatement2 = null;
+		            ResultSet rs2 = null;
+		            try  {
+		            	preparedStatement2 = currentCon.prepareStatement(searchQueryVar);
 		                preparedStatement2.setInt(1, id);
-		                ResultSet rs2 = preparedStatement2.executeQuery();
+		                rs2 = preparedStatement2.executeQuery();
 
 		                while (rs2.next()) {
 		                    VariantiBean bean_v = new VariantiBean();
@@ -425,6 +430,20 @@ public class ArticoloDAO {
 		            } catch (Exception ex) {
 		                System.out.println("Errore Ricerca ARTICOLO VARIANTE" + ex);
 		            }
+		            finally {
+				        try {
+				            if (rs2 != null) {
+				                rs2.close();
+				            }
+				            if (preparedStatement2 != null) {
+				                preparedStatement2.close();
+				            }
+				     
+				        } catch (Exception ex) {
+				            System.out.println("Errore chiusura PreparedStatement o ResultSet " + ex);
+				        }
+				    }
+		            
 
 		            bean_a.setListaVarianti(varianti);
 
@@ -434,9 +453,12 @@ public class ArticoloDAO {
 		                + " join colore c on vd.id_colore=c.id "
 		                + " WHERE vd.id_articolo = ?  group by c.id order by c.id";
 
-		            try (PreparedStatement preparedStatement3 = currentCon.prepareStatement(searchColore)) {
+		            PreparedStatement preparedStatement3 = null;
+		            ResultSet rs3 = null;
+		            try {
+		            	preparedStatement3 = currentCon.prepareStatement(searchColore);
 		                preparedStatement3.setInt(1, id);
-		                ResultSet rs3 = preparedStatement3.executeQuery();
+		                rs3 = preparedStatement3.executeQuery();
 
 		                while (rs3.next()) {
 		                    ColoreBean colore = new ColoreBean();
@@ -452,6 +474,19 @@ public class ArticoloDAO {
 		            } catch (Exception ex) {
 		                System.out.println("Errore Ricerca ARTICOLO COLORE" + ex);
 		            }
+		            finally {
+				        try {
+				            if (rs3 != null) {
+				                rs3.close();
+				            }
+				            if (preparedStatement3 != null) {
+				                preparedStatement3.close();
+				            }
+				     
+				        } catch (Exception ex) {
+				            System.out.println("Errore chiusura PreparedStatement o ResultSet " + ex);
+				        }
+				    }
 
 		            bean_a.setListaColori(colori);
 		        }
@@ -509,12 +544,23 @@ public class ArticoloDAO {
 		        } catch (SQLException e) {
 		            //e.printStackTrace();
 		        }
+		        finally {
+			        try {
+			            if (preparedStatement != null) {
+			                preparedStatement.close();
+			            }
+			            DriverManagerConnectionPool.releaseConnection(currentCon);
+			        } catch (SQLException e) {
+			            //e.printStackTrace();
+			        }
+			    }
 		    }
 
 		    return bean_m;
 		}
 
 		public static LineaBean getLinea(int id) {
+
 		    PreparedStatement preparedStatement = null;
 		    LineaBean bean_l = null;
 
@@ -544,6 +590,7 @@ public class ArticoloDAO {
 		            if (preparedStatement != null) {
 		                preparedStatement.close();
 		            }
+		            DriverManagerConnectionPool.releaseConnection(currentCon);
 		        } catch (SQLException e) {
 		            //e.printStackTrace();
 		        }
@@ -555,6 +602,7 @@ public class ArticoloDAO {
 
 
 	public static boolean eliminaArticolo(int id) {
+
 		    PreparedStatement preparedStatement = null;
 		    String updateQuery = "UPDATE articolo SET visibile = false WHERE id = ?";
 		    int result = 0;
@@ -591,7 +639,7 @@ public class ArticoloDAO {
 		        try {
 		            if (currentCon != null) {
 		                currentCon.setAutoCommit(true); // riattivo l'autocommit
-		                currentCon.close();
+		                DriverManagerConnectionPool.releaseConnection(currentCon);
 		            }
 		        } catch (SQLException e) {
 		            // Gestione dell'errore
@@ -653,7 +701,7 @@ public class ArticoloDAO {
 	        if (currentCon != null) {
 	            try {
 	                currentCon.setAutoCommit(true); // riattivo l'autocommit
-	                currentCon.close();
+	                DriverManagerConnectionPool.releaseConnection(currentCon);
 	            } catch (SQLException e) {
 	                // Gestione dell'errore
 	                //e.printStackTrace();
@@ -717,7 +765,7 @@ public class ArticoloDAO {
 	        if (currentCon != null) {
 	            try {
 	                currentCon.setAutoCommit(true); // riattivo l'autocommit
-	                currentCon.close();
+	                DriverManagerConnectionPool.releaseConnection(currentCon);
 	            } catch (SQLException e) {
 	                // Gestione dell'errore
 	                //e.printStackTrace();
@@ -793,7 +841,7 @@ public class ArticoloDAO {
 		   	
 		         if (currentCon != null) {
 		            try {
-		               currentCon.close();
+		            	 DriverManagerConnectionPool.releaseConnection(currentCon);
 		            } catch (Exception e) {
 		            }
 
