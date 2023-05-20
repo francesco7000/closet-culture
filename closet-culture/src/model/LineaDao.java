@@ -37,6 +37,7 @@ public class LineaDao {
 		} 
 		finally {
 			try {
+				if(preparedStatement!=null)
 				preparedStatement.close();
 				DriverManagerConnectionPool.releaseConnection(connection);
 			} catch (SQLException e) {

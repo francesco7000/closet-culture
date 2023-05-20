@@ -19,7 +19,9 @@
     
     
 <!DOCTYPE html>
-<html>
+
+<html lang="IT">
+
 <head>
   <title>Closet Culture</title>
     <meta charset="utf-8">

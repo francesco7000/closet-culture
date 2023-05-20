@@ -35,8 +35,10 @@ public class CategoriaDao {
 			//e.printStackTrace();
 		}finally{
 			try {
+				if(preparedStatement!=null) {
 				preparedStatement.close();
 				DriverManagerConnectionPool.releaseConnection(connection);
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();

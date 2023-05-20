@@ -20,7 +20,7 @@ public class ArticoloDAO {
 		              "select a.nome,a.codice,a.prezzo,a.id from articolo a "
 		    		  +"WHERE a.visibile = true ";
 
-	            if (search!=null && search!="") searchQuery += " AND a.nome LIKE ?  || a.codice= ? ";
+		      if (search!=null && !search.equals(""))  searchQuery += " AND a.nome LIKE ?  || a.codice= ? ";
 
 		      try 
 		      {
@@ -29,7 +29,7 @@ public class ArticoloDAO {
 		        
 		         preparedStatement=currentCon.prepareStatement(searchQuery);
 		         int index = 1;
-		            if (search!=null && search!="") {
+		            if (search!=null && !search.equals("")) {
 		            	preparedStatement.setString(index, "%"+search+"%");
 		                index++;
 		            	preparedStatement.setString(index, search);
@@ -456,11 +456,21 @@ public class ArticoloDAO {
 		        }
 		    } catch (Exception ex) {
 		        System.out.println("Errore ricerca articolo " + ex);
+		    } finally {
+		        try {
+		            if (rs != null) {
+		                rs.close();
+		            }
+		            if (preparedStatement != null) {
+		                preparedStatement.close();
+		            }
+		        } catch (Exception ex) {
+		            System.out.println("Errore chiusura PreparedStatement o ResultSet " + ex);
+		        }
 		    }
 
 		    return bean_a;
 		}
-	   
 	   
 	   
 	   

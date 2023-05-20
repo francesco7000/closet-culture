@@ -23,7 +23,7 @@ public class UserDAO
             + "join persona p on u.persona_id = p.id "
             + "join profilo pr on u.profilo_id = pr.id "
             + "join indirizzo i on i.id_persona = p.id "
-            + "where username='"+ username+ "' AND password='"+ password+ "'";
+            + "where username=?  AND password=? ";
       
  
 	    
@@ -32,7 +32,12 @@ public class UserDAO
       //connect to DB 
       Connection currentCon = DriverManagerConnectionPool.getConnection();
       preparedStatement=currentCon.prepareStatement(searchQuery);
-      rs = preparedStatement.executeQuery(searchQuery);	        
+      
+    
+      preparedStatement.setString(1,username);
+      preparedStatement.setString(2,password);
+      rs = preparedStatement.executeQuery();
+
       boolean more = rs.next();
 	       
       // if user does not exist set the isValid variable to false
@@ -54,8 +59,7 @@ public class UserDAO
          String via = rs.getString("via");
          String cap = rs.getString("cap");
          String numero = rs.getString("numero");
-         
-         Long cellulare = rs.getLong("cellulare");
+         String cellulare = rs.getString("cellulare");
          
          String ruolo = rs.getString("ruolo");
          
@@ -119,14 +123,15 @@ return bean;
 
 	      String searchQuery =
 	            "select * from utente u "
-	            + "where u.username='"+ username+ "'";
+	            + "where u.username=? ";
 	      
 	   try 
 	   {
 	      //connect to DB 
 	      Connection currentCon = DriverManagerConnectionPool.getConnection();
 	      preparedStatement=currentCon.prepareStatement(searchQuery);
-	      rs = preparedStatement.executeQuery(searchQuery);	        
+	      preparedStatement.setString(1,username);
+	      rs = preparedStatement.executeQuery();	        
 	      boolean more = rs.next();
 		       
 	      if (!more) return true;
@@ -271,14 +276,17 @@ public static boolean checkEmailAvaiable(String email) {
 
     String searchQuery =
           "select * from utente u "
-          + "where u.email like '"+ email+ "'";
+          + "where u.email like ? ";
     
  try 
  {
     //connect to DB 
     Connection currentCon = DriverManagerConnectionPool.getConnection();
+
     preparedStatement=currentCon.prepareStatement(searchQuery);
-    rs = preparedStatement.executeQuery(searchQuery);	        
+    preparedStatement.setString(1,email);
+
+    rs = preparedStatement.executeQuery();	        
     boolean more = rs.next();
 	       
     

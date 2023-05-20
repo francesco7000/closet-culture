@@ -128,13 +128,10 @@ CSS STRUCTURE:
     --light-grey-color   : #fafafa;
     --primary-color      : #6995B1;
     --light-primary-color   : #eef1f3;
-}
-
-/* Fonts */
-:root {
-    --body-font           : "Inter", sans-serif;
+      --body-font           : "Inter", sans-serif;
     --heading-font        : "Inter", sans-serif;
 }
+
 
 
 /*----------------------------------------------*/

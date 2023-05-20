@@ -172,8 +172,8 @@ $(document).ready(function() {
         <div class="cart-totals">
           <h2 class="section-title">Totale Carrello</h2>
           <div class="total-price">
-            <table cellspacing="0" class="table">
-              <tbody>
+          <table class="table" aria-describedby="totali">
+               <tbody>
                 <tr class="subtotal">
                   <th>Totale</th>
                   <td data-title="Subtotal">

@@ -21,12 +21,18 @@ public class DriverManagerConnectionPool {
 		Connection newConnection = null;
 		String url = "jdbc:mysql://localhost:3306/tsw?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String username = "root";
-		String password = "localhost";
+		String password = "amnp1029";
+		try {
 
 		newConnection = DriverManager.getConnection(url, username, password);
-
 		newConnection.setAutoCommit(false);
 		return newConnection;
+		}catch (SQLException e) {
+			newConnection.close();
+			newConnection = getConnection();
+			return newConnection;
+		}
+		
 	}
 
 	public static synchronized Connection getConnection() throws SQLException {

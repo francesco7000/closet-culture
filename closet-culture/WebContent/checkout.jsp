@@ -108,7 +108,7 @@
 						<div class="your-order">
 							<h2 class="section-title">Totale Carrello</h2>
 							<div class="total-price">
-								<table cellspacing="0" class="table">
+          						<table class="table" aria-describedby="totali">
 									<tbody>
 										<tr class="subtotal">
 											<th>Subtotale</th>
