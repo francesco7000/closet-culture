@@ -37,7 +37,8 @@ public class MaterialeDao {
 		} 
 		finally {
 			try {
-				preparedStatement.close();
+				if(preparedStatement != null)
+					preparedStatement.close();
 				DriverManagerConnectionPool.releaseConnection(connection);
 			} catch (SQLException e) {
 				

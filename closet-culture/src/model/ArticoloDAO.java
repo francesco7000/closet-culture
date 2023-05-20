@@ -465,6 +465,9 @@ public class ArticoloDAO {
 		            if (preparedStatement != null) {
 		                preparedStatement.close();
 		            }
+		            
+		            if(currentCon!= null)
+						DriverManagerConnectionPool.releaseConnection(currentCon);
 		        } catch (Exception ex) {
 		            System.out.println("Errore chiusura PreparedStatement o ResultSet " + ex);
 		        }

@@ -28,7 +28,9 @@ public class DriverManagerConnectionPool {
 		newConnection.setAutoCommit(false);
 		return newConnection;
 		}catch (SQLException e) {
-			newConnection.close();
+			if(newConnection != null)
+				newConnection.close();
+			
 			newConnection = getConnection();
 			return newConnection;
 		}
@@ -46,7 +48,8 @@ public class DriverManagerConnectionPool {
 				if (connection.isClosed())
 					connection = getConnection();
 			} catch (SQLException e) {
-				connection.close();
+				if(connection != null)
+					connection.close();
 				connection = getConnection();
 			}
 		} else {
