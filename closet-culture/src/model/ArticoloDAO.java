@@ -348,7 +348,8 @@ public class ArticoloDAO {
 		    ArticoloBean bean_a = null;
 		    ResultSet rs = null;
 
-		    try (Connection currentCon = DriverManagerConnectionPool.getConnection()) {
+		    try  {
+		    	Connection currentCon = DriverManagerConnectionPool.getConnection();
 		        preparedStatement = currentCon.prepareStatement(searchQuery);
 		        preparedStatement.setInt(1, id);
 		        rs = preparedStatement.executeQuery();

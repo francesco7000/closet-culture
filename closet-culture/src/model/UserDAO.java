@@ -43,7 +43,7 @@ public class UserDAO
       // if user does not exist set the isValid variable to false
       if (!more) 
       {
-         System.out.println("Sorry, you are not a registered user! Please sign up first");
+        
          bean.setValid(false);
       } 
 	        
@@ -64,7 +64,7 @@ public class UserDAO
          String ruolo = rs.getString("ruolo");
          
 	     	
-         System.out.println("Welcome " + usn);
+       
          bean.setUsername(usn);
          bean.setEmail(email);
          bean.setNome(nome);
@@ -82,7 +82,7 @@ public class UserDAO
 
    catch (Exception ex) 
    {
-      System.out.println("Log In failed: An Exception has occurred! " + ex);
+      //to-do errore login
    } 
 	    
    //some exception handling
@@ -122,8 +122,7 @@ return bean;
 		
 
 	      String searchQuery =
-	            "select * from utente u "
-	            + "where u.username=? ";
+	            "select * from utente u where u.username=? ";
 	      
 	   try 
 	   {
@@ -141,7 +140,7 @@ return bean;
 
 	   catch (Exception ex) 
 	   {
-	      System.out.println("Registration Failed: An Exception has occurred! " + ex);
+	     //to-do errore registrazione
 	   } 
 	   finally 
 	   {
@@ -240,7 +239,7 @@ return bean;
 	            return false;
 	        }
 	    } catch (SQLException ex) {
-	        System.out.println("Errore durante il salvataggio dell'utente nel database: " + ex.getMessage());
+	    			//to-do errore salvataggio user
 	        try {
 	            // Rollback della transazione in caso di eccezione
 	            if (currentCon != null) {
@@ -249,6 +248,11 @@ return bean;
 	        } catch (SQLException ex2) {}
 	        return false;
 	    } finally {
+	        if (indirizzoStatement != null) {
+	            try {
+	            	indirizzoStatement.close();
+	            } catch (SQLException ex) {}
+	        }
 	        // Chiusura delle risorse e ripristino dell'autocommit
 	        if (personaStatement != null) {
 	            try {
@@ -275,8 +279,7 @@ public static boolean checkEmailAvaiable(String email) {
 	
 
     String searchQuery =
-          "select * from utente u "
-          + "where u.email like ? ";
+          "select * from utente u where u.email like ? ";
     
  try 
  {
@@ -297,7 +300,7 @@ public static boolean checkEmailAvaiable(String email) {
 
  catch (Exception ex) 
  {
-    System.out.println("Registration Failed: An Exception has occurred! " + ex);
+    //to-do errore registrazione user;
  } 
  finally 
  {
@@ -340,15 +343,14 @@ public static ArrayList<UserBean> ricercautenti(String cerca) {
 	
 
  String searchQuery =
-       "select email,username from utente u "
-       + "where u.username=? ";
+       "select email,username from utente u where u.username=? ";
  
 try 
 {
  //connect to DB 
  Connection currentCon = DriverManagerConnectionPool.getConnection();
  preparedStatement=currentCon.prepareStatement(searchQuery);
- if (cerca!=null && cerca!="") {
+ if (cerca!=null && !cerca.equals("")) {
 	 	preparedStatement.setString(1, cerca);
   }
  rs = preparedStatement.executeQuery();	        
@@ -366,8 +368,10 @@ catch (SQLException e) {
 } 
 finally {
 	try {
-		preparedStatement.close();
-		DriverManagerConnectionPool.releaseConnection(currentCon);
+		if(preparedStatement != null)
+			preparedStatement.close();
+		if(currentCon != null)
+			DriverManagerConnectionPool.releaseConnection(currentCon);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		////e.printStackTrace();
@@ -450,7 +454,7 @@ public  UserBean dettagli_profilo() {
 	ArrayList<UserBean> users = new ArrayList<>();
 	PreparedStatement preparedStatement = null;
 	UserBean user = new UserBean();
-	
+	Connection currentConn = null;
 
  String searchQuery =
        "select u.email,u.username,p.nome,p.cognome,p.cellulare from utente u join persona p on u.persona_id=p.id "
@@ -459,8 +463,8 @@ public  UserBean dettagli_profilo() {
 try 
 {
  //connect to DB 
- Connection currentCon = DriverManagerConnectionPool.getConnection();
- preparedStatement=currentCon.prepareStatement(searchQuery);
+ currentConn = DriverManagerConnectionPool.getConnection();
+ preparedStatement=currentConn.prepareStatement(searchQuery);
  preparedStatement.setInt(1, 1);
  rs = preparedStatement.executeQuery();	        
 
@@ -480,8 +484,10 @@ catch (SQLException e) {
 } 
 finally {
 	try {
-		preparedStatement.close();
-		DriverManagerConnectionPool.releaseConnection(currentCon);
+		if(preparedStatement!= null)
+			preparedStatement.close();
+		if(currentConn!= null)
+				DriverManagerConnectionPool.releaseConnection(currentConn);
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		////e.printStackTrace();

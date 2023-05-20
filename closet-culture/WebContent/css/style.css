@@ -380,7 +380,7 @@ dfn, cite, em, i {
   color: var(--primary-color) !important;
 }
 .text-hide {
-  font: 0/0 a;
+  font: var(--body-font);
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -668,8 +668,8 @@ input[type="submit"],
 input[type="reset"],
 input[type="file"],
 button {
-  background-image: none;
   background: var(--dark-color);
+  background-image: none;
   text-decoration: none !important;
   display: inline-block;
   position: relative;
@@ -1899,7 +1899,6 @@ blockquote cite {
     position: absolute;
     top: 0;
     bottom: 0;
-    padding: 12px;
     height: fit-content;
     z-index: 2;
     margin: auto;
