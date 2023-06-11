@@ -36,7 +36,7 @@
             <h1 class="page-title">Chi Siamo</h1>
             <div class="breadcrumbs">
               <span class="item">
-                <a href="index.html">Home /</a>
+                <a href="home.jsp">Home /</a>
               </span>
               <span class="item">Chi Siamo</span>
             </div>

@@ -155,10 +155,10 @@ $(document).ready(function() {
           <div class="col-md-12">
             <div class="breadcrumbs">
               <span class="item">
-                <a href="index.html">Home /</a>
+                <a href="home.jsp">Home /</a>
               </span>
               <span class="item">
-                <a href="shop.html">Shop /</a>
+                <a href="ricerca-prodotti.jsp">Shop /</a>
               </span>
               <span class="item">Shop Single</span>
             </div>

@@ -28,7 +28,7 @@ request.setAttribute("articoli", null);
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Ultras - Clothing Store eCommerce Store HTML Website Template</title>
+    <title>Closet Culture | Ricerca Prodotti</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -103,40 +103,6 @@ $(document).ready(function() {
   <%@ include file="fragments/header.jsp"%>
 
   <body>
-
-    <div class="search-popup">
-      <div class="search-popup-container">
-
-
-
-
-        <h5 class="cat-list-title">Browse Categories</h5>
-        
-        <ul class="cat-list">
-          <li class="cat-list-item">
-            <a href="shop.html" title="Men Jackets">Men Jackets</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Fashion">Fashion</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Casual Wears">Casual Wears</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Women">Women</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Trending">Trending</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Hoodie">Hoodie</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="shop.html" title="Kids">Kids</a>
-          </li>
-        </ul>
-      </div>
-    </div>
   
     <section class="site-banner jarallax min-height300 padding-large" style="background: url(images/hero-image.jpg) no-repeat; background-position: top;">
       <div class="container">
