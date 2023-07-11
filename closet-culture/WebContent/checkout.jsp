@@ -69,30 +69,30 @@
 
 	<section class="shopify-cart checkout-wrap padding-large">
 		<div class="container">
-			<form class="form-group" action="GeneraFattura">
+			<form class="form-group">
 				<div class="row d-flex flex-wrap">
 					<div class="col-lg-6">
 						<h2 class="section-title">Indirizzo di Spedizione</h2>
 						<div class="billing-details">
 						<% if(currentUser != null) { %>
 							<label for="fname">Provincia</label> <input type="text"
-								id="fname" name="provincia" class="form-control"
+								id="fname" name="firstname" class="form-control"
 								value="<%=currentUser.getProvincia()%>"> <label class="list-group-item d-flex">
 							</label> 
 							<label for="fname">Città</label> <input type="text"
-								id="fname" name="citta" class="form-control" 
+								id="fname" name="firstname" class="form-control"
 								value="<%=currentUser.getCitta()%>"> <label class="list-group-item d-flex">
 							</label> 
 							<label for="fname">Cap</label> <input type="text"
-								id="fname" name="cap" class="form-control"
+								id="fname" name="firstname" class="form-control"
 								value="<%=currentUser.getCap()%>"> <label class="list-group-item d-flex">
 							</label> 
 							<label for="fname">Via</label> <input type="text"
-								id="fname" name="via" class="form-control"
+								id="fname" name="firstname" class="form-control"
 								value="<%=currentUser.getVia()%>"> <label class="list-group-item d-flex">
 							</label> 
 							<label for="fname">Numero</label> 
-							<input type="text" id="fname" name="numero" class="form-control" value="<%=currentUser.getNumero()%>"> <label class="list-group-item d-flex">
+							<input type="text" id="fname" name="firstname" class="form-control" value="<%=currentUser.getNumero()%>"> <label class="list-group-item d-flex">
 							</label> 
 						</div>
 						<% } %>
