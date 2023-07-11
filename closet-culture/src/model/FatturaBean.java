@@ -22,6 +22,7 @@ public class FatturaBean {
 		}
 		public void setData(String data) {
 			this.data = data;
+			
 		}
 		public String getDescrizione() {
 			return descrizione;

@@ -11,6 +11,7 @@
 	if (currentUser == null) {
 		Boolean isGuest = (Boolean) session.getAttribute("guest");
 
+		
 		if (isGuest != null && isGuest) {
 
 			//se l'utente è guest allora si deve prima registrare
