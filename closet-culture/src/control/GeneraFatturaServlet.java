@@ -37,6 +37,7 @@ public class GeneraFatturaServlet extends HttpServlet {
     	String cap=request.getParameter("cap");
     	String via=request.getParameter("via");
     	String numero=request.getParameter("numero");
+    	
     
     	
         // Crea il contenuto HTML della fattura
