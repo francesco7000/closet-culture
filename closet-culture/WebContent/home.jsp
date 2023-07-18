@@ -138,8 +138,8 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-md-6">
 									<h2 class="banner-title">Casual Collection</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Sed eu feugiat amet, libero ipsum enim pharetra hac.</p>
+									<p>Esplora il nostro catalogo. Imparerai a conoscere tutto
+										il meglio della nostra collezione di prodotti Casual</p>
 									<div class="btn-wrap">
 										<a href="ricerca-prodotti.jsp"
 											class="btn btn-light btn-light-arrow btn-medium d-flex align-items-center"

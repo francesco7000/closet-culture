@@ -274,4 +274,53 @@ public class CarrelloDao {
 	        }
 	    }
 	}
+	
+	
+
+public static boolean svuotaCarrello(int idUtente) {
+
+    String deleteQuery = "DELETE FROM carrello WHERE id_utente = ?";
+    Connection conn = null;
+    PreparedStatement deletePs = null;
+
+    try {
+        conn = DriverManagerConnectionPool.getConnection();
+        conn.setAutoCommit(false); // Disabilita il commit automatico
+        deletePs = conn.prepareStatement(deleteQuery);
+        deletePs.setInt(1, idUtente);
+        int rowsAffected = deletePs.executeUpdate();
+        if (rowsAffected == 0) {
+            System.out.println("Errore durante la rimozione degli elementi dal carrello.");
+            conn.rollback(); // Effettua il rollback
+            return false;
+        } else {
+            conn.commit(); // Effettua il commit
+            return true;
+        }
+    } catch (SQLException ex) {
+        System.out.println("Errore durante la rimozione degli elementi dal carrello: " + ex.getMessage());
+        try {
+            conn.rollback(); // Effettua il rollback in caso di eccezione
+        } catch (SQLException ex2) {
+            System.out.println("Errore durante il rollback: " + ex2.getMessage());
+        }
+        return false;
+    } finally {
+        if (deletePs != null) {
+            try {
+                deletePs.close();
+            } catch (SQLException ex) {
+                System.out.println("Errore durante la chiusura dello statement di rimozione: " + ex.getMessage());
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.setAutoCommit(true); // Riabilita il commit automatico
+                conn.close();
+            } catch (SQLException ex) {
+                System.out.println("Errore durante la chiusura della connessione: " + ex.getMessage());
+            }
+        }
+    }
+}
 }

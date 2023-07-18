@@ -9,6 +9,114 @@ public class UserDAO
    static Connection currentCon = null;
    static ResultSet rs = null;  
 	
+   public static UserBean utenteByID(int id) {
+	   
+
+	      PreparedStatement preparedStatement = null;
+		
+	      System.out.println("id utente "+id);
+
+	      UserBean bean=new UserBean();
+	      
+	      String searchQuery =
+	            "select * from utente u "
+	            + "join persona p on u.persona_id = p.id "
+	            + "join profilo pr on u.profilo_id = pr.id "
+	            + "left join indirizzo i on i.id_persona = p.id "
+	            + "where u.id=? ";
+	      
+	 
+		    
+	   try 
+	   {
+		  
+	      //connect to DB 
+	      Connection currentCon = DriverManagerConnectionPool.getConnection();
+	      preparedStatement=currentCon.prepareStatement(searchQuery);
+	       preparedStatement.setInt(1,id);
+	      rs = preparedStatement.executeQuery();
+
+	      boolean more = rs.next();
+		       
+	      // if user does not exist set the isValid variable to false
+	      if (!more) 
+	      {
+	        
+	         bean.setValid(false);
+	      } 
+		        
+	      //if user exists set the isValid variable to true
+	      else if (more) 
+	      {
+	         String usn = rs.getString("username");
+	         String email = rs.getString("email");
+	         String nome = rs.getString("nome");
+	         String cognome = rs.getString("cognome");
+	         String provincia = rs.getString("provincia");
+	         String citta = rs.getString("citta");
+	         String via = rs.getString("via");
+	         String cap = rs.getString("cap");
+	         String numero = rs.getString("numero");
+	         String cellulare = rs.getString("cellulare");
+	         
+	         String ruolo = rs.getString("ruolo");
+	         Integer id_persona=rs.getInt("persona_id");
+	         
+		     	
+	       
+	         bean.setUsername(usn);
+	         bean.setEmail(email);
+	         bean.setNome(nome);
+	         bean.setCognome(cognome);
+	         bean.setCellulare(cellulare);
+	         bean.setProvincia(provincia);
+	         bean.setCitta(citta);
+	         bean.setVia(via);
+	         bean.setCap(cap);
+	         bean.setIdPersona(id_persona);
+	         bean.setNumero(numero);
+	         bean.setRuolo(ruolo);
+	         bean.setValid(true);
+	      }
+	   } 
+
+	   catch (Exception ex) 
+	   {
+	      //to-do errore login
+	   } 
+		    
+	   //some exception handling
+	   finally 
+	   {
+	      if (rs != null)	{
+	         try {
+	            rs.close();
+	         } catch (Exception e) {}
+	            rs = null;
+	         }
+		
+	      if (preparedStatement != null) {
+	         try {
+	        	 preparedStatement.close();
+	         } catch (Exception e) {}
+	         preparedStatement = null;
+	         }
+		
+	      if (currentCon != null) {
+	         try {
+	            currentCon.close();
+	         } catch (Exception e) {
+	         }
+
+	         currentCon = null;
+	      }
+	   }
+
+	System.out.println("utente trovato"+bean.getId()+bean.getUsername());
+	return bean;
+		
+	   }	
+
    public static UserBean doRetrieve(UserBean bean) {
 	   
 
@@ -62,6 +170,7 @@ public class UserDAO
          String cellulare = rs.getString("cellulare");
          
          String ruolo = rs.getString("ruolo");
+         Integer id_persona=rs.getInt("persona_id");
          
 	     	
        
@@ -74,6 +183,7 @@ public class UserDAO
          bean.setCitta(citta);
          bean.setVia(via);
          bean.setCap(cap);
+         bean.setIdPersona(id_persona);
          bean.setNumero(numero);
          bean.setRuolo(ruolo);
          bean.setValid(true);
@@ -339,26 +449,37 @@ public static ArrayList<UserBean> ricercautenti(String cerca) {
 	ArrayList<UserBean> users = new ArrayList<>();
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
-	UserBean user = new UserBean();
 	
+	String searchQuery ="";
+if(cerca!=null && !cerca.equals("")) {
+	  searchQuery +=
+		       "select email,username,id from utente u where u.username=? ";
+		 
+}else {
+	 searchQuery+="select email,username,id from utente u ";
+}
 
- String searchQuery =
-       "select email,username from utente u where u.username=? ";
- 
+
 try 
 {
  //connect to DB 
  Connection currentCon = DriverManagerConnectionPool.getConnection();
  preparedStatement=currentCon.prepareStatement(searchQuery);
+ 
  if (cerca!=null && !cerca.equals("")) {
 	 	preparedStatement.setString(1, cerca);
-  }
- rs = preparedStatement.executeQuery();	        
-
+	 	
+ }
+ 
+ rs = preparedStatement.executeQuery();	  
+ 
+ 
+   
 	while (rs.next()) {
-		
+		UserBean user=new UserBean();
 		user.setEmail(rs.getString("email"));
 		user.setUsername(rs.getString("username"));
+		user.setId(rs.getInt("id"));
 		users.add(user);
 	}
 } 
@@ -381,73 +502,6 @@ finally {
 
 return users;
 }
-
-/*
-public static boolean nuovoprofilo(String nome, String cognome, String email, String cellulare)
-    String insertQuery = "INSERT INTO articolo (visibile, codice, barcode, nome, descrizione, prezzo, sconto, stagione, id_categoria_articolo, linea_id, materiale_id, quantità, composizione) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)";
-    int result = 0;
-    Connection currentCon = null;
-
-    try {
-        currentCon = DriverManagerConnectionPool.getConnection();
-        currentCon.setAutoCommit(false); // disattivo l'autocommit
-
-        preparedStatement = currentCon.prepareStatement(insertQuery);
-        preparedStatement.setBoolean(1, visibile);
-        preparedStatement.setString(2, codice);
-        preparedStatement.setString(3, barcode);
-        preparedStatement.setString(4, nome);
-        preparedStatement.setString(5, descrizione);
-        preparedStatement.setDouble(6, prezzo);
-        preparedStatement.setInt(7, sconto);
-        preparedStatement.setString(8, stagione);
-        preparedStatement.setInt(9, id_categoria);
-        preparedStatement.setInt(10, id_linea);
-        preparedStatement.setInt(11, id_materiale);
-        preparedStatement.setInt(12, 0);
-        preparedStatement.setString(13, "composizione di prova");
-        result = preparedStatement.executeUpdate();
-
-        currentCon.commit(); // eseguo il commit esplicitamente
-
-    } catch (SQLException e) {
-        // Gestione dell'errore
-        //e.printStackTrace();
-        try {
-            if (currentCon != null) {
-            	System.out.println("rollback");
-                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
-    } finally {
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-                // Gestione dell'errore
-                //e.printStackTrace();
-            }
-        }
-        if (currentCon != null) {
-            try {
-                currentCon.setAutoCommit(true); // riattivo l'autocommit
-                currentCon.close();
-            } catch (SQLException e) {
-                // Gestione dell'errore
-                //e.printStackTrace();
-            }
-        }
-    }
-
-    return result > 0;
-}
-*/
-
-
-
 
 public  UserBean dettagli_profilo() {
 
@@ -497,6 +551,87 @@ finally {
 
 return user;
 	
+}
+
+public static boolean updateUser(UserBean bean) throws SQLException {
+
+    Connection conn = null;
+    PreparedStatement psUtente = null;
+    PreparedStatement psPersona = null;
+    PreparedStatement psIndirizzo = null;
+    boolean success = false;
+
+    try {
+        // Connessione al database
+        conn = DriverManagerConnectionPool.getConnection();
+        conn.setAutoCommit(false);
+        // Update di nome, cognome e cellulare della persona
+        String updatePersonaQuery = "UPDATE persona SET nome = ?, cognome = ?, cellulare = ? WHERE id = ?";
+        psPersona = conn.prepareStatement(updatePersonaQuery);
+        psPersona.setString(1, bean.getNome());
+        psPersona.setString(2, bean.getCognome());
+        psPersona.setString(3, bean.getCellulare().toString());
+        psPersona.setInt(4, bean.getIdPersona());
+        int rowsAffectedPersona = psPersona.executeUpdate();
+
+        // Update di via, cap, città e numero dell'indirizzo
+        String updateIndirizzoQuery = "UPDATE indirizzo SET via = ?, cap = ?, citta = ?, numero = ? WHERE id_persona = ?";
+        psIndirizzo = conn.prepareStatement(updateIndirizzoQuery);
+        psIndirizzo.setString(1, bean.getVia());
+        psIndirizzo.setString(2, bean.getCap());
+        psIndirizzo.setString(3, bean.getCitta());
+        psIndirizzo.setString(4, bean.getNumero());
+        psIndirizzo.setInt(5, bean.getIdPersona());
+        int rowsAffectedIndirizzo = psIndirizzo.executeUpdate();
+
+        // Verifica se tutti gli update sono stati eseguiti correttamente
+        if (rowsAffectedPersona > 0 && rowsAffectedIndirizzo > 0) {
+            success = true;
+            conn.commit();
+           
+        } else {
+            throw new SQLException("Errore durante l'update"+rowsAffectedPersona+rowsAffectedIndirizzo);
+        }
+    } catch (SQLException ex) {
+        // Errore durante l'update, gestione dell'eccezione e rollback della transazione
+        if (conn != null) {
+            conn.rollback();
+        }
+        ex.printStackTrace();
+        throw ex;
+    } finally {
+        // Chiusura delle risorse e ripristino dell'autocommit
+        if (psUtente != null) {
+            try {
+                psUtente.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (psPersona != null) {
+            try {
+                psPersona.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (psIndirizzo != null) {
+            try {
+                psIndirizzo.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    return success;
 }
    
 }

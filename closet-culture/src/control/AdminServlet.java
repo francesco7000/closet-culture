@@ -39,12 +39,15 @@ public class AdminServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		try {
+		if(request==null ) response.sendRedirect("errorPage.jsp");
 		String action = request.getParameter("action");
 
 		response.setContentType("text/html;charset=UTF-8");
 
 		HttpSession session = request.getSession(false);
 		UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
+		if(currentUser==null) response.sendRedirect("errorPage.jsp"); // logged-in page
 
 		if (action != null) {
 
@@ -183,15 +186,16 @@ public class AdminServlet extends HttpServlet {
 				
 				try {
 					ArrayList<UserBean> users = new ArrayList<UserBean>();
-
+					System.out.println(request.getParameter("query"));
 					users = UserDAO.ricercautenti(request.getParameter("query"));
+					
 					PrintWriter out = response.getWriter();
 					
 					for (UserBean user : users) {
-						System.out.println(user.getUsername());
-						
-						out.print("<li>"+ user.getUsername() +"</li>");
-						
+						//<a href="ArticoliServlet?action=getArticolo&id=<%=articolo.getId()%>"><%=articolo.getNome()%></a>
+
+						out.print("<li><a href="+"UserServlet?action=getUtenteById&id="+user.getId()+">"+user.getUsername() +"</a></li>");
+					
 
 					}
 					if(users.size()<=0) {
@@ -212,6 +216,11 @@ public class AdminServlet extends HttpServlet {
 			}
 
 		}
+		} catch (Exception e) {
+			//e.printStackTrace();
+			response.sendRedirect("errorPage.jsp");
+		}
+
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

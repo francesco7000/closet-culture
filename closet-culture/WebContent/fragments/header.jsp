@@ -84,7 +84,7 @@
 
 
 
-								<li><a href="contact.html" class="item-anchor"
+								<li><a href="contatti.jsp" class="item-anchor"
 									data-effect="Contact">Contatti</a></li>
 									
 								
@@ -93,7 +93,7 @@
 									data-effect="Pages">Utility<i
 										class="icon icon-chevron-down"></i></a>
 									<ul class="submenu">
-										<li><a href="modifica-profilo.jsp" class="item-anchor">Profilo<span
+										<li><a href="dettaglioProfilo.jsp" class="item-anchor">Profilo<span
 												class="text-primary"></span></a></li>
 										<li><a href="authenticate.jsp" class="item-anchor">Logout<span
 												class="text-primary"></span></a></li>

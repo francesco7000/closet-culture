@@ -138,7 +138,7 @@
 									%>
 									<label class="list-group-item d-flex"> <input
 										class="form-check-input flex-shrink-0" type="radio"
-										name="listGroupRadios" id="listGroupRadios1" value="" checked>
+										name="tipoPag" id="fpag" value="<%=tipoPag.getTp_descrizione()%>" checked>
 										<div>
 											<strong><%=tipoPag.getTp_nome()%></strong>
 											<p><%=tipoPag.getTp_descrizione()%></p>

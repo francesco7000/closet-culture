@@ -7,14 +7,7 @@
 <%
     String query = request.getParameter("query");
     List<String> userList = new ArrayList<String>();
-    
-    
-    // qui andrebbe la logica per effettuare la ricerca degli utenti in base alla query
-    if (query != null && !query.isEmpty()) {
-        userList.add("Utente 1");
-        userList.add("Utente 2");
-        userList.add("Utente 3");
-    }
+       
 %>
     
     

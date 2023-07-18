@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import javax.servlet.http.HttpSession;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -23,6 +25,9 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.*;
+
+import model.CarrelloBean;
+import model.CarrelloDao;
 @WebServlet("/GeneraFattura")
 public class GeneraFatturaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -38,33 +43,20 @@ public class GeneraFatturaServlet extends HttpServlet {
     	String via=request.getParameter("via");
     	String numero=request.getParameter("numero");
     	
-    
-    	
+    	String descrizionePagamento=request.getParameter("tipoPag");
+    	String htmlContent="Fattura \n";
+    	htmlContent+="--------------------------------------------- \n";
+    	htmlContent+="Indirizzo di Spedizione:"+" "+provincia+" "+via+" "+numero+" "+cap+" "+citta+" "+"\n";
+    	htmlContent+="---------------------------------------------"+"\n";
+       	CarrelloBean carrello = CarrelloDao.caricaCarrello(1);
         // Crea il contenuto HTML della fattura
-        String htmlContent = "<html><head><title>Fattura</title></head><body><h1>Fattura</h1><p>Contenuto della fattura...</p></body></html>";
-        // Invia il contenuto HTML come risposta HTTP
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=\"output.pdf\"");
-
-        // Crea un nuovo documento PDF
-        ByteArrayOutputStream pdfStream = new ByteArrayOutputStream();
-        Document document = new Document();
-        try {
-            PdfWriter writer = PdfWriter.getInstance(document, pdfStream);
-            document.open();
-
-            Paragraph paragraph = new Paragraph(htmlContent);
-            document.add(paragraph);
-
-            // Chiudi il documento PDF
-            document.close();
-            // Invia il PDF come risposta HTTP
-            response.setContentLength(pdfStream.size());
-            response.getOutputStream().write(pdfStream.toByteArray());
-            response.getOutputStream().flush();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
+        htmlContent+= carrello.stringa()+"\n";
+    	htmlContent+="Metodo di pagamento utilizzato:"+" "+descrizionePagamento+"\n";
+    	HttpSession session = request.getSession();
+		session.setAttribute("pdfFileName", htmlContent);
+        CarrelloDao.svuotaCarrello(1);
+        response.sendRedirect("thanksyou.jsp");
+       
     }
 
 }

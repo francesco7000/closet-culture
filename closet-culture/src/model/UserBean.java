@@ -2,6 +2,8 @@ package model;
 
 public class UserBean {
 
+	private int id;
+	private int idPersona;
 	private String username;
 	private String password;
 	private String email;
@@ -124,6 +126,22 @@ public class UserBean {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(int idPersona) {
+		this.idPersona = idPersona;
 	}
 
 }

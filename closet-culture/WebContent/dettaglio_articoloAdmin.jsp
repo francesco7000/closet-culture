@@ -2,8 +2,16 @@
 	pageEncoding="UTF-8" import="java.util.*, model.*"%>
 
 <%
-	ArticoloBean art = (ArticoloBean) request.getAttribute("articolo");
-
+ArticoloBean art = (ArticoloBean) request.getAttribute("articolo");
+UserBean currentUser = (UserBean) session.getAttribute("currentSessionUser");
+if (currentUser == null) {
+		//se l'utente è guest allora si deve prima registrare
+		response.sendRedirect("errorPage.jsp");
+}else{
+	if (!currentUser.getRuolo().equals("admin")) {
+		response.sendRedirect("errorPage.jsp");
+	}
+}
 	if (art == null) {
 		request.setAttribute("errorMessage", "Articolo non trovato!");
 		response.sendRedirect("errorPage.jsp");
@@ -247,26 +255,7 @@
 										</div>
 									</div>
 
-									<div class="action-buttons">
-
-										<a name="add" id="elimina" data-id="<%=art.getId()%>"
-											class="btn btn-medium btn-dark">
-											<span id="add-to-cart">Elimina</span>
-										</a>
-
-
-										<button type="submit" name="action" id="add-to-cart"
-											class="btn btn-medium btn-dark" value="modifica">
-											<span id="add-to-cart">Salva Modifiche</span>
-										</button>
-
-
-										<a href="nuovoArticoloAdmin.jsp" name="add" id="nuovoArt" class="btn btn-medium btn-dark">
-											<span id="add-to-cart">Nuovo Articolo</span>
-										</a>
-
-									</div>
-
+									
 									<div class="row">
 										<div class="col-md-4 col-sm-12">
 											<label for="artCat">Categoria Articolo</label> <select
@@ -342,6 +331,38 @@
 											</select>
 										</div>
 									</div>
+									
+									<div class="row">
+									
+									<div class="action-buttons">
+
+										<a name="add" id="elimina" data-id="<%=art.getId()%>"
+											class="btn btn-medium btn-dark">
+											<span id="add-to-cart">Elimina</span>
+										</a>
+										
+										
+										
+									<!--  	<a href="nuovoArticoloAdmin.jsp"  name="action"  id="add-to-cart"
+											class="btn btn-medium btn-dark" value="modifica">
+											<span id="add-to-cart">Salva Modifiche</span>
+										</a>-->
+
+
+
+										<button  style="margin:15px 0px 0px !Important" type="submit" name="action" id="add-to-cart"
+											class="btn btn-medium btn-dark" value="modifica">
+											<span id="add-to-cart">Salva Modifiche</span>
+										</button> 
+
+
+										<a href="nuovoArticoloAdmin.jsp" name="add" id="nuovoArt" class="btn btn-medium btn-dark">
+											<span id="add-to-cart">Nuovo Articolo</span>
+										</a>
+
+									</div>
+									</div>
+									
 
 
 								</form>

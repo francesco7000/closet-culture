@@ -28,7 +28,23 @@ public class CarrelloBean {
     public void setCarrello(Map<Integer,ElementoCarrello> carrello) {
         this.carrello = carrello;
     }
+    
+    public String stringa() {
+    	String carrelloString = "";
 
+    	Map<Integer, ElementoCarrello> elementiCarrello = this.carrello;
+    	int somma=0;
+    	for (Map.Entry<Integer, ElementoCarrello> entry : elementiCarrello.entrySet()) {
+    	    ElementoCarrello elemento = entry.getValue();
+    	    VariantiBean variante = elemento.getVariante();
+    	    ArticoloBean articolo = elemento.getArticolo();
+    	    int quantita = elemento.getQuantita();
+    	    somma+=(articolo.getPrezzo() * quantita);
+    	    carrelloString += " - Articolo: " + articolo.getNome() + " - Variante: " + variante.getDescrizione() + " - Quantità: " + quantita + " - Prezzo totale: " + (articolo.getPrezzo() * quantita)+' '+'€' + "\n";
+    	}
+    	carrelloString+="Totale da Pagare: "+" "+somma+' '+'€'+"\n";
+    	return carrelloString;
+    }
     
     
     public void addElemento(VariantiBean variante, ArticoloBean articolo, int quantita, int idRow) {
