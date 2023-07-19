@@ -25,21 +25,16 @@ public class RegistrationServlet extends HttpServlet {
      */
     public RegistrationServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try
 		{	    
 
 		     UserBean user =  new UserBean();
-		    
-		     
-		     
 		     if(UserDAO.checkUsernameAvaiable(request.getParameter("un")) && UserDAO.checkEmailAvaiable(request.getParameter("email"))) {
 		    	 
 		    	 user.setUsername(request.getParameter("un"));
@@ -51,8 +46,7 @@ public class RegistrationServlet extends HttpServlet {
 		    		 user.setEmail(request.getParameter("email"));
 		    		 
 		    		 String cellulareString = request.getParameter("cellulare");
-		    		 Long cellulare = Long.parseLong(cellulareString);
-		    		 user.setCellulare(cellulare);
+		    		 user.setCellulare(cellulareString);
 		    		 
 		    		 user.setNome(request.getParameter("nome"));
 		    		 user.setCognome(request.getParameter("cognome"));
@@ -90,7 +84,6 @@ public class RegistrationServlet extends HttpServlet {
 		} 	
 		catch (Throwable theException) 	    
 		{
-		     System.out.println(theException); 
 		}
 	}
 
@@ -98,7 +91,6 @@ public class RegistrationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

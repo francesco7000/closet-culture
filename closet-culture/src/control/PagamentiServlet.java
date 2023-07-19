@@ -27,21 +27,19 @@ public class PagamentiServlet extends HttpServlet {
      */
     public PagamentiServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 		if(action != null) {
 			PagamentoDao pagDao = new PagamentoDao();
 			if(action.equalsIgnoreCase("getTipiPag")) {
 				
 				
-				ArrayList<PagamentoBean> tipiPag = new ArrayList<PagamentoBean>();
+				ArrayList<PagamentoBean> tipiPag;
 				
 				tipiPag = PagamentoDao.chekTipiPagamentoDisponibili();
 				
@@ -60,7 +58,6 @@ public class PagamentiServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

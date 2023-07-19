@@ -106,7 +106,7 @@ public class ArticoliServlet extends HttpServlet {
 					response.sendRedirect("errorPage.jsp");
 				}
 			}else if(action.equalsIgnoreCase("getTaglia")) {
-				ArrayList<TagliaBean> taglie = new ArrayList<>();
+				ArrayList<TagliaBean> taglie;
 				taglie = ArticoloDAO.getTagliaByColore(request.getParameter("idcol"),request.getParameter("idart"));
 
 				String idArticolo = request.getParameter("idart");
@@ -133,7 +133,7 @@ public class ArticoliServlet extends HttpServlet {
 				
 				}else if (action.equalsIgnoreCase("getRicercaArticoli")) {
 
-					ArrayList<ArticoloBean> articoli = new ArrayList<>();
+					ArrayList<ArticoloBean> articoli;
 
 					articoli = ArticoloDAO.ricerca("");
 

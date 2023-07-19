@@ -40,7 +40,6 @@ public class CarrelloServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 		response.setContentType("text/html;charset=UTF-8");
 		if (action != null) {
