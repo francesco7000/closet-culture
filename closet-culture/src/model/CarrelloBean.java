@@ -56,15 +56,4 @@ public class CarrelloBean {
     }
     
 
-    public void removeElemento(int idRow) {
-    	
-    	System.out.println(idRow);
-    	
-   
-    	
-    	//carrello.remove(idRow);
-    	
-    	
-    }
-    
 }

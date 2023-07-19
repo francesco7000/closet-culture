@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class CarrelloDao {
+	   static final Logger logger = Logger.getLogger("MyLogger");
 
 	private static boolean inserisciVarianteNelCarrello(VariantiBean variante, int idUtente, int quantita) {
 	    var idVarianteArticolo = variante.getId();
@@ -30,15 +32,14 @@ public class CarrelloDao {
 	        ResultSet rs = checkPs.executeQuery();
 	        if (rs.next()) {
 	            // La variante è già presente, esegui un'operazione di aggiornamento
-	            int quantitaPrecedente = rs.getInt("quantita");
 	            updatePs = conn.prepareStatement(updateQuery);
 	            updatePs.setInt(1, quantita);
 	            updatePs.setInt(2, idVarianteArticolo);
 	            updatePs.setInt(3, idUtente);
 	            int rowsAffected = updatePs.executeUpdate();
 	            if (rowsAffected == 0) {
-	                System.out.println("Errore durante l'aggiornamento della quantità della variante nel carrello.");
-	                conn.rollback();
+	            	   logger.log(null, "Eccezione non gestita: ");
+	            	   conn.rollback();
 	                return false;
 	            }
 	        } else {
@@ -49,7 +50,7 @@ public class CarrelloDao {
 	            insertPs.setInt(3, quantita);
 	            int rowsAffected = insertPs.executeUpdate();
 	            if (rowsAffected == 0) {
-	                System.out.println("Errore durante l'inserimento della variante nel carrello.");
+	            	   logger.log(null, "Eccezione non gestita: ");
 	                conn.rollback();
 	                return false;
 	            }
@@ -59,11 +60,11 @@ public class CarrelloDao {
 	        return true;
 
 	    } catch (SQLException ex) {
-	        System.out.println("Errore durante l'inserimento della variante nel carrello: " + ex.getMessage());
+	    	   logger.log(null, "Eccezione non gestita: ");
 	        try {
 	            conn.rollback();
 	        } catch (SQLException ex2) {
-	            System.out.println("Errore durante il rollback: " + ex2.getMessage());
+	        	   logger.log(null, "Eccezione non gestita: ");
 	        }
 	        return false;
 	    } finally {
@@ -71,21 +72,21 @@ public class CarrelloDao {
 	            try {
 	                checkPs.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura dello statement di verifica: " + ex.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");
+	            	   }
 	        }
 	        if (updatePs != null) {
 	            try {
 	                updatePs.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura dello statement di aggiornamento: " + ex.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");
+	            	   }
 	        }
 	        if (insertPs != null) {
 	            try {
 	                insertPs.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura dello statement di inserimento: " + ex.getMessage());
+	            	   logger.log(null, "Eccezione non gestita: ");
 	            }
 	        }
 	        if (conn != null) {
@@ -93,7 +94,7 @@ public class CarrelloDao {
 	                conn.setAutoCommit(true);
 	                conn.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura della connessione: " + ex.getMessage());
+	            	   logger.log(null, "Eccezione non gestita: ");
 	            }
 	        }
 	    }
@@ -103,7 +104,7 @@ public class CarrelloDao {
 	    if (verificaEsistenza(variante, quantita)) {
 	       return inserisciVarianteNelCarrello(variante, idUtente, quantita);
 	    } else {
-	        System.out.println("Impossibile aggiungere la variante al carrello.");
+	    	   logger.log(null, "Eccezione non gestita: ");
 	        return false;
 	    }
 	}
@@ -131,29 +132,26 @@ public class CarrelloDao {
 	        }
 
 	    } catch (SQLException ex) {
-	        System.out.println("Errore durante la verifica della quantità disponibile: " + ex.getMessage());
+	    	   logger.log(null, "Eccezione non gestita: ");
 	        return false;
 	    } finally {
 	        if (rs != null) {
 	            try {
 	                rs.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura del ResultSet: " + ex.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");	            }
 	        }
 	        if (ps != null) {
 	            try {
 	                ps.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura dello Statement: " + ex.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");	            }
 	        }
 	        if (conn != null) {
 	            try {
 	                conn.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura della connessione: " + ex.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");	            }
 	        }
 	    }
 	}
@@ -192,36 +190,33 @@ public class CarrelloDao {
 	        conn.commit(); // conferma le modifiche
 
 	    } catch (SQLException ex) {
-	        System.out.println("Errore durante la ricerca degli elementi nel carrello: " + ex.getMessage());
-	        if (conn != null) {
+	    	   logger.log(null, "Eccezione non gestita: ");	        if (conn != null) {
 	            try {
 	                conn.rollback(); // annulla le modifiche in caso di errore
 	            } catch (SQLException ex2) {
-	                System.out.println("Errore durante l'annullamento delle modifiche: " + ex2.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");	            }
 	        }
 	    } finally {
 	        if (rs != null) {
 	            try {
 	                rs.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura del ResultSet: " + ex.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");	            }
 	        }
 	        if (ps != null) {
 	            try {
 	                ps.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura dello statement: " + ex.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");
+	            	   }
 	        }
 	        if (conn != null) {
 	            try {
 	                conn.setAutoCommit(true); // riattiva l'autocommit
 	                conn.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura della connessione: " + ex.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");
+	            	   }
 	        }
 	    }
 
@@ -241,27 +236,27 @@ public class CarrelloDao {
 	        deletePs.setInt(2, idUtente);
 	        int rowsAffected = deletePs.executeUpdate();
 	        if (rowsAffected == 0) {
-	            System.out.println("Errore durante la rimozione della variante dal carrello.");
-	            conn.rollback(); // Effettua il rollback
+	        	   logger.log(null, "Eccezione non gestita: ");
+	        	   conn.rollback(); // Effettua il rollback
 	            return false;
 	        } else {
 	            conn.commit(); // Effettua il commit
 	            return true;
 	        }
 	    } catch (SQLException ex) {
-	        System.out.println("Errore durante la rimozione della variante dal carrello: " + ex.getMessage());
-	        try {
+	    	   logger.log(null, "Eccezione non gestita: ");
+	    	   try {
 	            conn.rollback(); // Effettua il rollback in caso di eccezione
 	        } catch (SQLException ex2) {
-	            System.out.println("Errore durante il rollback: " + ex2.getMessage());
-	        }
+	        	   logger.log(null, "Eccezione non gestita: ");
+	        	   }
 	        return false;
 	    } finally {
 	        if (deletePs != null) {
 	            try {
 	                deletePs.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura dello statement di rimozione: " + ex.getMessage());
+	            	   logger.log(null, "Eccezione non gestita: ");
 	            }
 	        }
 	        if (conn != null) {
@@ -269,8 +264,7 @@ public class CarrelloDao {
 	                conn.setAutoCommit(true); // Riabilita il commit automatico
 	                conn.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura della connessione: " + ex.getMessage());
-	            }
+	            	   logger.log(null, "Eccezione non gestita: ");	            }
 	        }
 	    }
 	}
@@ -290,36 +284,31 @@ public static boolean svuotaCarrello(int idUtente) {
         deletePs.setInt(1, idUtente);
         int rowsAffected = deletePs.executeUpdate();
         if (rowsAffected == 0) {
-            System.out.println("Errore durante la rimozione degli elementi dal carrello.");
-            conn.rollback(); // Effettua il rollback
+        	   logger.log(null, "Eccezione non gestita: ");            conn.rollback(); // Effettua il rollback
             return false;
         } else {
             conn.commit(); // Effettua il commit
             return true;
         }
     } catch (SQLException ex) {
-        System.out.println("Errore durante la rimozione degli elementi dal carrello: " + ex.getMessage());
-        try {
+    	   logger.log(null, "Eccezione non gestita: ");        try {
             conn.rollback(); // Effettua il rollback in caso di eccezione
         } catch (SQLException ex2) {
-            System.out.println("Errore durante il rollback: " + ex2.getMessage());
-        }
+        	   logger.log(null, "Eccezione non gestita: ");        }
         return false;
     } finally {
         if (deletePs != null) {
             try {
                 deletePs.close();
             } catch (SQLException ex) {
-                System.out.println("Errore durante la chiusura dello statement di rimozione: " + ex.getMessage());
-            }
+            	   logger.log(null, "Eccezione non gestita: ");            }
         }
         if (conn != null) {
             try {
                 conn.setAutoCommit(true); // Riabilita il commit automatico
                 conn.close();
             } catch (SQLException ex) {
-                System.out.println("Errore durante la chiusura della connessione: " + ex.getMessage());
-            }
+            	   logger.log(null, "Eccezione non gestita: ");            }
         }
     }
 }

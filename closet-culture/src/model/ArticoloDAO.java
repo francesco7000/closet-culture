@@ -771,7 +771,7 @@ public class ArticoloDAO {
 
 	        try {
 	            if (currentCon != null) {
-	            	System.out.println("rollback");
+	            	logger.log(null, "Eccezione non gestita: ");
 	                currentCon.rollback(); 
 	            }
 	        } catch (SQLException ex) {
@@ -834,7 +834,7 @@ public class ArticoloDAO {
 
 		            }
 		         rs = preparedStatement.executeQuery();	        
-		         //boolean more = rs.next();
+		        
 		         while (rs.next()) {
 
 		      
@@ -851,7 +851,6 @@ public class ArticoloDAO {
 
 		      } 
 		   	    
-		      //some exception handling
 		      finally 
 		      {
 		         if (rs != null)	{
