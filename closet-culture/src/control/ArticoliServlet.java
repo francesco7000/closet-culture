@@ -144,7 +144,7 @@ public class ArticoliServlet extends HttpServlet {
 
 				} else if (action.equalsIgnoreCase("getArtCatRicArt")) {
 
-					ArrayList<ArticoloBean> articoli = new ArrayList<>();
+					ArrayList<ArticoloBean> articoli;
 
 					articoli = ArticoloDAO.ricerca_per_categoria(request.getParameter("idCat"));
 
@@ -178,10 +178,7 @@ public class ArticoliServlet extends HttpServlet {
 					out.close();
 				}else {
 					if (action.equalsIgnoreCase("getArtLineaRicArt")) {
-						
-						
-
-						ArrayList<ArticoloBean> articoli = new ArrayList<>();
+						ArrayList<ArticoloBean> articoli;
 
 						articoli = ArticoloDAO.ricerca_per_linea(request.getParameter("idlin"));
 

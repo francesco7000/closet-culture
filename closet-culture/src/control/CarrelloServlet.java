@@ -32,7 +32,6 @@ public class CarrelloServlet extends HttpServlet {
 	 */
 	public CarrelloServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -45,16 +44,11 @@ public class CarrelloServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		response.setContentType("text/html;charset=UTF-8");
 		if (action != null) {
-
 			if (action.equalsIgnoreCase("aggiungiAlCarrello")) {
-
 				VariantiBean v = VarianteDAO.getVariante(request.getParameter("idart"), request.getParameter("idcol"),
-						request.getParameter("idtaglia"));
-
+				request.getParameter("idtaglia"));
 				int qta = Integer.parseInt(request.getParameter("qta"));
-
 				boolean result = CarrelloDao.addToCart(v, 1, qta);
-
 			} else if (action.equalsIgnoreCase("getAll")) {
 
 				CarrelloBean carrello = CarrelloDao.caricaCarrello(1);
@@ -65,20 +59,9 @@ public class CarrelloServlet extends HttpServlet {
 			} else if (action.equalsIgnoreCase("removeVar")) {
 
 				int idRow = Integer.parseInt(request.getParameter("idRow"));
-				
-				System.out.println(idRow);
-
-
-				
-
-				CarrelloDao.rimuoviVarianteDalCarrello(idRow, 1); //1 = admin
-				
+				CarrelloDao.rimuoviVarianteDalCarrello(idRow, 1); 
 				CarrelloBean carrello = CarrelloDao.caricaCarrello(1);
-
 				PrintWriter out = response.getWriter();
-
-				int totale = 0;
-
 				Map<Integer, ElementoCarrello> elementiCarrello = carrello.getCarrello();
 
 				for (Map.Entry<Integer, ElementoCarrello> entry : elementiCarrello.entrySet()) {
@@ -87,7 +70,7 @@ public class CarrelloServlet extends HttpServlet {
 					ArticoloBean articolo = elemento.getArticolo();
 					int quantita = elemento.getQuantita();
 
-					totale += articolo.getPrezzo() * quantita;
+					
 
 					out.print("<div class=\"row\"> " + "        <div class=\"col-lg-4 col-md-3\">\n"
 							+ "          <div class=\"row cart-info d-flex flex-wrap\">\n"
@@ -134,7 +117,6 @@ public class CarrelloServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -29,7 +29,6 @@ public class CaratteristicheServlet extends HttpServlet {
      */
     public CaratteristicheServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -43,7 +42,7 @@ public class CaratteristicheServlet extends HttpServlet {
 			MaterialeDao matDao = new MaterialeDao();
 			if(action.equalsIgnoreCase("getLineeRicerca")) {
 				
-				ArrayList<LineaBean> linee = new ArrayList<LineaBean>();
+				ArrayList<LineaBean> linee;
 				
 				linee = linDao.doRetrieveAll();
 
@@ -55,14 +54,14 @@ public class CaratteristicheServlet extends HttpServlet {
 			}
 			else if(action.equalsIgnoreCase("getAllAdmin")) {
 				
-				ArrayList<LineaBean> linee = new ArrayList<LineaBean>();
+				ArrayList<LineaBean> linee ;
 				
 				linee = linDao.doRetrieveAll();
 
 				request.setAttribute("linee", linee);
 				
 				
-				ArrayList<MaterialeBean> materiali = new ArrayList<MaterialeBean>();
+				ArrayList<MaterialeBean> materiali;
 				
 				materiali = matDao.doRetrieveAll();
 
@@ -84,7 +83,6 @@ public class CaratteristicheServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

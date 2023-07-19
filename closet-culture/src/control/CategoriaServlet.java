@@ -29,7 +29,6 @@ public class CategoriaServlet extends HttpServlet {
 	 */
 	public CategoriaServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -44,7 +43,7 @@ public class CategoriaServlet extends HttpServlet {
 			if(action.equalsIgnoreCase("getCategorie")) {
 				
 				
-				ArrayList<CategoriaBean> categorie = new ArrayList<CategoriaBean>();
+				ArrayList<CategoriaBean> categorie ;
 				
 				categorie = catDao.doRetrieveAll();
 
@@ -57,7 +56,7 @@ public class CategoriaServlet extends HttpServlet {
 			}
 			else if(action.equalsIgnoreCase("getCategoria")) {
 					
-					ArrayList<CategoriaBean> categorie = new ArrayList<CategoriaBean>();
+					ArrayList<CategoriaBean> categorie ;
 					
 					categorie = catDao.doRetrieveAll();
 
@@ -68,7 +67,7 @@ public class CategoriaServlet extends HttpServlet {
 				    dispatcher.forward(request, response);
 					
 			}else if (action.equalsIgnoreCase("getRicerca")){
-				ArrayList<CategoriaBean> categorie = new ArrayList<CategoriaBean>();
+				ArrayList<CategoriaBean> categorie ;
 				
 				categorie = catDao.doRetrieveAll();
 
@@ -88,7 +87,6 @@ public class CategoriaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -177,7 +177,7 @@ public class AdminServlet extends HttpServlet {
 			case "ricercaUtenti": {
 				
 				try {
-					ArrayList<UserBean> users = new ArrayList<>();
+					ArrayList<UserBean> users ;
 					users = UserDAO.ricercautenti(request.getParameter("query"));
 					
 					PrintWriter out = response.getWriter();
