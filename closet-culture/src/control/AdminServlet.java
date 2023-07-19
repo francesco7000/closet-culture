@@ -177,19 +177,15 @@ public class AdminServlet extends HttpServlet {
 			case "ricercaUtenti": {
 				
 				try {
-					ArrayList<UserBean> users = new ArrayList<UserBean>();
+					ArrayList<UserBean> users = new ArrayList<>();
 					users = UserDAO.ricercautenti(request.getParameter("query"));
 					
 					PrintWriter out = response.getWriter();
 					
 					for (UserBean user : users) {
-						//<a href="ArticoliServlet?action=getArticolo&id=<%=articolo.getId()%>"><%=articolo.getNome()%></a>
-
 						out.print("<li><a href="+"UserServlet?action=getUtenteById&id="+user.getId()+">"+user.getUsername() +"</a></li>");
-					
-
 					}
-					if(users.size()<=0) {
+					if(users.isEmpty()) {
 						out.print("<li>Nessun utente trovato</li>");
 					}
 					
@@ -219,7 +215,6 @@ public class AdminServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -29,7 +29,6 @@ public class ArticoliServlet extends HttpServlet {
 	 */
 	public ArticoliServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -43,10 +42,9 @@ public class ArticoliServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		if (action != null) {
-			ArticoloDAO pdao = new ArticoloDAO();
 			if (action.equalsIgnoreCase("getArticoli")) {
 
-				ArrayList<ArticoloBean> articoli = new ArrayList<ArticoloBean>();
+				ArrayList<ArticoloBean> articoli;
 
 				articoli = ArticoloDAO.ricerca("");
 
@@ -57,7 +55,7 @@ public class ArticoliServlet extends HttpServlet {
 
 			} else if (action.equalsIgnoreCase("getArtCat")) {
 
-				ArrayList<ArticoloBean> articoli = new ArrayList<ArticoloBean>();
+				ArrayList<ArticoloBean> articoli;
 
 				articoli = ArticoloDAO.ricerca_per_categoria(request.getParameter("idCat"));
 
@@ -108,7 +106,7 @@ public class ArticoliServlet extends HttpServlet {
 					response.sendRedirect("errorPage.jsp");
 				}
 			}else if(action.equalsIgnoreCase("getTaglia")) {
-				ArrayList<TagliaBean> taglie = new ArrayList<TagliaBean>();
+				ArrayList<TagliaBean> taglie = new ArrayList<>();
 				taglie = ArticoloDAO.getTagliaByColore(request.getParameter("idcol"),request.getParameter("idart"));
 
 				String idArticolo = request.getParameter("idart");
@@ -117,7 +115,6 @@ public class ArticoliServlet extends HttpServlet {
 				
 				for (TagliaBean taglia : taglie) {
 
-					/*out.print("<a href=\"#\" data-idart=\"" + idArticolo + "\" data-idcol=\"" + idColore + "\" class=\"taglia\" data-val=\"" + taglia.getId() + "\" data-id=\"" + taglia.getId() + "\"><li id=\"" + taglia.getId() + "\" class=\"select-item\">" + taglia.getNome() + "</li></a>");*/
 					out.print("<li data-value=\"" + taglia.getNome() + "\" class=\"select-item\">");
 					out.print("<a href=\"#\" id=\"taglia\" data-idart=\"" + idArticolo + "\" data-idcol=\"" + idColore + "\" class=\"taglia\" data-val=\"" + taglia.getId() + "\" data-id=\"" + taglia.getId() + "\">" + taglia.getNome() + "</a>");
 					out.print("</li>");
@@ -136,7 +133,7 @@ public class ArticoliServlet extends HttpServlet {
 				
 				}else if (action.equalsIgnoreCase("getRicercaArticoli")) {
 
-					ArrayList<ArticoloBean> articoli = new ArrayList<ArticoloBean>();
+					ArrayList<ArticoloBean> articoli = new ArrayList<>();
 
 					articoli = ArticoloDAO.ricerca("");
 
@@ -147,7 +144,7 @@ public class ArticoliServlet extends HttpServlet {
 
 				} else if (action.equalsIgnoreCase("getArtCatRicArt")) {
 
-					ArrayList<ArticoloBean> articoli = new ArrayList<ArticoloBean>();
+					ArrayList<ArticoloBean> articoli = new ArrayList<>();
 
 					articoli = ArticoloDAO.ricerca_per_categoria(request.getParameter("idCat"));
 
@@ -184,7 +181,7 @@ public class ArticoliServlet extends HttpServlet {
 						
 						
 
-						ArrayList<ArticoloBean> articoli = new ArrayList<ArticoloBean>();
+						ArrayList<ArticoloBean> articoli = new ArrayList<>();
 
 						articoli = ArticoloDAO.ricerca_per_linea(request.getParameter("idlin"));
 
@@ -232,7 +229,6 @@ public class ArticoliServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
