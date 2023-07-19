@@ -10,7 +10,7 @@ import java.util.logging.*;
 public class ArticoloDAO {
 	 static Connection currentCon = null;
 	  static ResultSet rs = null;  
-	  final static Logger logger = Logger.getLogger("MyLogger");
+	   static final Logger logger = Logger.getLogger("MyLogger");
 	   public static ArrayList<ArticoloBean> ricerca(String search) {
 		   
 
@@ -155,14 +155,19 @@ public class ArticoloDAO {
 		         if (rs != null)	{
 		            try {
 		               rs.close();
-		            } catch (Exception e) {}
+		            } catch (Exception e) {
+		            	 logger.log(null, "Eccezione non gestita: ");
+
+		            }
 		               rs = null;
 		            }
 		   	
 		         if (preparedStatement != null) {
 		            try {
 		           	 preparedStatement.close();
-		            } catch (Exception e) {}
+		            } catch (Exception e) {
+		            	 logger.log(null, "Eccezione non gestita: ");
+		            }
 		            preparedStatement = null;
 		            }
 		   	
@@ -170,6 +175,8 @@ public class ArticoloDAO {
 		            try {
 		            	DriverManagerConnectionPool.releaseConnection(currentCon);
 		            } catch (Exception e) {
+		            	 logger.log(null, "Eccezione non gestita: ");
+
 		            }
 
 		            currentCon = null;
@@ -185,7 +192,7 @@ public class ArticoloDAO {
 		   	 
 		   	  var id=Integer.parseInt(id_categoria);
 		      PreparedStatement preparedStatement = null;
-		      ArrayList<ArticoloBean> articles = new ArrayList<ArticoloBean>();
+		      ArrayList<ArticoloBean> articles = new ArrayList<>();
 		      
 		      String searchQuery =
 		              "select a.nome,a.codice,a.prezzo,a.id from articolo a "
@@ -224,9 +231,6 @@ public class ArticoloDAO {
 		      catch (Exception ex) 
 		      {
 		    	    logger.log(null, "Eccezione non gestita: ");
-
-
-
 		      } 
 		   	    
 		      finally 
@@ -234,14 +238,20 @@ public class ArticoloDAO {
 		         if (rs != null)	{
 		            try {
 		               rs.close();
-		            } catch (Exception e) {}
+		            } catch (Exception e) {
+		            	 logger.log(null, "Eccezione non gestita: ");
+
+		            }
 		               rs = null;
 		            }
 		   	
 		         if (preparedStatement != null) {
 		            try {
 		           	 preparedStatement.close();
-		            } catch (Exception e) {}
+		            } catch (Exception e) {
+		            	 logger.log(null, "Eccezione non gestita: ");
+
+		            }
 		            preparedStatement = null;
 		            }
 		   	
@@ -277,7 +287,6 @@ public class ArticoloDAO {
 		      try 
 		      {
 		         Connection currentCon = DriverManagerConnectionPool.getConnection();
-		        
 		         preparedStatement=currentCon.prepareStatement(searchQuery);
 		         int index = 1;
 		            if (id>0) {
@@ -295,16 +304,12 @@ public class ArticoloDAO {
 		            bean_a.setPrezzo(prezzo);
 		            bean_a.setId(id_a);
 		            articles.add(bean_a);
-		 
-		       
 		      } 
 		      }
 
 		      catch (Exception ex) 
 		      {
 		    	    logger.log(null, "Eccezione non gestita: ");
-
-
 		      } 
 		   	    
 		      finally 
@@ -312,27 +317,29 @@ public class ArticoloDAO {
 		         if (rs != null)	{
 		            try {
 		               rs.close();
-		            } catch (Exception e) {}
+		            } catch (Exception e) {
+		            	 logger.log(null, "Eccezione non gestita: ");
+
+		            }
 		               rs = null;
 		            }
 		   	
 		         if (preparedStatement != null) {
 		            try {
 		           	 preparedStatement.close();
-		            } catch (Exception e) {}
+		            } catch (Exception e) {
+		            	 logger.log(null, "Eccezione non gestita: ");
+		            }
 		            preparedStatement = null;
 		            }
 		   	
 		         if (currentCon != null) {
 		            try {
-		            	
-		    			DriverManagerConnectionPool.releaseConnection(currentCon);
+		            	DriverManagerConnectionPool.releaseConnection(currentCon);
 		            } catch (Exception e) {
 		               logger.log(null, "Eccezione non gestita: ");
 
 		            }
-		            
-
 		            currentCon = null;
 		         }
 		      }
@@ -475,7 +482,8 @@ public class ArticoloDAO {
 		                    colori.add(colore);
 		                }
 		            } catch (Exception ex) {
-		                System.out.println("Errore Ricerca ARTICOLO COLORE" + ex);
+		            	 logger.log(null, "Eccezione non gestita: ");
+
 		            }
 		            finally {
 				        try {
@@ -497,18 +505,23 @@ public class ArticoloDAO {
 		    } catch (Exception ex) {
 		        logger.log(null, "Eccezione non gestita: ");
 
-		    } finally {
-		        try {
+		    } 
+		    finally {
+		        
+		    	try {
+		    		
 		            if (rs != null) {
 		                rs.close();
 		            }
+		            
 		            if (preparedStatement != null) {
 		                preparedStatement.close();
 		            }
 		            
 		            if(currentCon!= null)
-						DriverManagerConnectionPool.releaseConnection(currentCon);
-		        } catch (Exception ex) {
+						DriverManagerConnectionPool.releaseConnection(currentCon);   
+		        } 
+		    	catch (Exception ex) {
 		            logger.log(null, "Eccezione non gestita: ");
 
 		        }
@@ -778,7 +791,7 @@ public class ArticoloDAO {
 	        }
 	        if (currentCon != null) {
 	            try {
-	                currentCon.setAutoCommit(true); // riattivo l'autocommit
+	                currentCon.setAutoCommit(true); 
 	                DriverManagerConnectionPool.releaseConnection(currentCon);
 	            } catch (SQLException e) {
 	               logger.log(null, "Eccezione non gestita: ");
@@ -844,14 +857,20 @@ public class ArticoloDAO {
 		         if (rs != null)	{
 		            try {
 		               rs.close();
-		            } catch (Exception e) {}
+		            } catch (Exception e) {
+		            	 logger.log(null, "Eccezione non gestita: ");
+
+		            }
 		               rs = null;
 		            }
 		   	
 		         if (preparedStatement != null) {
 		            try {
 		           	 preparedStatement.close();
-		            } catch (Exception e) {}
+		            } catch (Exception e) {
+		            	 logger.log(null, "Eccezione non gestita: ");
+
+		            }
 		            preparedStatement = null;
 		            }
 		   	
