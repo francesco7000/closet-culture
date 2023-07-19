@@ -34,8 +34,7 @@ public class PagamentiServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		if(action != null) {
-			if(action.equalsIgnoreCase("getTipiPag")) {
+			if( action != null && action.equalsIgnoreCase("getTipiPag")) {
 				
 				
 				ArrayList<PagamentoBean> tipiPag;
@@ -48,8 +47,6 @@ public class PagamentiServlet extends HttpServlet {
 			    RequestDispatcher dispatcher = request.getRequestDispatcher("/checkout.jsp");
 			    dispatcher.forward(request, response);
 			
-				
-			}
 		}
 	}
 

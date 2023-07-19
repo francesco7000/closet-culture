@@ -74,10 +74,8 @@ public class UserServlet extends HttpServlet {
 						utente.setCitta(citta);
 						utente.setCap(cap);
 						utente.setNumero(numero);
-						System.out.println(utente.getIdPersona());
 						try {
 							UserDAO.updateUser(utente);
-					    
 							session.setAttribute("currentSessionUser",utente);
 							response.sendRedirect("home.jsp");
 						} catch (SQLException e) {
