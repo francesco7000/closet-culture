@@ -83,7 +83,7 @@ $(document).ready(function() {
 	    event.preventDefault(); // Impedisce al browser di seguire il link
 	    // Ottieni l'ID della categoria dal data-id dell'elemento
 	    var idlinea =$(this).data("id");
-		alert("cioa");
+		
 	    // Invia la richiesta AJAX al server
 	    $.ajax({
 	      type: 'GET',
