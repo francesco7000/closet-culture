@@ -14,7 +14,7 @@ public class ArticoloDAO {
 	   public static ArrayList<ArticoloBean> ricerca(String search) {
 
 		      PreparedStatement preparedStatement = null;
-		      ArrayList<ArticoloBean> articles = new ArrayList<ArticoloBean>();
+		      ArrayList<ArticoloBean> articles = new ArrayList<>();
 		      Integer id=0;
 		      String searchQuery =
 		              "select a.nome,a.codice,a.prezzo,a.id from articolo a "
@@ -24,7 +24,6 @@ public class ArticoloDAO {
 
 		      try 
 		      {
-		         //connect to DB 
 		         Connection currentCon = DriverManagerConnectionPool.getConnection();
 		        
 		         preparedStatement=currentCon.prepareStatement(searchQuery);
@@ -36,21 +35,12 @@ public class ArticoloDAO {
 		             
 		            }
 		         rs = preparedStatement.executeQuery();	        
-		         //boolean more = rs.next();
-		         while (rs.next()) {
-
-		         // if user does not exist set the isValid variable to false
-		      
+		         while (rs.next()) {		      
 		        	ArticoloBean bean_a=new ArticoloBean();
 		            String nomea = rs.getString("nome");
 		            String codicea = rs.getString("codice");
 		            Integer prezzo = rs.getInt("prezzo");
 		            id = rs.getInt("id");
-		           
-		            
-		            
- 		                   
-		            //System.out.println("Welcome " + usn);
 		            bean_a.setNome(nomea);
 		            bean_a.setCodice(codicea);
 		            bean_a.setPrezzo(prezzo);
@@ -64,10 +54,10 @@ public class ArticoloDAO {
 
 		      catch (Exception ex) 
 		      {
-		         System.out.println("Errore Ricerca " + ex);
+		    	    System.err.println("Eccezione non gestita: " + ex.getMessage());
+
 		      } 
 		   	    
-		      //some exception handling
 		      finally 
 		      {
 		         if (rs != null)	{
@@ -147,7 +137,8 @@ public class ArticoloDAO {
 
 		      catch (Exception ex) 
 		      {
-		         System.out.println("Errore Ricerca TAGLIA " + ex);
+		    	    System.err.println("Eccezione non gestita: " + ex.getMessage());
+
 		      } 
 		   	    
 		      //some exception handling
@@ -227,7 +218,9 @@ public class ArticoloDAO {
 
 		      catch (Exception ex) 
 		      {
-		         System.out.println("Errore Ricerca " + ex);
+		    	    System.err.println("Eccezione non gestita: " + ex.getMessage());
+
+
 		      } 
 		   	    
 		      //some exception handling
@@ -252,6 +245,9 @@ public class ArticoloDAO {
 		            	DriverManagerConnectionPool.releaseConnection(currentCon);
 		    				
 		            } catch (Exception e) {
+		                System.err.println("Eccezione non gestita: " + e.getMessage());
+
+
 		            }
 
 		            currentCon = null;
@@ -308,7 +304,8 @@ public class ArticoloDAO {
 
 		      catch (Exception ex) 
 		      {
-		         System.out.println("Errore Ricerca " + ex);
+		    	    System.err.println("Eccezione non gestita: " + ex.getMessage());
+
 		      } 
 		   	    
 		      //some exception handling
@@ -333,7 +330,10 @@ public class ArticoloDAO {
 		            	
 		    			DriverManagerConnectionPool.releaseConnection(currentCon);
 		            } catch (Exception e) {
+		                System.err.println("Eccezione non gestita: " + e.getMessage());
+
 		            }
+		            
 
 		            currentCon = null;
 		         }
@@ -428,7 +428,9 @@ public class ArticoloDAO {
 		                    varianti.add(bean_v);
 		                }
 		            } catch (Exception ex) {
-		                System.out.println("Errore Ricerca ARTICOLO VARIANTE" + ex);
+		                System.err.println("Eccezione non gestita: " + ex.getMessage());
+
+
 		            }
 		            finally {
 				        try {
@@ -440,7 +442,8 @@ public class ArticoloDAO {
 				            }
 				     
 				        } catch (Exception ex) {
-				            System.out.println("Errore chiusura PreparedStatement o ResultSet " + ex);
+				            System.err.println("Eccezione non gestita: " + ex.getMessage());
+
 				        }
 				    }
 		            
@@ -484,14 +487,14 @@ public class ArticoloDAO {
 				            }
 				     
 				        } catch (Exception ex) {
-				            System.out.println("Errore chiusura PreparedStatement o ResultSet " + ex);
+				            System.err.println("Eccezione non gestita: " + ex.getMessage());
 				        }
 				    }
 
 		            bean_a.setListaColori(colori);
 		        }
 		    } catch (Exception ex) {
-		        System.out.println("Errore ricerca articolo " + ex);
+		        System.err.println("Eccezione non gestita: " + ex.getMessage());
 		    } finally {
 		        try {
 		            if (rs != null) {
@@ -504,7 +507,7 @@ public class ArticoloDAO {
 		            if(currentCon!= null)
 						DriverManagerConnectionPool.releaseConnection(currentCon);
 		        } catch (Exception ex) {
-		            System.out.println("Errore chiusura PreparedStatement o ResultSet " + ex);
+		            System.err.println("Eccezione non gestita: " + ex.getMessage());
 		        }
 		    }
 
@@ -535,14 +538,15 @@ public class ArticoloDAO {
 		            bean_m.setTipo(tipo);
 		        }
 		    } catch (SQLException e) {
-		        //e.printStackTrace();
+		        System.err.println("Eccezione non gestita: " + e.getMessage());
 		    } finally {
 		        try {
 		            if (preparedStatement != null) {
 		                preparedStatement.close();
 		            }
 		        } catch (SQLException e) {
-		            //e.printStackTrace();
+		            System.err.println("Eccezione non gestita: " + e.getMessage());
+
 		        }
 		        finally {
 			        try {
@@ -551,7 +555,8 @@ public class ArticoloDAO {
 			            }
 			            DriverManagerConnectionPool.releaseConnection(currentCon);
 			        } catch (SQLException e) {
-			            //e.printStackTrace();
+			            System.err.println("Eccezione non gestita: " + e.getMessage());
+
 			        }
 			    }
 		    }
@@ -584,7 +589,7 @@ public class ArticoloDAO {
 		            bean_l.setDescrizione(descrizione);
 		        }
 		    } catch (SQLException e) {
-		        //e.printStackTrace();
+		        System.err.println("Eccezione non gestita: " + e.getMessage());
 		    } finally {
 		        try {
 		            if (preparedStatement != null) {
@@ -592,7 +597,7 @@ public class ArticoloDAO {
 		            }
 		            DriverManagerConnectionPool.releaseConnection(currentCon);
 		        } catch (SQLException e) {
-		            //e.printStackTrace();
+		            System.err.println("Eccezione non gestita: " + e.getMessage());
 		        }
 		    }
 
@@ -617,14 +622,15 @@ public class ArticoloDAO {
 		        currentCon.commit(); // eseguo il commit esplicitamente
 
 		    } catch (SQLException e) {
-		        // Gestione dell'errore
-		        //e.printStackTrace();
+		        System.err.println("Eccezione non gestita: " + e.getMessage());
+
 		        try {
 		            if (currentCon != null) {
 		                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
 		            }
 		        } catch (SQLException ex) {
-		            //ex.printStackTrace();
+		            System.err.println("Eccezione non gestita: " + ex.getMessage());
+
 		        }
 		        return false;
 		    } finally {
@@ -632,8 +638,8 @@ public class ArticoloDAO {
 		            try {
 		                preparedStatement.close();
 		            } catch (SQLException e) {
-		                // Gestione dell'errore
-		                //e.printStackTrace();
+		                System.err.println("Eccezione non gestita: " + e.getMessage());
+
 		            }
 		        }
 		        try {
@@ -642,8 +648,8 @@ public class ArticoloDAO {
 		                DriverManagerConnectionPool.releaseConnection(currentCon);
 		            }
 		        } catch (SQLException e) {
-		            // Gestione dell'errore
-		            //e.printStackTrace();
+		            System.err.println("Eccezione non gestita: " + e.getMessage());
+
 		        }
 		    }
 
@@ -679,14 +685,15 @@ public class ArticoloDAO {
 	        currentCon.commit(); // eseguo il commit esplicitamente
 
 	    } catch (SQLException e) {
-	        // Gestione dell'errore
-	        //e.printStackTrace();
+	        System.err.println("Eccezione non gestita: " + e.getMessage());
+
 	        try {
 	            if (currentCon != null) {
 	                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
 	            }
 	        } catch (SQLException ex) {
-	            //ex.printStackTrace();
+	            System.err.println("Eccezione non gestita: " + ex.getMessage());
+
 	        }
 	        return false;
 	    } finally {
@@ -694,8 +701,8 @@ public class ArticoloDAO {
 	            try {
 	                preparedStatement.close();
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	                System.err.println("Eccezione non gestita: " + e.getMessage());
+
 	            }
 	        }
 	        if (currentCon != null) {
@@ -703,8 +710,8 @@ public class ArticoloDAO {
 	                currentCon.setAutoCommit(true); // riattivo l'autocommit
 	                DriverManagerConnectionPool.releaseConnection(currentCon);
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	                System.err.println("Eccezione non gestita: " + e.getMessage());
+
 	            }
 	        }
 	    }
@@ -742,15 +749,16 @@ public class ArticoloDAO {
 	        currentCon.commit(); // eseguo il commit esplicitamente
 
 	    } catch (SQLException e) {
-	        // Gestione dell'errore
-	        //e.printStackTrace();
+	        System.err.println("Eccezione non gestita: " + e.getMessage());
+
 	        try {
 	            if (currentCon != null) {
 	            	System.out.println("rollback");
-	                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
+	                currentCon.rollback(); 
 	            }
 	        } catch (SQLException ex) {
-	            //ex.printStackTrace();
+	            System.err.println("Eccezione non gestita: " + ex.getMessage());
+
 	        }
 	        return false;
 	    } finally {
@@ -758,8 +766,8 @@ public class ArticoloDAO {
 	            try {
 	                preparedStatement.close();
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	                System.err.println("Eccezione non gestita: " + e.getMessage());
+
 	            }
 	        }
 	        if (currentCon != null) {
@@ -767,8 +775,8 @@ public class ArticoloDAO {
 	                currentCon.setAutoCommit(true); // riattivo l'autocommit
 	                DriverManagerConnectionPool.releaseConnection(currentCon);
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	                System.err.println("Eccezione non gestita: " + e.getMessage());
+
 	            }
 	        }
 	    }
@@ -819,7 +827,8 @@ public class ArticoloDAO {
 
 		      catch (Exception ex) 
 		      {
-		         System.out.println("Errore Ricerca TAGLIA " + ex);
+		    	    System.err.println("Eccezione non gestita: " + ex.getMessage());
+
 		      } 
 		   	    
 		      //some exception handling
@@ -843,6 +852,8 @@ public class ArticoloDAO {
 		            try {
 		            	 DriverManagerConnectionPool.releaseConnection(currentCon);
 		            } catch (Exception e) {
+		                System.err.println("Eccezione non gestita: " + e.getMessage());
+
 		            }
 
 		            currentCon = null;

@@ -60,6 +60,7 @@ public class StampaFattura extends HttpServlet {
             response.getOutputStream().write(pdfStream.toByteArray());
             response.getOutputStream().flush(); 
         } catch (DocumentException e) {
+        	response.sendRedirect("errorPage.jsp");
         }
     
   }

@@ -84,7 +84,9 @@ public class RegistrationServlet extends HttpServlet {
 		} 	
 		catch (Throwable theException) 	    
 		{
+			response.sendRedirect("errorPage.jsp");
 		}
+		
 	}
 
 	/**

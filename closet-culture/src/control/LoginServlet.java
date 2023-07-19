@@ -67,7 +67,9 @@ public class LoginServlet extends HttpServlet {
 				
 		catch (Throwable theException) 	    
 		{
+			response.sendRedirect("errorPage.jsp");
 		}
+		
 		       
 	}
 

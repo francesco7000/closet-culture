@@ -16,8 +16,8 @@ public class ArticoloBean {
 	String barcode;
 	String composizione;
 	String descrizione;
-	ArrayList<VariantiBean> listaVarianti = new ArrayList<VariantiBean>();
-	ArrayList<ColoreBean> listaColori =new ArrayList<ColoreBean>();
+	ArrayList<VariantiBean> listaVarianti;
+	ArrayList<ColoreBean> listaColori;
 	LineaBean linea;
     MaterialeBean materiale;
     CategoriaBean categoria;

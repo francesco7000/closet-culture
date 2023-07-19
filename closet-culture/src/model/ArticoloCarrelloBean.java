@@ -9,6 +9,6 @@ public class ArticoloCarrelloBean {
 	String descrizione;
 	Double prezzo;
 	int quantita_tot;
-	ArrayList<VariantiBean> varianti=new ArrayList<VariantiBean>();
+	ArrayList<VariantiBean> varianti;
 	
 }

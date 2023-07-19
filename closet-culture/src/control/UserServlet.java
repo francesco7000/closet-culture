@@ -24,15 +24,13 @@ import model.UserDAO;
  */
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+	private static final long serialVersionUID = 1L;  
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UserServlet() {
         super();
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -84,20 +82,15 @@ public class UserServlet extends HttpServlet {
 							response.sendRedirect("home.jsp");
 						} catch (SQLException e) {
 							response.sendRedirect("errorPage.jsp");
-							// TODO Auto-generated catch block
-							//e.printStackTrace();
 						}
 					}else {
 						if(action.equalsIgnoreCase("getUtenteById")) {
 
-							UserDAO userD = new UserDAO();
 
 							UserBean us = new UserBean();
-							
-							us = userD.utenteByID(Integer.parseInt(request.getParameter("id")));
+							us = UserDAO.utenteByID(Integer.parseInt(request.getParameter("id")));
 							ServletContext context = request.getServletContext();
 							context.setAttribute("userDaModificare", us);
-							//request.setAttribute("userDaModificare", us);
 							response.sendRedirect("dettaglioProfiloAdmin.jsp");
 							
 						}else {
@@ -126,14 +119,11 @@ public class UserServlet extends HttpServlet {
 								utente.setCitta(citta);
 								utente.setCap(cap);
 								utente.setNumero(numero);
-								System.out.println(utente.getIdPersona());
 								try {
 									UserDAO.updateUser(utente);
 									response.sendRedirect("home.jsp");
 								} catch (SQLException e) {
 									response.sendRedirect("errorPage.jsp");
-									// TODO Auto-generated catch block
-									//e.printStackTrace();
 								}
 							}
 						}
