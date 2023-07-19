@@ -208,7 +208,7 @@ $(document).ready(function() {
               </div>
               <div class="product-price">
                 <strong><%=articolo.getPrezzo()%>€</strong>
-                <!-- <del>$54.00</del> -->
+                
               </div>
               <p><%=articolo.getDescrizione()%></p>
 
@@ -253,15 +253,7 @@ $(document).ready(function() {
                   <div id="taglie-container">
                  
                   <ul class="select-list list-unstyled d-flex" id="taglieAjax">
-                   <!-- <li data-value="S" class="select-item">
-                      <a href="#">S</a>
-                    </li>
-                    <li data-value="M" class="select-item">
-                      <a href="#">M</a>
-                    </li>
-                    <li data-value="L" class="select-item">
-                      <a href="#">L</a>
-                    </li>-->
+                   
                   </ul> 
                 </div>
                 </div> 
@@ -272,9 +264,7 @@ $(document).ready(function() {
             <h4 class="item-title no-margin">Quantity:</h4>
             <div class="qty-field d-flex">
                 <div class="qty-number d-flex justify-content-start align-items-center" id="qtAjax">
-                    <!-- <button class="decrement-button">-</button>-->
                         <input type="number" id="quantity" name="quantity" class="spin-number-output" value="1" min="1" max="100">
-                   <!--  <button class="increment-button">+</button> -->
                 </div>
             </div>
         </div>

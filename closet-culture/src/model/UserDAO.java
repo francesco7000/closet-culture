@@ -112,7 +112,6 @@ public class UserDAO
 	      }
 	   }
 
-	System.out.println("utente trovato"+bean.getId()+bean.getUsername());
 	return bean;
 		
 	   }	
@@ -597,7 +596,7 @@ public static boolean updateUser(UserBean bean) throws SQLException {
         if (conn != null) {
             conn.rollback();
         }
-        ex.printStackTrace();
+		//e.printStackTrace();
         throw ex;
     } finally {
         // Chiusura delle risorse e ripristino dell'autocommit
@@ -605,21 +604,21 @@ public static boolean updateUser(UserBean bean) throws SQLException {
             try {
                 psUtente.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                //ex.printStackTrace();
             }
         }
         if (psPersona != null) {
             try {
                 psPersona.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                //ex.printStackTrace();
             }
         }
         if (psIndirizzo != null) {
             try {
                 psIndirizzo.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                //ex.printStackTrace();
             }
         }
         if (conn != null) {
@@ -627,7 +626,7 @@ public static boolean updateUser(UserBean bean) throws SQLException {
                 conn.setAutoCommit(true);
                 conn.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+				//e.printStackTrace();
             }
         }
     }

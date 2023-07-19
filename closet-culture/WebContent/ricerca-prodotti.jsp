@@ -45,8 +45,7 @@ request.setAttribute("articoli", null);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- script
-     ================================================== -->
+
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="js/modernizr.js"></script>
 
@@ -149,7 +148,6 @@ $(document).ready(function() {
 
                   
                     <%
-			// Il for crea una variabile del tipo ProdottoBean ed ad ogni iterazione va ad assegnare a quella variabile il contenuto di obj all'i-esima posizione 
 			if (articoli != null)
 				for (ArticoloBean var : articoli) {
 					
@@ -211,22 +209,13 @@ $(document).ready(function() {
 
           <aside class="col-md-3">
             <div class="sidebar">
-            <!--  <div class="widgets widget-menu">
-                <div class="widget-search-bar">
-                  <form role="search" method="get" class="d-flex">
-                    <input class="search-field" placeholder="Search" type="text">
-                    <button class="btn btn-dark"  class="ric"><i   class="ric"class="icon icon-search"></i></button>
-                  </form>
-                </div> 
-              </div> --> 
-      
+           
               <div class="widgets widget-product-brands">
                 <h5 class="widget-title">Linee</h5>
                 <ul class="product-tags sidebar-list list-unstyled">
                 
                      
                     <%
-			// Il for crea una variabile del tipo ProdottoBean ed ad ogni iterazione va ad assegnare a quella variabile il contenuto di obj all'i-esima posizione 
 			if (linee != null)
 				for (LineaBean linea : linee) {
 					
@@ -248,26 +237,7 @@ $(document).ready(function() {
                  
                 </ul>
               </div>
-            <!-- <div class="widgets widget-price-filter">
-                <h5 class="widget-title">Filter By Price</h5>
-                <ul class="product-tags sidebar-list list-unstyled">
-                  <li class="tags-item">
-                    <a href="">Less than $10</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">$10- $20</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">$20- $30</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">$30- $40</a>
-                  </li>
-                  <li class="tags-item">
-                    <a href="">$40- $50</a>
-                  </li>
-                </ul>
-              </div>-->
+          
             </div>
           </aside>
           

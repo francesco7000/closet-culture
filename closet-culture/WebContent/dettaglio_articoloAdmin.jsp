@@ -75,8 +75,7 @@ if (currentUser == null) {
 <link
 	href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
 	rel="stylesheet">
-<!-- script
-    ================================================== -->
+
 <script src="js/modernizr.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
@@ -110,7 +109,6 @@ if (currentUser == null) {
 	// Aggiunge un evento di click al bottone "nuovo"
 	document.getElementById("nuovoArt").addEventListener("click", function() {
 		
-		alert("ciao");
 		// Reindirizza l'utente alla JSP desiderata utilizzando l'ID dell'articolo
 		//window.location.href = "nuovoArticoloAdmin.jsp";
 	});
@@ -336,27 +334,17 @@ if (currentUser == null) {
 									
 									<div class="action-buttons">
 
-										<a name="add" id="elimina" data-id="<%=art.getId()%>"
+										<a  id="elimina" data-id="<%=art.getId()%>"
 											class="btn btn-medium btn-dark">
 											<span id="add-to-cart">Elimina</span>
 										</a>
-										
-										
-										
-									<!--  	<a href="nuovoArticoloAdmin.jsp"  name="action"  id="add-to-cart"
-											class="btn btn-medium btn-dark" value="modifica">
-											<span id="add-to-cart">Salva Modifiche</span>
-										</a>-->
-
-
-
 										<button  style="margin:15px 0px 0px !Important" type="submit" name="action" id="add-to-cart"
 											class="btn btn-medium btn-dark" value="modifica">
 											<span id="add-to-cart">Salva Modifiche</span>
 										</button> 
 
 
-										<a href="nuovoArticoloAdmin.jsp" name="add" id="nuovoArt" class="btn btn-medium btn-dark">
+										<a href="nuovoArticoloAdmin.jsp" id="nuovoArt" class="btn btn-medium btn-dark">
 											<span id="add-to-cart">Nuovo Articolo</span>
 										</a>
 

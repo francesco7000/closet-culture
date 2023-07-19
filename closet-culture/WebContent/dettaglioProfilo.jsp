@@ -142,36 +142,15 @@ if (currentUser == null) {
 											</div>
 										</div>
 									</div>
-
-									
-								
-									
 									<div class="row">
-									
 									<div class="action-buttons">
-
-										
-										
-										
-									<!--  	<a href="nuovoArticoloAdmin.jsp"  name="action"  id="add-to-cart"
-											class="btn btn-medium btn-dark" value="modifica">
-											<span id="add-to-cart">Salva Modifiche</span>
-										</a>-->
-
-
-
 										<button  style="margin:15px 0px 0px !Important" type="submit" name="action" id="add-to-cart"
 											class="btn btn-medium btn-dark" value="modificaprofilo">
 											<span id="add-to-cart">Salva Modifiche</span>
 										</button> 
-
-
 									</div>
 									</div>
-									
-
-
-								</form>
+																	</form>
 							</div>
 						</div>
 					</div>

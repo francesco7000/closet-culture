@@ -29,7 +29,7 @@ public class AdminServlet extends HttpServlet {
 	 */
 	public AdminServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	/**
@@ -44,25 +44,28 @@ public class AdminServlet extends HttpServlet {
 		String action = request.getParameter("action");
 
 		response.setContentType("text/html;charset=UTF-8");
-
+		String admin="admin";
+		
 		HttpSession session = request.getSession(false);
 		UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
 		if(currentUser==null) response.sendRedirect("errorPage.jsp"); // logged-in page
 
+		
 		if (action != null) {
 
 			switch (action) {
-
+			
+			
 			case "utente":
-				if (currentUser != null && currentUser.getRuolo().equals("admin")) {
+				if (currentUser != null && currentUser.getRuolo().equals(admin)) {
 					session.setAttribute("sessionType", "utente");
 					response.sendRedirect("home.jsp"); // logged-in page
 				}
 				break;
 
 			case "admin":
-				if (currentUser != null && currentUser.getRuolo().equals("admin")) {
-					session.setAttribute("sessionType", "admin");
+				if (currentUser != null && currentUser.getRuolo().equals(admin)) {
+					session.setAttribute("sessionType",admin);
 					response.sendRedirect("home.jsp"); // logged-in page
 				}
 				break;
@@ -92,17 +95,10 @@ public class AdminServlet extends HttpServlet {
 
 				try {
 					deleted = ArticoloDAO.eliminaArticolo(id);
-					System.out.println(deleted);
 				} catch (Exception e) {
-					//e.printStackTrace();
-				}
-
-				if (deleted == true) {
-
-					System.out.println("aaaaaa");
-
+					 				}
+				if (deleted) {
 					PrintWriter out = response.getWriter();
-
 					out.print("articolo eliminato");
 
 				} else {
@@ -128,8 +124,6 @@ public class AdminServlet extends HttpServlet {
 				int artMat = Integer.parseInt(request.getParameter("artMat"));
 				
 				Boolean result = false;
-				
-
 				try {
 					result = ArticoloDAO.modificaArticolo(id, artActive, artCod, artBarCod, artNome, artDescr, artPrz, artSconto, artStag, artCat, artLin, artMat);
 
@@ -139,8 +133,7 @@ public class AdminServlet extends HttpServlet {
 						response.sendRedirect("errorPage.jsp");
 					}
 				} catch (Exception e) {
-					//e.printStackTrace();
-					response.sendRedirect("errorPage.jsp");
+				response.sendRedirect("errorPage.jsp");
 				}
 
 
@@ -174,8 +167,7 @@ public class AdminServlet extends HttpServlet {
 						response.sendRedirect("errorPage.jsp");
 					}
 				} catch (Exception e) {
-					//e.printStackTrace();
-					response.sendRedirect("errorPage.jsp");
+					 					response.sendRedirect("errorPage.jsp");
 				}
 
 
@@ -186,7 +178,6 @@ public class AdminServlet extends HttpServlet {
 				
 				try {
 					ArrayList<UserBean> users = new ArrayList<UserBean>();
-					System.out.println(request.getParameter("query"));
 					users = UserDAO.ricercautenti(request.getParameter("query"));
 					
 					PrintWriter out = response.getWriter();
@@ -205,20 +196,20 @@ public class AdminServlet extends HttpServlet {
 					out.close();
 
 				} catch (Exception e) {
-					//e.printStackTrace();
-					response.sendRedirect("errorPage.jsp");
+				response.sendRedirect("errorPage.jsp");
 				}
 
 
 			}
-				break;
-
+			default:
+				response.sendRedirect("errorPage.jsp"); 
+			break;
+				
 			}
 
 		}
 		} catch (Exception e) {
-			//e.printStackTrace();
-			response.sendRedirect("errorPage.jsp");
+			 			response.sendRedirect("errorPage.jsp");
 		}
 
 	}

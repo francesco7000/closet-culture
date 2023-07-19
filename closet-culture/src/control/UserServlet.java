@@ -114,7 +114,7 @@ public class UserServlet extends HttpServlet {
 						} catch (SQLException e) {
 							response.sendRedirect("errorPage.jsp");
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							//e.printStackTrace();
 						}
 					}else {
 						if(action.equalsIgnoreCase("getUtenteById")) {
@@ -162,7 +162,7 @@ public class UserServlet extends HttpServlet {
 								} catch (SQLException e) {
 									response.sendRedirect("errorPage.jsp");
 									// TODO Auto-generated catch block
-									e.printStackTrace();
+									//e.printStackTrace();
 								}
 							}
 						}
