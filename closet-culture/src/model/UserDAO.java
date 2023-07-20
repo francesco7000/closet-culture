@@ -2,19 +2,20 @@ package model;
 
 import java.text.*;
 import java.util.*;
+import java.util.logging.Logger;
 import java.sql.*;
 
 public class UserDAO 	
 {
    static Connection currentCon = null;
    static ResultSet rs = null;  
-	
+   static final Logger logger = Logger.getLogger("MyLogger");
+
    public static UserBean utenteByID(int id) {
 	   
 
 	      PreparedStatement preparedStatement = null;
 		
-	      System.out.println("id utente "+id);
 
 	      UserBean bean=new UserBean();
 	      
@@ -38,14 +39,12 @@ public class UserDAO
 
 	      boolean more = rs.next();
 		       
-	      // if user does not exist set the isValid variable to false
 	      if (!more) 
 	      {
 	        
 	         bean.setValid(false);
 	      } 
 		        
-	      //if user exists set the isValid variable to true
 	      else if (more) 
 	      {
 	         String usn = rs.getString("username");
@@ -82,23 +81,24 @@ public class UserDAO
 
 	   catch (Exception ex) 
 	   {
-	      //to-do errore login
+		   logger.log(null, "Eccezione non gestita: ");
 	   } 
 		    
-	   //some exception handling
 	   finally 
 	   {
 	      if (rs != null)	{
 	         try {
 	            rs.close();
-	         } catch (Exception e) {}
+	         } catch (Exception e) {
+	        	 logger.log(null, "Eccezione non gestita: ");
+	         }
 	            rs = null;
 	         }
 		
 	      if (preparedStatement != null) {
 	         try {
 	        	 preparedStatement.close();
-	         } catch (Exception e) {}
+	         } catch (Exception e) {logger.log(null, "Eccezione non gestita: ");}
 	         preparedStatement = null;
 	         }
 		
@@ -106,6 +106,7 @@ public class UserDAO
 	         try {
 	            currentCon.close();
 	         } catch (Exception e) {
+	        	 logger.log(null, "Eccezione non gestita: ");
 	         }
 
 	         currentCon = null;
@@ -154,7 +155,6 @@ public class UserDAO
          bean.setValid(false);
       } 
 	        
-      //if user exists set the isValid variable to true
       else if (more) 
       {
          String usn = rs.getString("username");
@@ -191,23 +191,27 @@ public class UserDAO
 
    catch (Exception ex) 
    {
-      //to-do errore login
+	   logger.log(null, "Eccezione non gestita: ");
    } 
 	    
-   //some exception handling
    finally 
    {
       if (rs != null)	{
          try {
             rs.close();
-         } catch (Exception e) {}
+         } catch (Exception e) {
+        	 logger.log(null, "Eccezione non gestita: ");
+         }
             rs = null;
          }
 	
       if (preparedStatement != null) {
          try {
         	 preparedStatement.close();
-         } catch (Exception e) {}
+         } catch (Exception e) {
+        	 logger.log(null, "Eccezione non gestita: ");
+         }
+         
          preparedStatement = null;
          }
 	
@@ -215,6 +219,7 @@ public class UserDAO
          try {
             currentCon.close();
          } catch (Exception e) {
+        	 logger.log(null, "Eccezione non gestita: ");
          }
 
          currentCon = null;
@@ -249,21 +254,25 @@ return bean;
 
 	   catch (Exception ex) 
 	   {
-	     //to-do errore registrazione
+		   logger.log(null, "Eccezione non gestita: ");
 	   } 
 	   finally 
 	   {
 	      if (rs != null)	{
 	         try {
 	            rs.close();
-	         } catch (Exception e) {}
+	         } catch (Exception e) {
+	        	 logger.log(null, "Eccezione non gestita: ");
+	         }
 	            rs = null;
 	         }
 		
 	      if (preparedStatement != null) {
 	         try {
 	        	 preparedStatement.close();
-	         } catch (Exception e) {}
+	         } catch (Exception e) {
+	        	 logger.log(null, "Eccezione non gestita: ");
+	         }
 	         	preparedStatement = null;
 	         }
 		
@@ -271,6 +280,7 @@ return bean;
 	         try {
 	            currentCon.close();
 	         } catch (Exception e) {
+	        	 logger.log(null, "Eccezione non gestita: ");
 	         }
 
 	         currentCon = null;
@@ -290,11 +300,9 @@ return bean;
 	    Connection currentCon = null;
 
 	    try {
-	        // Connessione al database con autocommit disabilitato
 	        currentCon = DriverManagerConnectionPool.getConnection();
 	        currentCon.setAutoCommit(false);
 
-	        // Salvo la persona nel database
 	        String insertPersonaQuery = "INSERT INTO persona(nome, cognome, cellulare) VALUES (?, ?, ?)";
 	        personaStatement = currentCon.prepareStatement(insertPersonaQuery, Statement.RETURN_GENERATED_KEYS);
 	        personaStatement.setString(1, bean.getNome());
@@ -307,12 +315,10 @@ return bean;
 	            personaId = personaKeys.getInt(1);
 	        }
 
-	        //default = 3 = ospite
 	        int profiloId = 3;
 	        if(bean.getRuolo().equals("utente")) profiloId = 2;
 	        else if(bean.getRuolo().equals("admin")) profiloId = 1;
 
-	        // Salvo l'utente nel database
 	        String insertUtenteQuery = "INSERT INTO utente(username, password, email, persona_id, profilo_id) VALUES (?, ?, ?, ?, ?)";
 	        utenteStatement = currentCon.prepareStatement(insertUtenteQuery);
 	        utenteStatement.setString(1, bean.getUsername());
@@ -323,7 +329,6 @@ return bean;
 	        int rowsAffectedUtente = utenteStatement.executeUpdate();
 	        
 	        
-	        //Salvo l'indirizzo della persona nel database
 	        String insertIndirizzoQuery = "INSERT INTO indirizzo (provincia, via, cap, citta, numero, id_persona) VALUES (?,?,?,?,?,?)";
 	        indirizzoStatement = currentCon.prepareStatement(insertIndirizzoQuery);
 	        indirizzoStatement.setString(1,bean.getProvincia());
@@ -337,47 +342,53 @@ return bean;
 	        
 	       
 	        if (rowsAffectedPersona > 0 && rowsAffectedUtente > 0 && rowsAffectedIndirizzo > 0) {
-	            // Commit della transazione
 	            currentCon.commit();
-	            // L'utente è stato salvato correttamente nel database
 	            return true;
 	        } else {
-	            // Rollback della transazione
 	            currentCon.rollback();
-	            // Qualcosa è andato storto durante il salvataggio dell'utente nel database
 	            return false;
 	        }
 	    } catch (SQLException ex) {
-	    			//to-do errore salvataggio user
-	        try {
+	    	 logger.log(null, "Eccezione non gestita: ");
+	    	 try {
 	            // Rollback della transazione in caso di eccezione
 	            if (currentCon != null) {
 	                currentCon.rollback();
 	            }
-	        } catch (SQLException ex2) {}
+	        } catch (SQLException ex2) {
+	        	 logger.log(null, "Eccezione non gestita: ");
+	        }
 	        return false;
 	    } finally {
 	        if (indirizzoStatement != null) {
 	            try {
 	            	indirizzoStatement.close();
-	            } catch (SQLException ex) {}
+	            } catch (SQLException ex) {
+	            	 logger.log(null, "Eccezione non gestita: ");
+	            }
 	        }
 	        // Chiusura delle risorse e ripristino dell'autocommit
 	        if (personaStatement != null) {
 	            try {
 	                personaStatement.close();
-	            } catch (SQLException ex) {}
+	            } catch (SQLException ex) {
+	            	 logger.log(null, "Eccezione non gestita: ");
+	            }
 	        }
 	        if (utenteStatement != null) {
 	            try {
 	                utenteStatement.close();
-	            } catch (SQLException ex) {}
+	            } catch (SQLException ex) {
+	            	 logger.log(null, "Eccezione non gestita: ");
+	            }
 	        }
 	        if (currentCon != null) {
 	            try {
 	                currentCon.setAutoCommit(true);
 	                currentCon.close();
-	            } catch (SQLException ex) {}
+	            } catch (SQLException ex) {
+	            	 logger.log(null, "Eccezione non gestita: ");
+	            }
 	        }
 	    }
 	}
@@ -409,21 +420,25 @@ public static boolean checkEmailAvaiable(String email) {
 
  catch (Exception ex) 
  {
-    //to-do errore registrazione user;
+	 logger.log(null, "Eccezione non gestita: ");
  } 
  finally 
  {
     if (rs != null)	{
        try {
           rs.close();
-       } catch (Exception e) {}
+       } catch (Exception e) {
+    	   logger.log(null, "Eccezione non gestita: ");
+       }
           rs = null;
        }
 	
     if (preparedStatement != null) {
        try {
       	 preparedStatement.close();
-       } catch (Exception e) {}
+       } catch (Exception e) {
+    	   logger.log(null, "Eccezione non gestita: ");
+       }
        	preparedStatement = null;
        }
 	
@@ -431,6 +446,7 @@ public static boolean checkEmailAvaiable(String email) {
        try {
           currentCon.close();
        } catch (Exception e) {
+    	   logger.log(null, "Eccezione non gestita: ");
        }
 
        currentCon = null;
@@ -483,8 +499,7 @@ try
 	}
 } 
 catch (SQLException e) {
-	// TODO Auto-generated catch block
-	////e.printStackTrace()StackTrace();
+	 logger.log(null, "Eccezione non gestita: ");
 } 
 finally {
 	try {
@@ -493,8 +508,7 @@ finally {
 		if(currentCon != null)
 			DriverManagerConnectionPool.releaseConnection(currentCon);
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		////e.printStackTrace();
+		 logger.log(null, "Eccezione non gestita: ");
 	}
 }
 
@@ -532,8 +546,7 @@ try
 	}
 } 
 catch (SQLException e) {
-	// TODO Auto-generated catch block
-	////e.printStackTrace();
+	 logger.log(null, "Eccezione non gestita: ");
 } 
 finally {
 	try {
@@ -542,8 +555,7 @@ finally {
 		if(currentConn!= null)
 				DriverManagerConnectionPool.releaseConnection(currentConn);
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		////e.printStackTrace();
+		 logger.log(null, "Eccezione non gestita: ");
 	}
 }
 
@@ -596,7 +608,7 @@ public static boolean updateUser(UserBean bean) throws SQLException {
         if (conn != null) {
             conn.rollback();
         }
-		//e.printStackTrace();
+        logger.log(null, "Eccezione non gestita: ");;
         throw ex;
     } finally {
         // Chiusura delle risorse e ripristino dell'autocommit
@@ -604,30 +616,26 @@ public static boolean updateUser(UserBean bean) throws SQLException {
             try {
                 psUtente.close();
             } catch (SQLException ex) {
-                //ex.printStackTrace();
-            }
+            	 logger.log(null, "Eccezione non gestita: ");            }
         }
         if (psPersona != null) {
             try {
                 psPersona.close();
             } catch (SQLException ex) {
-                //ex.printStackTrace();
-            }
+            	 logger.log(null, "Eccezione non gestita: ");            }
         }
         if (psIndirizzo != null) {
             try {
                 psIndirizzo.close();
             } catch (SQLException ex) {
-                //ex.printStackTrace();
-            }
+            	 logger.log(null, "Eccezione non gestita: ");            }
         }
         if (conn != null) {
             try {
                 conn.setAutoCommit(true);
                 conn.close();
             } catch (SQLException ex) {
-				//e.printStackTrace();
-            }
+            	 logger.log(null, "Eccezione non gestita: ");            }
         }
     }
     return success;

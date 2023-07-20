@@ -4,49 +4,50 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 
 public class MaterialeDao {
-	
-	public synchronized ArrayList<MaterialeBean> doRetrieveAll() {
+    static final Logger logger = Logger.getLogger("MyLogger");
 
-		ArrayList<MaterialeBean> materiali = new ArrayList<>();
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		MaterialeBean tempMateriale = new MaterialeBean();
+    public synchronized ArrayList<MaterialeBean> doRetrieveAll() {
 
-		String sqlSelect = "select m.id,m.tipo from materiale m ";
-		try {
-			connection = (Connection) DriverManagerConnectionPool.getConnection();
-			preparedStatement = (PreparedStatement) connection.prepareStatement(sqlSelect);
 
-			ResultSet rs = preparedStatement.executeQuery();
+        ArrayList<MaterialeBean> materiali = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        MaterialeBean tempMateriale = new MaterialeBean();
 
-			while (rs.next()) {
-				
-				tempMateriale = new MaterialeBean();
-				tempMateriale.setId(rs.getInt("id"));
-				tempMateriale.setTipo(rs.getString("tipo"));
-				materiali.add(tempMateriale);
+        String sqlSelect = "select m.id,m.tipo from materiale m ";
+        try {
+            connection =  DriverManagerConnectionPool.getConnection();
+            preparedStatement = connection.prepareStatement(sqlSelect);
 
-			}
-		} 
-		catch (SQLException e) {
-			
-			//e.printStackTrace();
-		} 
-		finally {
-			try {
-				if(preparedStatement != null)
-					preparedStatement.close();
-				DriverManagerConnectionPool.releaseConnection(connection);
-			} catch (SQLException e) {
-				
-				//e.printStackTrace();
-			}
-		}
+            ResultSet rs = preparedStatement.executeQuery();
 
-		return materiali;
-	}
+            while (rs.next()) {
+
+                tempMateriale = new MaterialeBean();
+                tempMateriale.setId(rs.getInt("id"));
+                tempMateriale.setTipo(rs.getString("tipo"));
+                materiali.add(tempMateriale);
+
+            }
+        } 
+        catch (SQLException e) {
+            logger.log(null, "Eccezione non gestita: ");
+        } 
+        finally {
+            try {
+                if(preparedStatement != null)
+                    preparedStatement.close();
+                DriverManagerConnectionPool.releaseConnection(connection);
+            } catch (SQLException e) {
+                logger.log(null, "Eccezione non gestita: ");
+            }
+        }
+
+        return materiali;
+    }
 
 }

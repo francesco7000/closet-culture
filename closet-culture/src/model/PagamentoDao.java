@@ -20,7 +20,6 @@ public class PagamentoDao {
 public static int newPagamento(String nome, double importo, String data, int idTipoPagamento) {
     PreparedStatement preparedStatement = null;
     String insertQuery = "INSERT INTO pagamento (nome, importo, data, id_tipo_pagamento) VALUES (?, ?, ?, ?)";
-    int result = 0;
     int idPagamento = 0;
     Connection currentCon = null;
 
@@ -33,7 +32,7 @@ public static int newPagamento(String nome, double importo, String data, int idT
         preparedStatement.setDouble(2, importo);
         preparedStatement.setString(3, data);
         preparedStatement.setInt(4, idTipoPagamento);
-        result = preparedStatement.executeUpdate();
+        preparedStatement.executeUpdate();
 
         ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
         if (generatedKeys.next()) {
