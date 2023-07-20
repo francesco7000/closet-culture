@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.text.*;
 import java.util.*;
+import java.util.logging.Logger;
 import java.sql.*;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -12,8 +13,11 @@ import java.sql.SQLException;
 import com.mysql.cj.xdevapi.Statement;
 
 public class OrdineDao {
+	   static final Logger logger = Logger.getLogger("MyLogger");
+
 	public static int newOrdine(String data, double imposta, double imponibile, double totale, int idPagamento, int idUtente) {
 	    PreparedStatement preparedStatement = null;
+
 	    String insertQuery = "INSERT INTO ordine (data, imposta, imponibile, totale, id_pagamento, id_utente, numero_ordine) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	    int result = 0;
 	    int id = 0;
@@ -39,27 +43,23 @@ public class OrdineDao {
 	            id = generatedKeys.getInt(1);
 	        }
 
-	        currentCon.commit(); // eseguo il commit esplicitamente
+	        currentCon.commit(); 
 
 	    } catch (SQLException e) {
-	        // Gestione dell'errore
-	        //e.printStackTrace();
+	    	logger.log(null, "Eccezione non gestita: ");
 	        try {
 	            if (currentCon != null) {
-	                System.out.println("rollback");
-	                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
+	            	logger.log(null, "Eccezione non gestita: ");	                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
 	            }
 	        } catch (SQLException ex) {
-	            //ex.printStackTrace();
-	        }
+	        	logger.log(null, "Eccezione non gestita: ");	        }
 	        return 0;
 	    } finally {
 	        if (preparedStatement != null) {
 	            try {
 	                preparedStatement.close();
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	            	logger.log(null, "Eccezione non gestita: ");
 	            }
 	        }
 	        if (currentCon != null) {
@@ -67,8 +67,7 @@ public class OrdineDao {
 	                currentCon.setAutoCommit(true); // riattivo l'autocommit
 	                DriverManagerConnectionPool.releaseConnection(currentCon);
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	            	logger.log(null, "Eccezione non gestita: ");
 	            }
 	        }
 	    }
@@ -103,23 +102,20 @@ public class OrdineDao {
 	        }
 
 	    } catch (SQLException e) {
-	        // Gestione dell'errore
-	        //e.printStackTrace();
+	    	logger.log(null, "Eccezione non gestita: ");
 	    } finally {
 	        if (rs != null) {
 	            try {
 	                rs.close();
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	            	logger.log(null, "Eccezione non gestita: ");
 	            }
 	        }
 	        if (preparedStatement != null) {
 	            try {
 	                preparedStatement.close();
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	            	logger.log(null, "Eccezione non gestita: ");
 	            }
 	        }
 	        DriverManagerConnectionPool.releaseConnection(currentCon);

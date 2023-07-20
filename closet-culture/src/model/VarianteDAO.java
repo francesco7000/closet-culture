@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class VarianteDAO {
 	
-	   
-
+	 static final Logger logger = Logger.getLogger("MyLogger");
 	public static VariantiBean getVariante(String idarticolo, String id_coloren, String id_taglia) {
 
 	    var idcolore = Integer.parseInt(id_coloren);
@@ -43,7 +43,7 @@ public class VarianteDAO {
 	            int id_v = rs.getInt("id");
 	            int quantita = rs.getInt("quantita");
 	            String descrizione = rs.getString("descrizione");
-	            System.out.println("ID VARIANTE TROVATA"+id_v+"CIAO");
+	    
 	            vb.setId(id_v);
 	            vb.setQuantita(quantita);
 	            vb.setDescrizione(descrizione);
@@ -51,27 +51,31 @@ public class VarianteDAO {
 	        }
 	        
 	    } catch (SQLException ex) {
-	        System.out.println("Errore durante la ricerca delle varianti: " + ex);
+	        logger.log(null, "Eccezione non gestita: ");
+
 	    } finally {
 	        if (rs != null) {
 	            try {
 	                rs.close();
 	            } catch (SQLException e) {
-	                // log or handle the exception
+	               logger.log(null, "Eccezione non gestita: ");
+
 	            }
 	        }
 	        if (preparedStatement != null) {
 	            try {
 	                preparedStatement.close();
 	            } catch (SQLException e) {
-	                // log or handle the exception
+	                logger.log(null, "Eccezione non gestita: ");
+
 	            }
 	        }
 	        if (currentCon != null) {
 	            try {
 	                currentCon.close();
 	            } catch (SQLException e) {
-	                // log or handle the exception
+	               logger.log(null, "Eccezione non gestita: ");
+
 	            }
 	        }
 	    }
@@ -117,27 +121,31 @@ public class VarianteDAO {
 	        }
 
 	    } catch (SQLException ex) {
-	        System.out.println("Errore durante la ricerca della variante: " + ex.getMessage());
+	       logger.log(null, "Eccezione non gestita: ");
+
 	    } finally {
 	        if (rs != null) {
 	            try {
 	                rs.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura del ResultSet: " + ex.getMessage());
+	               logger.log(null, "Eccezione non gestita: ");
+
 	            }
 	        }
 	        if (ps != null) {
 	            try {
 	                ps.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura dello statement: " + ex.getMessage());
+	               logger.log(null, "Eccezione non gestita: ");
+
 	            }
 	        }
 	        if (conn != null) {
 	            try {
 	                conn.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura della connessione: " + ex.getMessage());
+	              logger.log(null, "Eccezione non gestita: ");
+
 	            }
 	        }
 	    }

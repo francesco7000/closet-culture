@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 
 public class ColoreDao {
-	
+	   static final Logger logger = Logger.getLogger("MyLogger");
+
 	public static ColoreBean getColoreById(int idColore) {
 	    String searchQuery = "SELECT * FROM colore WHERE id = ?";
 	    Connection conn = null;
@@ -31,28 +33,25 @@ public class ColoreDao {
 	        }
 
 	    } catch (SQLException ex) {
-	        System.out.println("Errore durante la ricerca del colore: " + ex.getMessage());
+	    	logger.log(null, "Eccezione non gestita: ");
 	    } finally {
 	        if (rs != null) {
 	            try {
 	                rs.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura del ResultSet: " + ex.getMessage());
-	            }
+	            	logger.log(null, "Eccezione non gestita: ");	            }
 	        }
 	        if (ps != null) {
 	            try {
 	                ps.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura dello statement: " + ex.getMessage());
-	            }
+	            	logger.log(null, "Eccezione non gestita: ");	            }
 	        }
 	        if (conn != null) {
 	            try {
 	                conn.close();
 	            } catch (SQLException ex) {
-	                System.out.println("Errore durante la chiusura della connessione: " + ex.getMessage());
-	            }
+	            	logger.log(null, "Eccezione non gestita: ");	            }
 	        }
 	    }
 

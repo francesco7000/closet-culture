@@ -1,6 +1,7 @@
 package model;
 
 import java.text.*;
+
 import java.util.*;
 import java.util.logging.Logger;
 import java.sql.*;
@@ -39,14 +40,14 @@ public static int newPagamento(String nome, double importo, String data, int idT
             idPagamento = generatedKeys.getInt(1);
         }
 
-        currentCon.commit(); // eseguo il commit esplicitamente
+        currentCon.commit(); 
 
     } catch (SQLException e) {
     	logger.log(null, "Eccezione non gestita: ");
         try {
             if (currentCon != null) {
-                System.out.println("rollback");
-                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
+            	logger.log(null, "Rollback: ");
+                currentCon.rollback();
             }
         } catch (SQLException ex) {
         	logger.log(null, "Eccezione non gestita: ");

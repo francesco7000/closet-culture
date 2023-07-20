@@ -50,20 +50,15 @@ public class GeneraFatturaServlet extends HttpServlet {
     	String numero=request.getParameter("numero");
     	HttpSession session = request.getSession();
 		UserBean user=(UserBean) session.getAttribute("currentSessionUser");
-		System.out.println(user.getId());
     	String descrizionePagamento=request.getParameter("tipoPag");
     	String htmlContent="Fattura \n";
     	htmlContent+="--------------------------------------------- \n";
     	htmlContent+="Indirizzo di Spedizione:"+" "+provincia+" "+via+" "+numero+" "+cap+" "+citta+" "+"\n";
     	htmlContent+="---------------------------------------------"+"\n";
        	CarrelloBean carrello = CarrelloDao.caricaCarrello(user.getId());
-     
        	String[] parts = descrizionePagamento.split("_");
        	String testo = parts[0];
        	int numeri = Integer.parseInt(parts[1]);
-       	System.out.println("Testo: " + testo);
-       	System.out.println("Numeri: " + numeri);
-        // Crea il contenuto HTML della fattura
         htmlContent+= carrello.generaOrdine(numeri,user.getId())+"\n";
     	htmlContent+="Metodo di pagamento utilizzato:"+" "+testo+"\n";
     	
