@@ -2,11 +2,13 @@ package model;
 
 import java.text.*;
 import java.util.*;
+import java.util.logging.Logger;
 import java.sql.*;
 import java.sql.Date;
 
 
 public class PagamentoDao {
+	   static final Logger logger = Logger.getLogger("MyLogger");
 
 	
 	
@@ -40,15 +42,14 @@ public static int newPagamento(String nome, double importo, String data, int idT
         currentCon.commit(); // eseguo il commit esplicitamente
 
     } catch (SQLException e) {
-        // Gestione dell'errore
-        //e.printStackTrace();
+    	logger.log(null, "Eccezione non gestita: ");
         try {
             if (currentCon != null) {
                 System.out.println("rollback");
                 currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
             }
         } catch (SQLException ex) {
-            //ex.printStackTrace();
+        	logger.log(null, "Eccezione non gestita: ");
         }
         return 0;
     } finally {
@@ -56,8 +57,7 @@ public static int newPagamento(String nome, double importo, String data, int idT
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                // Gestione dell'errore
-                //e.printStackTrace();
+            	logger.log(null, "Eccezione non gestita: ");
             }
         }
         if (currentCon != null) {
@@ -65,8 +65,7 @@ public static int newPagamento(String nome, double importo, String data, int idT
                 currentCon.setAutoCommit(true); // riattivo l'autocommit
                 DriverManagerConnectionPool.releaseConnection(currentCon);
             } catch (SQLException e) {
-                // Gestione dell'errore
-                //e.printStackTrace();
+            	logger.log(null, "Eccezione non gestita: ");
             }
         }
     }
@@ -109,23 +108,26 @@ public static int newPagamento(String nome, double importo, String data, int idT
 
 		   catch (Exception ex) 
 		   {
-		      System.out.println("Log In failed: An Exception has occurred! " + ex);
+			   logger.log(null, "Eccezione non gestita: ");
 		   } 
 			    
-		   //some exception handling
 		   finally 
 		   {
 		      if (rs != null)	{
 		         try {
 		            rs.close();
-		         } catch (Exception e) {}
+		         } catch (Exception e) {
+		        	 logger.log(null, "Eccezione non gestita: ");
+		         }
 		            rs = null;
 		         }
 			
 		      if (preparedStatement != null) {
 		         try {
 		        	 preparedStatement.close();
-		         } catch (Exception e) {}
+		         } catch (Exception e) {
+		        	 logger.log(null, "Eccezione non gestita: ");
+		         }
 		         preparedStatement = null;
 		         }
 			
@@ -133,6 +135,7 @@ public static int newPagamento(String nome, double importo, String data, int idT
 		         try {
 		            currentCon.close();
 		         } catch (Exception e) {
+		        	 logger.log(null, "Eccezione non gestita: ");
 		         }
 
 		         currentCon = null;

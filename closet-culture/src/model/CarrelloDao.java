@@ -58,6 +58,7 @@ public class CarrelloDao {
 
 	    } catch (SQLException ex) {
 	    	    	        try {
+	    	    if(conn!=null)
 	            conn.rollback();
 	        } catch (SQLException ex2) {
 	        	    	        }
@@ -234,6 +235,8 @@ public class CarrelloDao {
 	        }
 	    } catch (SQLException ex) {
 	    	    	    	   try {
+	    	    		    	    if(conn!=null)
+
 	            conn.rollback(); // Effettua il rollback in caso di eccezione
 	        } catch (SQLException ex2) {
 	        	    	        	   }
@@ -278,6 +281,7 @@ public static boolean svuotaCarrello(int idUtente) {
         }
     } catch (SQLException ex) {
     	            try {
+    		    	    if(conn!=null)
             conn.rollback(); // Effettua il rollback in caso di eccezione
         } catch (SQLException ex2) {
         	            }
