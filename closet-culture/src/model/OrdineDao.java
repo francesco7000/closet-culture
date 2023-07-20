@@ -19,7 +19,6 @@ public class OrdineDao {
 	    PreparedStatement preparedStatement = null;
 
 	    String insertQuery = "INSERT INTO ordine (data, imposta, imponibile, totale, id_pagamento, id_utente, numero_ordine) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	    int result = 0;
 	    int id = 0;
 	    Connection currentCon = null;
 
@@ -36,7 +35,7 @@ public class OrdineDao {
 	        preparedStatement.setInt(6, idUtente);
 	        preparedStatement.setInt(7, (int) (System.currentTimeMillis() % Integer.MAX_VALUE));
 
-	        result = preparedStatement.executeUpdate();
+	        preparedStatement.executeUpdate();
 
 	        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
 	        if (generatedKeys.next()) {

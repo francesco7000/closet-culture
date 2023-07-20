@@ -462,7 +462,6 @@ public static ArrayList<UserBean> ricercautenti(String cerca) {
 	
 
 	ArrayList<UserBean> users = new ArrayList<>();
-	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 	
 	String searchQuery ="";
@@ -608,7 +607,7 @@ public static boolean updateUser(UserBean bean) throws SQLException {
         if (conn != null) {
             conn.rollback();
         }
-        logger.log(null, "Eccezione non gestita: ");;
+        logger.log(null, "Eccezione non gestita: ");
         throw ex;
     } finally {
         // Chiusura delle risorse e ripristino dell'autocommit

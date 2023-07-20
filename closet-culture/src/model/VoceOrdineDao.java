@@ -3,8 +3,11 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class VoceOrdineDao {
+
+	   static final Logger logger = Logger.getLogger("MyLogger");
 
 	public static boolean newVoceOrdine(int quantita, double prezzo, int id_ordine, int id_variante_articolo) {
 	    PreparedStatement preparedStatement = null;
@@ -26,15 +29,14 @@ public class VoceOrdineDao {
 	        currentCon.commit(); // eseguo il commit esplicitamente
 
 	    } catch (SQLException e) {
-	        // Gestione dell'errore
-	        //e.printStackTrace();
+	    	logger.log(null, "Eccezione non gestita: ");
 	        try {
 	            if (currentCon != null) {
-	                System.out.println("rollback");
+	            	logger.log(null, "Eccezione non gestita: ");
 	                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
 	            }
 	        } catch (SQLException ex) {
-	            //ex.printStackTrace();
+	        	logger.log(null, "Eccezione non gestita: ");
 	        }
 	        return false;
 	    } finally {
@@ -42,8 +44,7 @@ public class VoceOrdineDao {
 	            try {
 	                preparedStatement.close();
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	            	logger.log(null, "Eccezione non gestita: ");
 	            }
 	        }
 	        if (currentCon != null) {
@@ -51,8 +52,7 @@ public class VoceOrdineDao {
 	                currentCon.setAutoCommit(true); // riattivo l'autocommit
 	                DriverManagerConnectionPool.releaseConnection(currentCon);
 	            } catch (SQLException e) {
-	                // Gestione dell'errore
-	                //e.printStackTrace();
+	            	logger.log(null, "Eccezione non gestita: ");
 	            }
 	        }
 	    }
