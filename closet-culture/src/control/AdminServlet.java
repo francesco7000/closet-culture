@@ -210,7 +210,14 @@ public class AdminServlet extends HttpServlet {
 					PrintWriter out = response.getWriter();
 					
 					for (OrdineBean ordine : ordini) {
-						out.print("<li><a>"+"Numero Ordine: "+" "+ordine.getNumOrdine()+" "+"Totale: "+" "+ordine.getTotale()+"</a></li>");
+
+						
+						
+						
+						
+						
+						//out.print("<li><a  onclick=\"window.location.href=\"GeneraFatturaDaOrdineServlet?id="+ordine.getId()+">"+"Numero Ordine: "+" "+ordine.getNumOrdine()+" "+"Totale: "+" "+ordine.getTotale()+"</a></li>");
+						out.print("<li><a href="+"GeneraFatturaDaOrdineServlet?id="+ordine.getId()+">"+"Numero Ordine: "+" "+ordine.getNumOrdine()+" "+"Totale: "+" "+ordine.getTotale()+"</a></li>");
 					}
 					if(ordini.isEmpty()) {
 						out.print("<li>Nessun Ordine trovato</li>");

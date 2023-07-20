@@ -2,7 +2,9 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class VoceOrdineDao {
@@ -58,6 +60,52 @@ public class VoceOrdineDao {
 	    }
 
 	    return result > 0;
+	}
+	
+	public static ArrayList<VoceOrdineBean> getVociOrdineByIdOrdine(int idOrdine) throws SQLException {
+	    PreparedStatement preparedStatement = null;
+	    ResultSet rs = null;
+	    String searchQuery = "SELECT * FROM voce_ordine WHERE id_ordine = ?";
+	    ArrayList<VoceOrdineBean> vociOrdine = new ArrayList<>();
+	    Connection currentCon = null;
+
+	    try {
+	        currentCon = DriverManagerConnectionPool.getConnection();
+	        preparedStatement = currentCon.prepareStatement(searchQuery);
+	        preparedStatement.setInt(1, idOrdine);
+	        rs = preparedStatement.executeQuery();
+
+	        while (rs.next()) {
+	            VoceOrdineBean voceOrdine = new VoceOrdineBean();
+	            voceOrdine.setId(rs.getInt("id"));
+	            voceOrdine.setQuantita(rs.getInt("quantita"));
+	            voceOrdine.setPrezzo(rs.getDouble("prezzo"));
+	            voceOrdine.setIdOrdine(rs.getInt("id_ordine"));
+	            voceOrdine.setIdVarianteArticolo(rs.getInt("id_variante_articolo"));
+	            vociOrdine.add(voceOrdine);
+	        }
+
+	    } catch (SQLException e) {
+	        logger.log(null, "Eccezione non gestita: ");
+	    } finally {
+	        if (rs != null) {
+	            try {
+	                rs.close();
+	            } catch (SQLException e) {
+	                logger.log(null, "Eccezione non gestita: ");
+	            }
+	        }
+	        if (preparedStatement != null) {
+	            try {
+	                preparedStatement.close();
+	            } catch (SQLException e) {
+	                logger.log(null, "Eccezione non gestita: ");
+	            }
+	        }
+	        DriverManagerConnectionPool.releaseConnection(currentCon);
+	    }
+
+	    return vociOrdine;
 	}
 
 }

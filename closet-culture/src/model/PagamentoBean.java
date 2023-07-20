@@ -14,7 +14,7 @@ public class PagamentoBean {
 	private int id;
 	private String nome;
 	private double importo;
-	private Date data;
+	private String data;
 	private int id_tipoPag;
 	
 	
@@ -50,11 +50,11 @@ public class PagamentoBean {
 		this.importo = importo;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

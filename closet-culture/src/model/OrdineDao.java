@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+
 import java.text.*;
 import java.util.*;
 import java.util.logging.Logger;
@@ -73,6 +74,107 @@ public class OrdineDao {
 
 	    return id;
 	}
+	
+	public static OrdineBean getOrdineById(int idOrdine) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		String searchQuery = "SELECT * FROM ordine WHERE id = ?";
+		OrdineBean ordine = null;
+		Connection currentCon = null;
+
+		try {
+		    currentCon = DriverManagerConnectionPool.getConnection();
+		    preparedStatement = currentCon.prepareStatement(searchQuery);
+		    preparedStatement.setInt(1, idOrdine);
+		    rs = preparedStatement.executeQuery();
+
+		    if (rs.next()) {
+		        ordine = new OrdineBean();
+		        ordine.setId(rs.getInt("id"));
+		        ordine.setData(rs.getString("data"));
+		        ordine.setImposta(rs.getDouble("imposta"));
+		        ordine.setImponibile(rs.getDouble("imponibile"));
+		        ordine.setTotale(rs.getDouble("totale"));
+		        ordine.setIdPagamento(rs.getInt("id_pagamento"));
+		        ordine.setIdUtente(rs.getInt("id_utente"));
+		        ordine.setNumOrdine(rs.getInt("numero_ordine"));
+		    }
+
+		} catch (SQLException e) {
+		    logger.log(null, "Eccezione non gestita: ");
+		} finally {
+		    if (rs != null) {
+		        try {
+		            rs.close();
+		        } catch (SQLException e) {
+		            logger.log(null, "Eccezione non gestita: ");
+		        }
+		    }
+		    if (preparedStatement != null) {
+		        try {
+		            preparedStatement.close();
+		        } catch (SQLException e) {
+		            logger.log(null, "Eccezione non gestita: ");
+		        }
+		    }
+		    DriverManagerConnectionPool.releaseConnection(currentCon);
+		}
+
+		return ordine;
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	public static String generaFattura(OrdineBean ordine) {
+		
+		
+	    ArrayList<VoceOrdineBean> voci;
+		String htmlContent="Fattura \n";
+
+	    try {
+	    	double somma=0;
+	    	 UserBean user=UserDAO.utenteByID(ordine.getIdUtente());
+			voci=VoceOrdineDao.getVociOrdineByIdOrdine(ordine.getId());
+	    	htmlContent+="--------------------------------------------- \n";
+	    	htmlContent+="Indirizzo di Spedizione:"+" "+user.getProvincia()+" "+user.getVia()+" "+user.getNumero()+" "+user.getCap()+" "+user.getCitta()+" "+"\n";
+	    	htmlContent+="---------------------------------------------"+"\n";
+		    PagamentoBean pagamento=PagamentoDao.getPagamentoById(ordine.getIdPagamento());
+	    	for (VoceOrdineBean voceOrdine : voci) {
+			    int idVoceOrdine = voceOrdine.getId();
+			    double prezzo = voceOrdine.getPrezzo();
+			    int idVarianteArticolo = voceOrdine.getIdVarianteArticolo();
+			    VariantiBean variante=VarianteDAO.getVarianteById(idVarianteArticolo);
+			    ArticoloBean articolo=ArticoloDAO.idRicerca(variante.getId_art());
+			    int quantita = voceOrdine.getQuantita();
+	    	    somma+=(voceOrdine.getPrezzo() * quantita);
+	    	    htmlContent += " - Articolo: " + articolo.getNome() + " - Variante: " + variante.getDescrizione() + " - Quantità: " + quantita + " - Prezzo totale: " + (voceOrdine.getPrezzo() * quantita)+' '+'€' + "\n";			    
+		       	
+		       
+			}
+	    
+	    	double totale=somma+((somma*22)/100);
+	    	htmlContent+="Totale da Pagare: "+" "+totale+' '+'€'+"\n";
+	 		htmlContent+="Metodo di pagamento utilizzato:"+" "+pagamento.getTp_descrizione()+"\n";
+	 		
+			
+	
+		} catch (SQLException e) {
+			logger.log(null, "Eccezione non gestita: ");
+		}
+
+		return htmlContent;
+	}
+	
+	
+	
+	
+	
+	
 	
 	public static ArrayList<OrdineBean> ricercaOrdini(String username) throws SQLException {
 	    PreparedStatement preparedStatement = null;
