@@ -18,7 +18,7 @@ public class ArticoloDAO {
 		      ArrayList<ArticoloBean> articles = new ArrayList<>();
 		      Integer id=0;
 		      String searchQuery =
-		              "select a.nome,a.codice,a.prezzo,a.id from articolo a "
+		              "select a.nome,a.codice,a.prezzo,a.id,a.url from articolo a "
 		    		  +"WHERE a.visibile = true ";
 
 		      if (search!=null && !search.equals(""))  searchQuery += " AND a.nome LIKE ?  || a.codice= ? ";
@@ -40,10 +40,14 @@ public class ArticoloDAO {
 		        	ArticoloBean bean_a=new ArticoloBean();
 		            String nomea = rs.getString("nome");
 		            String codicea = rs.getString("codice");
+		           
 		            Integer prezzo = rs.getInt("prezzo");
+		            String url = rs.getString("url");
+		            bean_a.setUrl(url);
 		            id = rs.getInt("id");
 		            bean_a.setNome(nomea);
 		            bean_a.setCodice(codicea);
+		       
 		            bean_a.setPrezzo(prezzo);
 		            bean_a.setId(id);
 		          
@@ -195,7 +199,7 @@ public class ArticoloDAO {
 		      ArrayList<ArticoloBean> articles = new ArrayList<>();
 		      
 		      String searchQuery =
-		              "select a.nome,a.codice,a.prezzo,a.id from articolo a "
+		              "select a.nome,a.codice,a.prezzo,a.id,a.url from articolo a "
 		    		  +"WHERE a.visibile = true ";
 
 	            if (id>0) searchQuery += " AND a.id_categoria_articolo=? ";
@@ -219,6 +223,8 @@ public class ArticoloDAO {
 		            Integer prezzo = rs.getInt("prezzo");
 		            Integer id_a = rs.getInt("id");
 		            bean_a.setNome(nomea);
+		            String url = rs.getString("url");
+		            bean_a.setUrl(url);
 		            bean_a.setCodice(codicea);
 		            bean_a.setPrezzo(prezzo);
 		            bean_a.setId(id_a);
@@ -279,7 +285,7 @@ public class ArticoloDAO {
 		      ArrayList<ArticoloBean> articles = new ArrayList<ArticoloBean>();
 		      
 		      String searchQuery =
-		              "select a.nome,a.codice,a.prezzo,a.id from articolo a "
+		              "select a.nome,a.codice,a.prezzo,a.id,a.url from articolo a "
 		    		  +"WHERE a.visibile = true ";
 
 	            if (id>0) searchQuery += " AND a.linea_id=? ";
@@ -299,6 +305,8 @@ public class ArticoloDAO {
 		            String codicea = rs.getString("codice");
 		            Integer prezzo = rs.getInt("prezzo");
 		            Integer id_a = rs.getInt("id");
+		            String url = rs.getString("url");
+		            bean_a.setUrl(url);
 		            bean_a.setNome(nomea);
 		            bean_a.setCodice(codicea);
 		            bean_a.setPrezzo(prezzo);
@@ -381,6 +389,8 @@ public class ArticoloDAO {
 		            bean_a.setComposizione(comp);
 		            bean_a.setId(ida);
 		            bean_a.setStagione(st);
+		            String url = rs.getString("url");
+		            bean_a.setUrl(url);
 		            
 		            bean_a.setLinea(getLinea(bean_a.getId()));
 		            bean_a.setCategoria(CategoriaDao.getCategoriaArticolo(bean_a.getId()));

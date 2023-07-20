@@ -190,7 +190,7 @@ $(document).ready(function() {
 						%>
 						<div class="product-item col-lg-3 col-md-6 col-sm-6">
 							<div class="image-holder">
-								<img src="images/selling-products1.jpg" alt="Books"
+								<img src="images/<%=articolo.getUrl()%>" alt="Books"
 									class="product-image">
 							</div>
 							<div class="cart-concern">

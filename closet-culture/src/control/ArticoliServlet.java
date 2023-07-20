@@ -69,7 +69,7 @@ public class ArticoliServlet extends HttpServlet {
 					
 					out.print("<div class=\"product-item col-lg-3 col-md-6 col-sm-6\">\n" + 
 							"  <div class=\"image-holder\">\n" + 
-							"    <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
+							"    <img src=\"images/"+articolo.getUrl()+"\" alt=\"Books\" class=\"product-image\">\n" + 
 							"  </div>\n" + 
 							"  <div class=\"cart-concern\">\n" + 
 							"    <div class=\"cart-button d-flex justify-content-between align-items-center\">\n" + 
@@ -160,7 +160,7 @@ public class ArticoliServlet extends HttpServlet {
 						out.print("\n" + 
 								"                    <div class=\"product-item col-lg-4 col-md-6 col-sm-6\">\n" + 
 								"                      <div class=\"image-holder\">\n" + 
-								"                        <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
+								"                        <img src=\"images/"+articolo.getUrl()+"\" alt=\"Books\" class=\"product-image\">\n" + 
 								"                      </div>\n" + 
 								"                      <div class=\"cart-concern\">\n" + 
 								"								<div\n" + 
@@ -203,7 +203,7 @@ public class ArticoliServlet extends HttpServlet {
 							out.print("\n" + 
 									"                    <div class=\"product-item col-lg-4 col-md-6 col-sm-6\">\n" + 
 									"                      <div class=\"image-holder\">\n" + 
-									"                        <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
+									"                        <img src=\"images/"+articolo.getUrl()+"\" alt=\"Books\" class=\"product-image\">\n" + 
 									"                      </div>\n" + 
 									"                      <div class=\"cart-concern\">\n" + 
 									"								<div\n" + 

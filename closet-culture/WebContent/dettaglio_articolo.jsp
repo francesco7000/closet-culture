@@ -160,7 +160,7 @@ $(document).ready(function() {
               <span class="item">
                 <a href="ricerca-prodotti.jsp">Shop /</a>
               </span>
-              <span class="item">Shop Single</span>
+              <span class="item">Dettaglio Articolo</span>
             </div>
           </div>
         </div>
@@ -175,26 +175,22 @@ $(document).ready(function() {
               <div thumbsSlider="" class="swiper thumb-swiper col-md-3 col-xs-3">
                 <div class="swiper-wrapper d-flex flex-wrap">
                   <div class="swiper-slide">
-                    <img src="images/product-thumbnail-1.jpg" alt="">
+                    <img src="images/<%=articolo.getUrl()%>" alt="">
                   </div>
                   <div class="swiper-slide">
-                    <img src="images/product-thumbnail-2.jpg" alt="">
                   </div>
                   <div class="swiper-slide">
-                    <img src="images/product-thumbnail-3.jpg" alt="">
                   </div>
                 </div>
               </div>
               <div class="swiper large-swiper overflow-hidden col-md-9 col-xs-9">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                    <img src="images/product-large-1.jpg" alt="single-product">
+                    <img src="images/<%=articolo.getUrl()%>" alt="single-product">
                   </div>
                   <div class="swiper-slide">
-                    <img src="images/product-large-2.jpg" alt="single-product">
                   </div>
                   <div class="swiper-slide">
-                    <img src="images/product-large-3.jpg" alt="single-product">
                   </div>
                 </div>
               </div>

@@ -139,7 +139,7 @@ $(document).ready(function() {
           <div class="row cart-info d-flex flex-wrap">
             <div class="col-lg-5">
               <div class="card-image">
-                <img src="images/selling-products6.jpg" alt="cloth" class="img-fluid">
+                <img src="images/<%=articolo.getUrl()%>" alt="cloth" class="img-fluid">
               </div>
             </div>
             <div class="col-lg-7">

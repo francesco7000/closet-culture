@@ -158,7 +158,7 @@ $(document).ready(function() {
                   
                     <div class="product-item col-lg-4 col-md-6 col-sm-6">
                       <div class="image-holder">
-                        <img src="images/selling-products1.jpg" alt="Books" class="product-image">
+                        <img src="images/<%=var.getUrl()%>" alt="Books" class="product-image">
                       </div>
                       <div class="cart-concern">
 								<div

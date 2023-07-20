@@ -16,11 +16,21 @@ public class ArticoloBean {
 	String barcode;
 	String composizione;
 	String descrizione;
+	String url;
+
 	ArrayList<VariantiBean> listaVarianti;
 	ArrayList<ColoreBean> listaColori;
 	LineaBean linea;
     MaterialeBean materiale;
     CategoriaBean categoria;
+    
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	
 	public ArrayList<ColoreBean> getListaColori() {
 		return listaColori;
