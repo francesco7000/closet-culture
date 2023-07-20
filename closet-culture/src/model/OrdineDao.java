@@ -145,8 +145,6 @@ public class OrdineDao {
 	    	htmlContent+="---------------------------------------------"+"\n";
 		    PagamentoBean pagamento=PagamentoDao.getPagamentoById(ordine.getIdPagamento());
 	    	for (VoceOrdineBean voceOrdine : voci) {
-			    int idVoceOrdine = voceOrdine.getId();
-			    double prezzo = voceOrdine.getPrezzo();
 			    int idVarianteArticolo = voceOrdine.getIdVarianteArticolo();
 			    VariantiBean variante=VarianteDAO.getVarianteById(idVarianteArticolo);
 			    ArticoloBean articolo=ArticoloDAO.idRicerca(variante.getId_art());

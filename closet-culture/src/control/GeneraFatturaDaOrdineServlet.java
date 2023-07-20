@@ -16,7 +16,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.util.logging.Logger;
 
 import model.OrdineBean;
 import model.OrdineDao;
