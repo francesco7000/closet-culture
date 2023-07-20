@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,8 +27,13 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.*;
 
+import model.ArticoloBean;
 import model.CarrelloBean;
 import model.CarrelloDao;
+import model.ElementoCarrello;
+import model.PagamentoDao;
+import model.UserBean;
+import model.VariantiBean;
 @WebServlet("/GeneraFattura")
 public class GeneraFatturaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -42,19 +48,27 @@ public class GeneraFatturaServlet extends HttpServlet {
     	String cap=request.getParameter("cap");
     	String via=request.getParameter("via");
     	String numero=request.getParameter("numero");
-    	
+    	HttpSession session = request.getSession();
+		UserBean user=(UserBean) session.getAttribute("currentSessionUser");
+		System.out.println(user.getId());
     	String descrizionePagamento=request.getParameter("tipoPag");
     	String htmlContent="Fattura \n";
     	htmlContent+="--------------------------------------------- \n";
     	htmlContent+="Indirizzo di Spedizione:"+" "+provincia+" "+via+" "+numero+" "+cap+" "+citta+" "+"\n";
     	htmlContent+="---------------------------------------------"+"\n";
-       	CarrelloBean carrello = CarrelloDao.caricaCarrello(1);
+       	CarrelloBean carrello = CarrelloDao.caricaCarrello(user.getId());
+     
+       	String[] parts = descrizionePagamento.split("_");
+       	String testo = parts[0];
+       	int numeri = Integer.parseInt(parts[1]);
+       	System.out.println("Testo: " + testo);
+       	System.out.println("Numeri: " + numeri);
         // Crea il contenuto HTML della fattura
-        htmlContent+= carrello.stringa()+"\n";
-    	htmlContent+="Metodo di pagamento utilizzato:"+" "+descrizionePagamento+"\n";
-    	HttpSession session = request.getSession();
+        htmlContent+= carrello.generaOrdine(numeri,user.getId())+"\n";
+    	htmlContent+="Metodo di pagamento utilizzato:"+" "+testo+"\n";
+    	
 		session.setAttribute("pdfFileName", htmlContent);
-        CarrelloDao.svuotaCarrello(1);
+        CarrelloDao.svuotaCarrello(user.getId());
         response.sendRedirect("thanksyou.jsp");
        
     }

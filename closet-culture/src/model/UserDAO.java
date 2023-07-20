@@ -167,12 +167,12 @@ public class UserDAO
          String cap = rs.getString("cap");
          String numero = rs.getString("numero");
          String cellulare = rs.getString("cellulare");
-         
+         Integer id=rs.getInt("id");
          String ruolo = rs.getString("ruolo");
          Integer id_persona=rs.getInt("persona_id");
          
 	     	
-       
+         bean.setId(id);
          bean.setUsername(usn);
          bean.setEmail(email);
          bean.setNome(nome);

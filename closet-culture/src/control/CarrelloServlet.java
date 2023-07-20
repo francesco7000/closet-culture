@@ -11,12 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.ArticoloBean;
 import model.ArticoloDAO;
 import model.CarrelloBean;
 import model.CarrelloDao;
 import model.ElementoCarrello;
+import model.UserBean;
 import model.VarianteDAO;
 import model.VariantiBean;
 
@@ -42,24 +44,31 @@ public class CarrelloServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
+		UserBean user=(UserBean) session.getAttribute("currentSessionUser");
 		if (action != null) {
 			if (action.equalsIgnoreCase("aggiungiAlCarrello")) {
 				VariantiBean v = VarianteDAO.getVariante(request.getParameter("idart"), request.getParameter("idcol"),
 				request.getParameter("idtaglia"));
 				int qta = Integer.parseInt(request.getParameter("qta"));
-				boolean result = CarrelloDao.addToCart(v, 1, qta);
+				boolean result = CarrelloDao.addToCart(v, user.getId(), qta);
+				
 			} else if (action.equalsIgnoreCase("getAll")) {
 
-				CarrelloBean carrello = CarrelloDao.caricaCarrello(1);
-				request.setAttribute("carrello", carrello);
-
+				CarrelloBean carrello = CarrelloDao.caricaCarrello(user.getId());
+				if(carrello!=null) {
+					request.setAttribute("carrello", carrello);
+					session.setAttribute("carrello", carrello);
+				}
+				
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/cart.jsp");
 				dispatcher.forward(request, response);
 			} else if (action.equalsIgnoreCase("removeVar")) {
 
 				int idRow = Integer.parseInt(request.getParameter("idRow"));
-				CarrelloDao.rimuoviVarianteDalCarrello(idRow, 1); 
-				CarrelloBean carrello = CarrelloDao.caricaCarrello(1);
+				CarrelloDao.rimuoviVarianteDalCarrello(idRow, user.getId()); 
+				CarrelloBean carrello = CarrelloDao.caricaCarrello(user.getId());
 				PrintWriter out = response.getWriter();
 				Map<Integer, ElementoCarrello> elementiCarrello = carrello.getCarrello();
 

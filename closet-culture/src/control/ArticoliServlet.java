@@ -65,20 +65,22 @@ public class ArticoliServlet extends HttpServlet {
 				
 				for (ArticoloBean articolo : articoli) {
 					
+
+					
 					out.print("<div class=\"product-item col-lg-3 col-md-6 col-sm-6\">\n" + 
 							"  <div class=\"image-holder\">\n" + 
 							"    <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
 							"  </div>\n" + 
 							"  <div class=\"cart-concern\">\n" + 
 							"    <div class=\"cart-button d-flex justify-content-between align-items-center\">\n" + 
-							"      <button type=\"button\" class=\"btn-wrap cart-link d-flex align-items-center\">\n" + 
-							"        Aggiungi al Carrello <i class=\"icon icon-arrow-io\"></i>\n" + 
-							"      </button>\n" + 
+							"      <a   href=\"ArticoliServlet?action=getArticolo&id="+articolo.getId()+"\" type=\"button\" class=\"btn-wrap cart-link d-flex align-items-center\">\n" + 
+							"        Visualizza <i class=\"icon icon-arrow-io\"></i>\n" + 
+							"      </a>\n" + 
 							"    </div>\n" + 
 							"  </div>\n" + 
 							"  <div class=\"product-detail\">\n" + 
 							"    <h3 class=\"product-title\">\n" + 
-							"      <a href=\"dettaglio_articolo.jsp?id="+ articolo.getId() + "\">" + articolo.getNome() +"</a>\n" + 
+							"      <a href=\"ArticoliServlet?action=getArticolo&id="+ articolo.getId() + "\">" + articolo.getNome() +"</a>\n" + 
 							"    </h3>\n" + 
 							"    <div class=\"item-price text-primary\">€"+ articolo.getPrezzo() + "</div>\n" + 
 							"  </div>\n" + 
@@ -154,24 +156,33 @@ public class ArticoliServlet extends HttpServlet {
 					
 					for (ArticoloBean articolo : articoli) {
 						
-						out.print("<div class=\"product-item col-lg-4 col-md-6 col-sm-6\">\n" + 
-								"  <div class=\"image-holder\">\n" + 
-								"    <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
-								"  </div>\n" + 
-								"  <div class=\"cart-concern\">\n" + 
-								"    <div class=\"cart-button d-flex justify-content-between align-items-center\">\n" + 
-								"      <button type=\"button\" class=\"btn-wrap cart-link d-flex align-items-center\">\n" + 
-								"        Aggiungi al Carrello <i class=\"icon icon-arrow-io\"></i>\n" + 
-								"      </button>\n" + 
-								"    </div>\n" + 
-								"  </div>\n" + 
-								"  <div class=\"product-detail\">\n" + 
-								"    <h3 class=\"product-title\">\n" + 
-								"      <a href=\"dettaglio_articolo.jsp?id="+ articolo.getId() + "\">" + articolo.getNome() +"</a>\n" + 
-								"    </h3>\n" + 
-								"    <div class=\"item-price text-primary\">€"+ articolo.getPrezzo() + "</div>\n" + 
-								"  </div>\n" + 
-								"</div>");
+						
+						out.print("\n" + 
+								"                    <div class=\"product-item col-lg-4 col-md-6 col-sm-6\">\n" + 
+								"                      <div class=\"image-holder\">\n" + 
+								"                        <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
+								"                      </div>\n" + 
+								"                      <div class=\"cart-concern\">\n" + 
+								"								<div\n" + 
+								"									class=\"cart-button d-flex justify-content-between align-items-center\">\n" + 
+								"								\n" + 
+								"									<a href=\"ArticoliServlet?action=getArticolo&id="+articolo.getId()+"\" type=\"button\" \n" + 
+								"										class=\"btn-wrap cart-link d-flex align-items-center\">\n" + 
+								"										Visualizza <i class=\"icon icon-arrow-io\"></i>\n" + 
+								"									</a>\n" + 
+								"								\n" + 
+								"								</div>\n" + 
+								"							</div>\n" + 
+								"                      <div class=\"product-detail\">\n" + 
+								"                        <h3 class=\"product-title\">\n" + 
+								"                          <a href=\"ArticoliServlet?action=getArticolo&id="+articolo.getId()+"\" >"+articolo.getNome()+"</a>\n" + 
+								"                        </h3>\n" + 
+								"                        <div class=\"item-price text-primary\">€"+articolo.getPrezzo()+"</div>\n" + 
+								"                      </div>\n" + 
+								"                    </div>\n" + 
+								""
+								);
+						
 						
 					}
 					
@@ -188,24 +199,32 @@ public class ArticoliServlet extends HttpServlet {
 						
 						for (ArticoloBean articolo : articoli) {
 							
-							out.print("<div class=\"product-item col-lg-4 col-md-6 col-sm-6\">\n" + 
-									"  <div class=\"image-holder\">\n" + 
-									"    <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
-									"  </div>\n" + 
-									"  <div class=\"cart-concern\">\n" + 
-									"    <div class=\"cart-button d-flex justify-content-between align-items-center\">\n" + 
-									"      <button type=\"button\" class=\"btn-wrap cart-link d-flex align-items-center\">\n" + 
-									"        Aggiungi al Carrello <i class=\"icon icon-arrow-io\"></i>\n" + 
-									"      </button>\n" + 
-									"    </div>\n" + 
-									"  </div>\n" + 
-									"  <div class=\"product-detail\">\n" + 
-									"    <h3 class=\"product-title\">\n" + 
-									"      <a href=\"dettaglio_articolo.jsp?id="+ articolo.getId() + "\">" + articolo.getNome() +"</a>\n" + 
-									"    </h3>\n" + 
-									"    <div class=\"item-price text-primary\">€"+ articolo.getPrezzo() + "</div>\n" + 
-									"  </div>\n" + 
-									"</div>");
+
+							out.print("\n" + 
+									"                    <div class=\"product-item col-lg-4 col-md-6 col-sm-6\">\n" + 
+									"                      <div class=\"image-holder\">\n" + 
+									"                        <img src=\"images/selling-products1.jpg\" alt=\"Books\" class=\"product-image\">\n" + 
+									"                      </div>\n" + 
+									"                      <div class=\"cart-concern\">\n" + 
+									"								<div\n" + 
+									"									class=\"cart-button d-flex justify-content-between align-items-center\">\n" + 
+									"								\n" + 
+									"									<a href=\"ArticoliServlet?action=getArticolo&id="+articolo.getId()+"\" type=\"button\" \n" + 
+									"										class=\"btn-wrap cart-link d-flex align-items-center\">\n" + 
+									"										Visualizza <i class=\"icon icon-arrow-io\"></i>\n" + 
+									"									</a>\n" + 
+									"								\n" + 
+									"								</div>\n" + 
+									"							</div>\n" + 
+									"                      <div class=\"product-detail\">\n" + 
+									"                        <h3 class=\"product-title\">\n" + 
+									"                          <a href=\"ArticoliServlet?action=getArticolo&id="+articolo.getId()+"\" >"+articolo.getNome()+"</a>\n" + 
+									"                        </h3>\n" + 
+									"                        <div class=\"item-price text-primary\">€"+articolo.getPrezzo()+"</div>\n" + 
+									"                      </div>\n" + 
+									"                    </div>\n" + 
+									""
+									);
 							
 						}
 						

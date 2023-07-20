@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import model.ArticoloBean;
 import model.ArticoloDAO;
+import model.OrdineBean;
+import model.OrdineDao;
 import model.UserBean;
 import model.UserDAO;
 
@@ -195,8 +197,34 @@ public class AdminServlet extends HttpServlet {
 				response.sendRedirect("errorPage.jsp");
 				}
 
+				
+			}
+			break;
+			
+			case "ricercaOrdini": {
+				
+				try {
+					ArrayList<OrdineBean> ordini ;
+					ordini = OrdineDao.ricercaOrdini(request.getParameter("query"));
+					
+					PrintWriter out = response.getWriter();
+					
+					for (OrdineBean ordine : ordini) {
+						out.print("<li><a>"+"Numero Ordine: "+" "+ordine.getNumOrdine()+" "+"Totale: "+" "+ordine.getTotale()+"</a></li>");
+					}
+					if(ordini.isEmpty()) {
+						out.print("<li>Nessun Ordine trovato</li>");
+					}
+					
+					out.close();
+
+				} catch (Exception e) {
+				response.sendRedirect("errorPage.jsp");
+				}
+
 
 			}
+			break;
 			default:
 				response.sendRedirect("errorPage.jsp"); 
 			break;

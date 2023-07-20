@@ -7,7 +7,8 @@
 <%
 	UserBean currentUser = (UserBean) session.getAttribute("currentSessionUser");
 	ArrayList<PagamentoBean> tipiPag = (ArrayList<PagamentoBean>) request.getAttribute("tipiPag");
-
+	double totaleSenzaIva=0;
+	double totaleConIva=0;
 	if (currentUser == null) {
 		Boolean isGuest = (Boolean) session.getAttribute("guest");
 
@@ -26,6 +27,19 @@
 
 		}
 	} else {
+		CarrelloBean carrello=(CarrelloBean) session.getAttribute("carrello");
+		if(carrello!=null){
+			Map<Integer, ElementoCarrello> elementiCarrello = carrello.getCarrello();
+		
+			for (Map.Entry<Integer, ElementoCarrello> entry : elementiCarrello.entrySet()) {
+				ElementoCarrello elemento = entry.getValue();
+				VariantiBean variante = elemento.getVariante();
+				ArticoloBean articolo = elemento.getArticolo();
+				int quantita = elemento.getQuantita();
+				totaleSenzaIva+=articolo.getPrezzo() * quantita;
+			}
+			totaleConIva=totaleSenzaIva+((totaleSenzaIva*22)/100);
+		}
 		//se le categorie sono vuote allora chiamo la servlet per ottenerle
 		if (tipiPag == null) {
 			//redirect alla servlet come parametro getCategorie per dirgli cosa deve fare
@@ -114,17 +128,18 @@
           						<table class="table" aria-describedby="totali">
 									<tbody>
 										<tr class="subtotal">
-											<th>Subtotale</th>
+											<th>Imponibile</th>
 											<td data-title="Subtotal"><span
 												class="price-amount amount text-primary"> <bdi>
-													<span class="price-currency-symbol">$</span>2,370.00 </bdi>
+												<span class="price-currency-symbol">$</span><%=totaleSenzaIva%> </bdi>
+												
 											</span></td>
 										</tr>
 										<tr class="order-total">
-											<th>Totale</th>
+											<th>Imponibile+Imposta</th>
 											<td data-title="Total"><span
 												class="price-amount amount text-primary"> <bdi>
-													<span class="price-currency-symbol">$</span>2,370.00 </bdi>
+													<span class="price-currency-symbol">$</span> <%=totaleConIva%></bdi>
 											</span></td>
 										</tr>
 									</tbody>
@@ -138,10 +153,11 @@
 									%>
 									<label class="list-group-item d-flex"> <input
 										class="form-check-input flex-shrink-0" type="radio"
-										name="tipoPag" id="fpag" value="<%=tipoPag.getTp_descrizione()%>" checked>
+										name="tipoPag" id="fpag" value="<%=tipoPag.getTp_descrizione()+'_'+tipoPag.getTp_id()%>" checked>
 										<div>
 											<strong><%=tipoPag.getTp_nome()%></strong>
 											<p><%=tipoPag.getTp_descrizione()%></p>
+											
 										</div>
 									</label>
 

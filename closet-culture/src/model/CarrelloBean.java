@@ -25,15 +25,16 @@ public class CarrelloBean {
         return carrello;
     }
 
+    
     public void setCarrello(Map<Integer,ElementoCarrello> carrello) {
         this.carrello = carrello;
     }
     
-    public String stringa() {
+    public String generaOrdine(int idTipoPag,int idUtente) {
     	String carrelloString = "";
 
     	Map<Integer, ElementoCarrello> elementiCarrello = this.carrello;
-    	int somma=0;
+    	double somma=0;
     	for (Map.Entry<Integer, ElementoCarrello> entry : elementiCarrello.entrySet()) {
     	    ElementoCarrello elemento = entry.getValue();
     	    VariantiBean variante = elemento.getVariante();
@@ -42,7 +43,20 @@ public class CarrelloBean {
     	    somma+=(articolo.getPrezzo() * quantita);
     	    carrelloString += " - Articolo: " + articolo.getNome() + " - Variante: " + variante.getDescrizione() + " - Quantità: " + quantita + " - Prezzo totale: " + (articolo.getPrezzo() * quantita)+' '+'€' + "\n";
     	}
-    	carrelloString+="Totale da Pagare: "+" "+somma+' '+'€'+"\n";
+    	double totale=somma+((somma*22)/100);
+    	carrelloString+="Totale da Pagare: "+" "+totale+' '+'€'+"\n";
+    	
+    	int idNuovoPagamento=PagamentoDao.newPagamento("Pagamento", somma,new Date().toString(),idTipoPag);
+    	int idOrdine=OrdineDao.newOrdine(new Date().toString(), (somma/100)*22, somma-(somma/100)*22, somma+(somma/100)*22, idNuovoPagamento,idUtente);
+    
+    	for (Map.Entry<Integer, ElementoCarrello> entry : elementiCarrello.entrySet()) {
+    	    ElementoCarrello elemento = entry.getValue();
+    	    VariantiBean variante = elemento.getVariante();
+    	    ArticoloBean articolo = elemento.getArticolo();
+    	    int quantita = elemento.getQuantita();
+    	    VoceOrdineDao.newVoceOrdine(quantita, articolo.getPrezzo(), idOrdine, variante.getId());
+    	    
+    	}
     	return carrelloString;
     }
     

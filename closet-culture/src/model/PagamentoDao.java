@@ -1,11 +1,9 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.*;
 import java.util.*;
 import java.sql.*;
+import java.sql.Date;
 
 
 public class PagamentoDao {
@@ -14,7 +12,67 @@ public class PagamentoDao {
 	
 	   static Connection currentCon = null;
 	   static ResultSet rs = null;  
-	
+	   
+	  
+public static int newPagamento(String nome, double importo, String data, int idTipoPagamento) {
+    PreparedStatement preparedStatement = null;
+    String insertQuery = "INSERT INTO pagamento (nome, importo, data, id_tipo_pagamento) VALUES (?, ?, ?, ?)";
+    int result = 0;
+    int idPagamento = 0;
+    Connection currentCon = null;
+
+    try {
+        currentCon = DriverManagerConnectionPool.getConnection();
+        currentCon.setAutoCommit(false); // disattivo l'autocommit
+
+        preparedStatement = currentCon.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setString(1, nome);
+        preparedStatement.setDouble(2, importo);
+        preparedStatement.setString(3, data);
+        preparedStatement.setInt(4, idTipoPagamento);
+        result = preparedStatement.executeUpdate();
+
+        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            idPagamento = generatedKeys.getInt(1);
+        }
+
+        currentCon.commit(); // eseguo il commit esplicitamente
+
+    } catch (SQLException e) {
+        // Gestione dell'errore
+        //e.printStackTrace();
+        try {
+            if (currentCon != null) {
+                System.out.println("rollback");
+                currentCon.rollback(); // eseguo il rollback esplicitamente in caso di errore
+            }
+        } catch (SQLException ex) {
+            //ex.printStackTrace();
+        }
+        return 0;
+    } finally {
+        if (preparedStatement != null) {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                // Gestione dell'errore
+                //e.printStackTrace();
+            }
+        }
+        if (currentCon != null) {
+            try {
+                currentCon.setAutoCommit(true); // riattivo l'autocommit
+                DriverManagerConnectionPool.releaseConnection(currentCon);
+            } catch (SQLException e) {
+                // Gestione dell'errore
+                //e.printStackTrace();
+            }
+        }
+    }
+
+    return idPagamento;
+}	
 	   public static ArrayList<PagamentoBean> chekTipiPagamentoDisponibili() {
 		   
 

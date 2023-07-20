@@ -4,13 +4,28 @@
     
     <%    
    CarrelloBean carrello = (CarrelloBean) request.getAttribute("carrello");
-    
-    if(carrello == null){
-    	
-    	response.sendRedirect("CarrelloServlet?action=getAll");
-    	
-    }
-    
+	UserBean currentUser = (UserBean) session.getAttribute("currentSessionUser");
+	boolean size=false;
+	if(carrello!=null && carrello.getCarrello()!=null){
+		Map<Integer, ElementoCarrello> elementiCarrelloEL = carrello.getCarrello();
+		size=elementiCarrelloEL.isEmpty();
+	}
+
+    if (currentUser == null) {
+		response.sendRedirect("authenticate.jsp");
+	
+	}else{
+		if(currentUser.getRuolo().equals("guest")){
+			response.sendRedirect("authenticate.jsp");
+		}else{
+			 if(carrello == null){
+			    	response.sendRedirect("CarrelloServlet?action=getAll");
+			    }
+		}
+		
+		    
+	}
+   
     %>
    
    
@@ -103,15 +118,18 @@ $(document).ready(function() {
         <% 
         int totale = 0;
         if(carrello != null){ 
+        	if(carrello.getCarrello()!=null){
         	Map<Integer, ElementoCarrello> elementiCarrello = carrello.getCarrello();
-    
-        	for (Map.Entry<Integer, ElementoCarrello> entry : elementiCarrello.entrySet()) {
-				ElementoCarrello elemento = entry.getValue();
-				VariantiBean variante = elemento.getVariante();
-				ArticoloBean articolo = elemento.getArticolo();
-				int quantita = elemento.getQuantita();
+    		
+    			for (Map.Entry<Integer, ElementoCarrello> entry : elementiCarrello.entrySet()) {
+    				ElementoCarrello elemento = entry.getValue();
+    				VariantiBean variante = elemento.getVariante();
+    				ArticoloBean articolo = elemento.getArticolo();
+    				int quantita = elemento.getQuantita();
 
-				totale += articolo.getPrezzo() * quantita;
+    				totale += articolo.getPrezzo() * quantita;
+    		
+        	
 %>
 
     
@@ -141,9 +159,7 @@ $(document).ready(function() {
           <div class="row d-flex">
             <div class="col-md-6">
               <div class="qty-number d-flex align-items-center justify-content-start">
-                <button class="decrement-button">-</button>
-                <input type="text" name="quantity" class="spin-number-output" value="<%= quantita %>" min="1" max="100">
-                <button class="increment-button">+</button>
+                <input type="text" name="quantity" class="spin-number-output" style="margin-top:7px" value="<%= quantita %>" min="1" max="100" disabled>
               </div>
             </div>
             <div class="col-md-4">
@@ -165,6 +181,7 @@ $(document).ready(function() {
 <% 
     }
 } 
+        }
 %>
 </div>
     
@@ -190,7 +207,14 @@ $(document).ready(function() {
           <div class="button-wrap">
             <a href="cart.jsp"><button class="btn btn-dark btn-medium">Aggiorna Carrello</button></a>
             <a href="ricerca-prodotti.jsp"><button class="btn btn-dark btn-medium">Continua Acquisti</button></a>
-            <a href="checkout.jsp"><button class="btn btn-dark btn-medium">Procedi al CheckOut</button></a>
+             <% 
+             if(!size){
+             %>
+            <a href="checkout.jsp"><button class="btn btn-dark btn-medium" >Procedi al CheckOut</button></a>
+           
+             <% 
+             }
+             %>
           </div>
         </div>
       </div>

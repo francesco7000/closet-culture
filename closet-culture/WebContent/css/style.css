@@ -2,7 +2,12 @@
 /*--------------------------------------------------------------
 /** 1. VARIABLES
 --------------------------------------------------------------*/
-
+:root {
+    /* widths for rows and containers
+     */
+    --header-height       : 160px;
+    --header-height-min   : 80px;
+}
 /* on mobile devices below 600px
  */
 @media screen and (max-width: 600px) {
@@ -13,10 +18,6 @@
 }
 /* Theme Colors */
 :root {
-	    /* widths for rows and containers
-     */
-    --header-height       : 160px;
-    --header-height-min   : 80px;
     --accent-color       : #8d8d8d;
     --dark-color         : #191919;
     --light-color        : #fff;
@@ -75,7 +76,9 @@ ul, ol {
   margin-bottom: 10px;
   margin-left: 0;
 }
+ul ul,
 ol ul,
+ul ol,
 ol ol {
   margin-top: 5px;
   margin-bottom: 0;
@@ -838,9 +841,10 @@ img.image-circle {
 
 /* site-banner */
 /*----------------------------------------------*/
-
+.site-banner{
+  text-align: center;
+}
 .site-banner h1.page-title{
-	text-align: center;
     font-size: 7.2em;
     font-weight: 800;
     line-height: 1em;
@@ -1173,9 +1177,10 @@ blockquote cite {
   pointer-events: none;
   cursor: default;
 }
-
-.nav-tabs .nav-link {
+.nav-tabs {
   border-bottom: 1px solid #dee2e6;
+}
+.nav-tabs .nav-link {
   color: #999;
   padding: 10px 30px;
   margin-bottom: -1px;
@@ -2666,10 +2671,10 @@ a.blog-categories:hover{
 .site-banner {
     position: relative;
 }
-
 .video .video-player {
-	   
-	
+    position: absolute;
+}
+.video .video-player {
     position: absolute;
     top: 0;
     right: 0;

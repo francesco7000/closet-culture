@@ -7,11 +7,22 @@
 	UserBean currtUser = (UserBean) (session.getAttribute("currentSessionUser"));
 
 	boolean admin = false;
-	if ((currtUser != null) && (currtUser.isValid()) && currtUser.getRuolo().equals("admin")) {
+	boolean guest = false;
+	if ((currtUser != null) && (currtUser.isValid()) && currtUser.getRuolo().equals("admin") ) {
 
 		admin = true;
 
+	}else{
+		if(currtUser != null)
+		{
+			if(currtUser.getRuolo().equals("ospite"))
+			guest=true;
+		}else{
+			guest=true;
+		}
+			
 	}
+	
 %>
 
 
@@ -77,6 +88,7 @@
 
 									<li><a href="ricerca-utenti.jsp" class="item-anchor"
 									data-effect="About">Utenti</a></li>
+									
 
 								<%
 									}
@@ -93,12 +105,38 @@
 									data-effect="Pages">Utility<i
 										class="icon icon-chevron-down"></i></a>
 									<ul class="submenu">
+										<%
+									if (admin && !guest) {
+								%>
+
+									<li><a href="ricercaOrdini.jsp" class="item-anchor">Ricerca Ordini<span
+												class="text-primary"></span></a></li>
+									
+
+								<%
+									}
+								%>
+								
+										<%
+									if (!guest) {
+								%>
+								
+									
+												<li><a href="ricercaOrdiniUtente.jsp" class="item-anchor">Ricerca Ordini Utente<span
+												class="text-primary"></span></a></li>
 										<li><a href="dettaglioProfilo.jsp" class="item-anchor">Profilo<span
 												class="text-primary"></span></a></li>
+												<%
+									}
+								%>
 										<li><a href="authenticate.jsp" class="item-anchor">Logout<span
 												class="text-primary"></span></a></li>
 									
-									</ul></li>
+									</ul>
+								
+									</li>
+									
+							
 								
 							</ul>
 						</div>
