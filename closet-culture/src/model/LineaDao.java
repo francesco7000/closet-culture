@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class LineaDao {
+	static final Logger logger = Logger.getLogger("MyLogger");
 
 	public synchronized ArrayList<LineaBean> doRetrieveAll() {
 
@@ -17,8 +19,8 @@ public class LineaDao {
 
 		String sqlSelect = "select l.id,l.descrizione,l.codice from linea l ";
 		try {
-			connection = (Connection) DriverManagerConnectionPool.getConnection();
-			preparedStatement = (PreparedStatement) connection.prepareStatement(sqlSelect);
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement =connection.prepareStatement(sqlSelect);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -32,8 +34,7 @@ public class LineaDao {
 			}
 		} 
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			logger.log(null, "Eccezione non gestita: ");
 		} 
 		finally {
 			try {
@@ -41,8 +42,7 @@ public class LineaDao {
 				preparedStatement.close();
 				DriverManagerConnectionPool.releaseConnection(connection);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				logger.log(null, "Eccezione non gestita: ");
 			}
 		}
 

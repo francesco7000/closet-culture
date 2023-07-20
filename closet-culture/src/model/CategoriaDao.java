@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 
 public class CategoriaDao {
-	
+    static final Logger logger = Logger.getLogger("MyLogger");
+
 	public synchronized ArrayList<CategoriaBean> doRetrieveAll(){
 		ArrayList<CategoriaBean> categorie = new ArrayList<>();
 		Connection connection = null;
@@ -18,8 +20,8 @@ public class CategoriaDao {
 		
 		String sqlSelect = "select id,descrizione from categoria_articolo ";
 		try {
-			connection = (Connection) DriverManagerConnectionPool.getConnection();
-			preparedStatement = (PreparedStatement) connection.prepareStatement(sqlSelect);
+			connection =  DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(sqlSelect);
 
 			ResultSet rs = preparedStatement.executeQuery();
 			
@@ -31,8 +33,7 @@ public class CategoriaDao {
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			logger.log(null, "Eccezione non gestita: ");
 		}finally{
 			try {
 				if(preparedStatement!=null) {
@@ -40,8 +41,7 @@ public class CategoriaDao {
 				DriverManagerConnectionPool.releaseConnection(connection);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				logger.log(null, "Eccezione non gestita: ");
 			}
 		}
 		
@@ -71,14 +71,14 @@ public class CategoriaDao {
 	            bean_c.setDescrizione(descrizione);
 	        }
 	    } catch (SQLException e) {
-	        //e.printStackTrace();
+	    	logger.log(null, "Eccezione non gestita: ");
 	    } finally {
 	        try {
 	            if (preparedStatement != null) {
 	                preparedStatement.close();
 	            }
 	        } catch (SQLException e) {
-	            //e.printStackTrace();
+	        	logger.log(null, "Eccezione non gestita: ");
 	        }
 	    }
 

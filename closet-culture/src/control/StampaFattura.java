@@ -25,7 +25,6 @@ public class StampaFattura extends HttpServlet {
      */
     public StampaFattura() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -39,11 +38,9 @@ public class StampaFattura extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
     	request.setCharacterEncoding("UTF-8");
 
 		String htmlContent=request.getParameter("fattura");
-		System.out.println(htmlContent);
         // Invia il contenuto HTML come risposta HTTP
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=\"fattura.pdf\"");

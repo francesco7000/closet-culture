@@ -51,7 +51,7 @@ public class CarrelloServlet extends HttpServlet {
 				VariantiBean v = VarianteDAO.getVariante(request.getParameter("idart"), request.getParameter("idcol"),
 				request.getParameter("idtaglia"));
 				int qta = Integer.parseInt(request.getParameter("qta"));
-				boolean result = CarrelloDao.addToCart(v, user.getId(), qta);
+				CarrelloDao.addToCart(v, user.getId(), qta);
 				
 			} else if (action.equalsIgnoreCase("getAll")) {
 
